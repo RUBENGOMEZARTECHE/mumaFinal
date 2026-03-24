@@ -1,20 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  ShieldCheck,
-  Check,
-  PencilRuler,
-  Hammer,
-  BugOff,
-  CircleDollarSign,
-  ChevronLeft,
-  ChevronRight,
-  Camera,
-  Zap,
-  HeartPulse,
-  Leaf,
-} from "lucide-react";
+import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Importación de componentes comunes
 import Navbar from "../../components/navbar";
@@ -117,7 +104,6 @@ export default function Refugios() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5">
-                <Hammer className="text-marca-principal mb-4" size={28} />
                 <h4 className="text-texto-titulo font-bold mb-3">
                   Materiales Nobles
                 </h4>
@@ -127,7 +113,6 @@ export default function Refugios() {
                 </p>
               </div>
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5">
-                <PencilRuler className="text-marca-principal mb-4" size={28} />
                 <h4 className="text-texto-titulo font-bold mb-3">
                   Diseño Bioclimático
                 </h4>
@@ -137,7 +122,6 @@ export default function Refugios() {
                 </p>
               </div>
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5">
-                <ShieldCheck className="text-marca-principal mb-4" size={28} />
                 <h4 className="text-texto-titulo font-bold mb-3">
                   Ensamblaje Robusto
                 </h4>
@@ -268,9 +252,8 @@ export default function Refugios() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/10 pointer-events-none" />
-                    <Camera
-                      size={24}
-                      className="absolute bottom-6 right-6 text-white/40"
+                    <div
+                      className="absolute bottom-6 right-6 text-white/40 hidden"
                     />
                   </motion.div>
                 </AnimatePresence>
@@ -290,9 +273,6 @@ export default function Refugios() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5 group hover:border-marca-principal/30 transition-all">
-                <div className="w-12 h-12 bg-marca-principal/10 rounded-xl flex items-center justify-center mb-6 text-marca-principal">
-                  <Leaf size={24} />
-                </div>
                 <h4 className="text-xl font-bold text-texto-titulo mb-3">
                   Acceso a Mercados Premium
                 </h4>
@@ -302,9 +282,6 @@ export default function Refugios() {
                 </p>
               </div>
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5 group hover:border-marca-principal/30 transition-all">
-                <div className="w-12 h-12 bg-marca-principal/10 rounded-xl flex items-center justify-center mb-6 text-marca-principal">
-                  <Zap size={24} />
-                </div>
                 <h4 className="text-xl font-bold text-texto-titulo mb-3">
                   Menos Horas de Maquinaria
                 </h4>
@@ -314,9 +291,6 @@ export default function Refugios() {
                 </p>
               </div>
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5 group hover:border-marca-principal/30 transition-all">
-                <div className="w-12 h-12 bg-marca-principal/10 rounded-xl flex items-center justify-center mb-6 text-marca-principal">
-                  <ShieldCheck size={24} />
-                </div>
                 <h4 className="text-xl font-bold text-texto-titulo mb-3">
                   Prevención Ininterrumpida
                 </h4>
@@ -350,9 +324,8 @@ export default function Refugios() {
                   activa de quirópteros.
                 </p>
                 <div className="p-6 bg-fondo-superficie rounded-2xl border border-white/5">
-                  <h4 className="text-texto-titulo font-bold mb-4 flex items-center gap-2">
-                    <BugOff size={20} className="text-marca-principal" /> Plagas
-                    controladas:
+                  <h4 className="text-texto-titulo font-bold mb-4">
+                    Plagas controladas:
                   </h4>
                   <ul className="grid grid-cols-2 gap-2 text-xs text-texto-secundario uppercase tracking-widest font-bold">
                     <li>• Mosca del Olivo</li>
@@ -367,8 +340,7 @@ export default function Refugios() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 className="bg-fondo-superficie p-8 rounded-3xl border border-marca-principal/20 shadow-2xl"
               >
-                <h3 className="text-xl font-bold text-texto-titulo mb-8 flex items-center gap-3">
-                  <CircleDollarSign className="text-marca-principal" />{" "}
+                <h3 className="text-xl font-bold text-texto-titulo mb-8">
                   Calculadora de Ahorro
                 </h3>
                 <div className="mb-8">
@@ -431,9 +403,6 @@ export default function Refugios() {
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5 flex flex-col items-center text-center group hover:border-marca-principal/30 transition-all">
-                <div className="p-4 bg-marca-principal/10 rounded-2xl mb-6 text-marca-principal">
-                  <BugOff size={32} />
-                </div>
                 <h4 className="text-4xl font-extrabold text-texto-titulo mb-2">
                   +1.200
                 </h4>
@@ -446,9 +415,6 @@ export default function Refugios() {
                 </p>
               </div>
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5 flex flex-col items-center text-center group hover:border-marca-principal/30 transition-all">
-                <div className="p-4 bg-marca-principal/10 rounded-2xl mb-6 text-marca-principal">
-                  <CircleDollarSign size={32} />
-                </div>
                 <h4 className="text-4xl font-extrabold text-texto-titulo mb-2">
                   0€
                 </h4>
@@ -461,9 +427,6 @@ export default function Refugios() {
                 </p>
               </div>
               <div className="p-8 bg-fondo-superficie rounded-3xl border border-white/5 flex flex-col items-center text-center group hover:border-marca-principal/30 transition-all">
-                <div className="p-4 bg-marca-principal/10 rounded-2xl mb-6 text-marca-principal">
-                  <HeartPulse size={32} />
-                </div>
                 <h4 className="text-4xl font-extrabold text-texto-titulo mb-2">
                   100%
                 </h4>

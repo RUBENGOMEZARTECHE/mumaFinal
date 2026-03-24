@@ -1,125 +1,254 @@
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import { 
-  Box, Laptop, Microscope, ChevronRight, 
-  Database, ShieldCheck, Microscope as Science, Zap,
-  Dna, Monitor, Gavel, TreePine
-} from "lucide-react";
-
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 
-const unidades = [
+const fadeUp = {
+  oculto:  { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+};
+
+const grupos = [
   {
-    titulo: "Infraestructura de Biodiversidad",
-    subtitulo: "Refugios Técnicos",
-    icon: <Box size={32} />,
-    color: "marca-principal",
-    problema: "Pérdida de hábitats y rotura de la conectividad biológica.",
-    avales: [
-      { nombre: "Gestión Forestal", desc: "Diseño de micro-hábitats en masas forestales." },
-      { nombre: "Agricultura Regenerativa", desc: "Control biológico de plagas sin químicos." },
-      { nombre: "SbN", desc: "Soluciones basadas en la naturaleza para entornos urbanos." },
-      { nombre: "Restauración Ecológica", desc: "Recuperación de funciones biológicas en el suelo." }
-    ]
+    categoria: "Consultoría científica",
+    desc: "Informes y asesoramiento con base en investigación de campo real y metodología europea.",
+    servicios: [
+      {
+        titulo: "Consultoría bioacústica",
+        desc: "Auditoría de fauna mediante análisis ultrasónico. Identificamos qué especies están presentes, cómo se distribuyen y qué estado tienen las colonias.",
+        para: "Administraciones, reservas naturales, promotores",
+        img: "/images/dentro-cueva.webp",
+      },
+      {
+        titulo: "Monitorización de colonias",
+        desc: "Seguimiento continuo con sensores y grabación bioacústica. Informes periódicos con datos de actividad, especies detectadas y tendencias de población.",
+        para: "Parques naturales, cuevas turísticas, fincas",
+        img: "/images/monitorizacion.webp",
+      },
+      {
+        titulo: "Consultoría jurídico-ambiental",
+        desc: "Los murciélagos están protegidos por legislación europea (EUROBATS) y nacional. Asesoramos sobre cumplimiento normativo y gestión legal en proyectos que afecten a sus hábitats.",
+        para: "Promotoras, administraciones, gestores de cuevas",
+        img: "/images/colonia_murcielago01.webp",
+      },
+    ],
   },
   {
-    titulo: "Ecosistemas Digitales",
-    subtitulo: "Inmersión & VR",
-    icon: <Laptop size={32} />,
-    color: "marca-purple",
-    problema: "Invisibilidad de los procesos ecológicos para el ojo humano.",
-    avales: [
-      { nombre: "Realidad Virtual", desc: "Simulación de entornos y comportamientos de fauna." },
-      { nombre: "Digitalización", desc: "Transformación de variables de campo en activos Big Data." },
-      { nombre: "Videojuegos", desc: "Serious Games para transferencia de conocimiento." },
-      { nombre: "Innovación I+D", desc: "Desarrollo de metodologías disruptivas propias." }
-    ]
+    categoria: "Soluciones para el territorio",
+    desc: "Aplicamos el conocimiento del murciélago como herramienta para resolver problemas reales en campo, ciudad y empresa.",
+    servicios: [
+      {
+        titulo: "Agricultura y control biológico",
+        desc: "Una colonia elimina hasta 3.000 insectos por noche. Asesoramos a fincas para integrar colonias naturales como alternativa real a los pesticidas.",
+        para: "Viñedos, olivares, fincas hortícolas",
+        img: "/images/agricultura-control-biologico_resultado.webp",
+      },
+      {
+        titulo: "Gestión forestal y restauración ecológica",
+        desc: "Diseño de microhábitats, refugios y corredores biológicos en masas forestales para recuperar la función del murciélago en el ecosistema.",
+        para: "Gestores forestales, ayuntamientos, promotoras",
+        img: "/images/agricultores.webp",
+      },
+      {
+        titulo: "Soluciones basadas en la naturaleza (SbN)",
+        desc: "Metodologías de conservación reconocidas internacionalmente para resolver problemas concretos: plagas, pérdida de biodiversidad, degradación de suelos.",
+        para: "Administraciones públicas, empresas con compromisos ambientales",
+        img: "/images/instituciones.webp",
+      },
+      {
+        titulo: "Ciudades y entornos urbanos",
+        desc: "Los murciélagos son indicadores de la salud del ecosistema urbano. Diseñamos estrategias de integración de fauna en espacios verdes, parques y edificios.",
+        para: "Ayuntamientos, arquitectos, gestores de espacios",
+        img: "/images/ayuntamientos.webp",
+      },
+    ],
   },
   {
-    titulo: "Estrategia de Impacto",
-    subtitulo: "Consultoría & Formación",
-    icon: <Microscope size={32} />,
-    color: "blue-500",
-    problema: "Riesgos legales y falta de criterio técnico en la inversión verde.",
-    avales: [
-      { nombre: "Legislación Ambiental", desc: "Cumplimiento normativo y seguridad jurídica." },
-      { nombre: "Sostenibilidad ESG", desc: "Integración de la biodiversidad en el valor de marca." },
-      { nombre: "Bioacústica", desc: "Auditoría de fauna mediante análisis ultrasónico." },
-      { nombre: "Educación Técnica", desc: "Transferencia de know-how a cuadros directivos." }
-    ]
-  }
+    categoria: "Formación y divulgación",
+    desc: "Transferimos el conocimiento científico a personas, equipos e instituciones con metodologías adaptadas a cada audiencia.",
+    servicios: [
+      {
+        titulo: "Educación ambiental",
+        desc: "Talleres, charlas y programas formativos sobre quirópteros para colegios, universidades y técnicos ambientales. Contenidos desarrollados desde investigación de campo real.",
+        para: "Centros educativos, equipos técnicos, museos",
+        img: "/images/educacion-ambiental.webp",
+      },
+      {
+        titulo: "Serious Games y gamificación",
+        desc: "Experiencias gamificadas con base científica para reforzar el aprendizaje sobre murciélagos y conservación en aulas, museos y eventos.",
+        para: "Centros educativos, museos, actividades infantiles",
+        img: "/images/serous-game.webp",
+        acento: true,
+      },
+      {
+        titulo: "Innovación y metodología propia",
+        desc: "Desarrollo de metodologías que combinan trabajo de campo, tecnología inmersiva y archivo bioacústico. La innovación como forma de mirar, no solo como herramienta.",
+        para: "Centros de investigación, universidades, empresas tecnológicas",
+        img: "/images/innovacion-metodologia-propia.webp",
+        acento: true,
+      },
+    ],
+  },
 ];
+
+// Fondos alternos por sección — igual que nosotros.jsx
+const fondosPorGrupo = ["bg-fondo-base", "bg-fondo-secundario", "bg-fondo-base"];
 
 export default function FormacionConsultoria() {
   return (
     <>
       <Helmet>
-        <title>Autoridad Técnica | MUMA SL</title>
+        <title>Consultoría ambiental y formación en conservación de murciélagos | MUMA BAT COMPANY</title>
+        <meta
+          name="description"
+          content="Consultoría medioambiental, bioacústica, control biológico de plagas y formación ambiental en Málaga. Respaldados por SECEMU y el proyecto europeo ST3ER."
+        />
+        <meta property="og:title" content="Consultoría y Formación Ambiental | MUMA BAT COMPANY" />
+        <meta property="og:description" content="Asesoramiento científico en conservación de murciélagos para administraciones, agricultores y museos. Proyecto europeo ST3ER." />
+        <link rel="canonical" href="https://mumabatcompany.com/servicios/formacion" />
       </Helmet>
       <Navbar />
-      
-      <main className="min-h-screen bg-fondo-base pt-44 pb-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          
-          <header className="mb-24">
-            <span className="text-marca-principal font-mono text-xs tracking-[0.5em] uppercase mb-4 block">Scientific & Tech Foundation</span>
-            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8">
-              SISTEMAS DE <br/> <span className="text-marca-purple">ALTA CONSULTORÍA</span>
-            </h1>
-          </header>
 
-          <div className="space-y-12">
-            {unidades.map((u, idx) => (
-              <motion.section 
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+      <main>
+
+        {/* ── HERO ── */}
+        <section className="relative bg-fondo-base pt-40 pb-24 px-6 overflow-hidden">
+
+          {/* Halo verde — mismo patrón que nosotros.jsx */}
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(ellipse, rgba(31,225,167,0.07) 0%, transparent 65%)" }}
+            aria-hidden="true"
+          />
+
+          <div className="relative z-10 max-w-4xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+              className="text-xs font-semibold tracking-[0.25em] text-marca-principal uppercase mb-5"
+            >
+              Consultoría &amp; Formación
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-texto-titulo mb-6"
+            >
+              Consultoría ambiental y formación en conservación de murciélagos.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg text-texto-secundario leading-relaxed max-w-2xl"
+            >
+              No somos un centro de interpretación. Somos el equipo que lleva años en el territorio — grabando colonias, instalando refugios y colaborando con instituciones científicas europeas. Ese conocimiento es lo que ofrecemos a administraciones, agricultores, museos y gestores de espacios naturales.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ── GRUPOS DE SERVICIOS — fondos alternos ── */}
+        {grupos.map((grupo, gi) => (
+          <section
+            key={gi}
+            className={`${fondosPorGrupo[gi]} py-20 px-6`}
+          >
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
               >
-                {/* PILAR PRINCIPAL */}
-                <div className={`lg:col-span-4 p-10 bg-fondo-superficie border-l-4 border-${u.color} rounded-r-[3rem] flex flex-col justify-center`}>
-                  <div className={`text-${u.color} mb-6`}>{u.icon}</div>
-                  <h2 className="text-3xl font-bold text-white mb-2">{u.titulo}</h2>
-                  <p className="text-xs text-white/40 uppercase tracking-widest mb-6">{u.subtitulo}</p>
-                  <p className="text-sm text-texto-secundario italic font-light leading-relaxed">
-                    "{u.problema}"
+                {/* Cabecera del grupo */}
+                <div className="mb-10">
+                  <p className="text-xs font-bold tracking-[0.25em] text-marca-principal uppercase mb-3">
+                    {String(gi + 1).padStart(2, "0")} — {grupo.categoria}
                   </p>
+                  <h2 className="text-2xl font-bold text-texto-titulo mb-2">{grupo.categoria}</h2>
+                  <p className="text-sm text-texto-secundario max-w-xl">{grupo.desc}</p>
                 </div>
 
-                {/* AVALES TÉCNICOS (LOS 4 PUNTOS CADA UNO) */}
-                <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {u.avales.map((aval, i) => (
-                    <div key={i} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-all group">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Zap size={14} className={`text-${u.color} opacity-50 group-hover:opacity-100`} />
-                        <h4 className="text-sm font-bold text-white uppercase tracking-wider">{aval.nombre}</h4>
+                {/* Tarjetas */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {grupo.servicios.map(({ titulo, desc, para, img }, i) => (
+                    <div
+                      key={i}
+                      className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 flex flex-col overflow-hidden"
+                    >
+                      {img && (
+                        <div className="aspect-video overflow-hidden">
+                          <img src={img} alt={titulo} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                        </div>
+                      )}
+                      <div className="p-7 flex flex-col flex-1">
+                        <h3 className="text-base font-bold text-texto-titulo mb-3 leading-tight">{titulo}</h3>
+                        <p className="text-sm text-texto-secundario leading-relaxed mb-4 flex-1">{desc}</p>
+                        <p className="text-[10px] font-bold tracking-widest text-marca-principal/60 uppercase mb-5">{para}</p>
+                        <Link
+                          to="/contacto"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border border-marca-principal/40 text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion hover:border-marca-principal transition-all duration-200 no-underline group self-start"
+                        >
+                          Solicitar información
+                          <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform duration-200" aria-hidden="true" />
+                        </Link>
                       </div>
-                      <p className="text-xs text-texto-secundario font-light leading-relaxed">
-                        {aval.desc}
-                      </p>
                     </div>
                   ))}
                 </div>
-              </motion.section>
-            ))}
-          </div>
+              </motion.div>
+            </div>
+          </section>
+        ))}
 
-          {/* CIERRE DE AUTORIDAD */}
-          <div className="mt-40 p-16 rounded-[4rem] bg-gradient-to-br from-white/5 to-transparent border border-white/10 text-center relative overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-marca-principal to-transparent"></div>
-            <Science className="mx-auto text-marca-principal mb-8 opacity-50" size={40} />
-            <h3 className="text-3xl font-bold text-white mb-6 tracking-tight">Criterio Técnico, no solo Ejecución</h3>
-            <p className="max-w-2xl mx-auto text-texto-secundario font-light mb-12">
-              Cada proyecto de MUMA SL está avalado por una matriz de conocimientos multidisciplinar que garantiza la viabilidad biológica, tecnológica y legal del resultado final.
-            </p>
-            <button className="px-12 py-5 bg-white text-black rounded-full font-black text-xs tracking-widest uppercase hover:bg-marca-principal transition-all">
-              Solicitar Dossier de Capacidades
-            </button>
+        {/* ── AVALES ── */}
+        <section className="bg-fondo-secundario py-20 px-6">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+              className="bg-fondo-superficie rounded-2xl border border-white/5 p-10 flex flex-col md:flex-row gap-10 items-center"
+            >
+              <div className="flex-1">
+                <p className="text-xs font-bold tracking-[0.2em] text-marca-principal uppercase mb-3">Respaldo científico</p>
+                <h3 className="text-2xl font-bold text-texto-titulo mb-4 leading-tight">
+                  Cada informe está firmado desde el campo, no desde un despacho.
+                </h3>
+                <p className="text-texto-secundario text-sm leading-relaxed">
+                  Somos miembros activos de SECEMU, alineados con el marco EUROBATS y ex-investigadores del proyecto europeo ST3ER en España, Portugal y Eslovenia. Eso es lo que convierte nuestros informes en documentos con peso real ante administraciones e instituciones.
+                </p>
+              </div>
+              <div className="flex flex-wrap md:flex-col gap-4 shrink-0 items-center">
+                <img src="/images/Logo_SECEMU.webp" alt="SECEMU" className="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity duration-200" />
+                <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" className="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity duration-200" />
+                <img src="/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp" alt="ST3ER — SMP COSME UE" className="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity duration-200" />
+                <img src="/images/europa.webp" alt="Fondos FEDER — Unión Europea" className="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity duration-200" />
+              </div>
+            </motion.div>
           </div>
+        </section>
 
-        </div>
+        {/* ── CTA FINAL ── */}
+        <section className="bg-fondo-base py-24 px-6">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+              className="text-center"
+            >
+              <h3 className="text-3xl font-bold text-texto-titulo mb-4">
+                ¿Tienes un proyecto concreto?
+              </h3>
+              <p className="text-texto-secundario mb-8 max-w-lg mx-auto">
+                Cuéntanos el contexto — territorio, especie, problema o normativa — y te decimos si podemos ayudarte y cómo.
+              </p>
+              <Link
+                to="/contacto"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-marca-principal text-texto-sobre-accion font-bold rounded-xl hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
+              >
+                Hablar con el equipo <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
       </main>
+
       <Footer />
     </>
   );

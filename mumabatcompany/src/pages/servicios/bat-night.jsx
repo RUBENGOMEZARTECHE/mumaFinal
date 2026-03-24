@@ -3,7 +3,7 @@ import Footer from '../../components/footer'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Moon, Users, MapPin, CalendarDays, ArrowRight, Check, Globe, Zap, Building2, Leaf, BookOpen, Shield, Camera } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 
 const schemaOrg = JSON.stringify({
   "@context": "https://schema.org",
@@ -65,25 +65,21 @@ const casosBatNight = [
 
 const formatosBatNight = [
   {
-    Icono: Moon,
     titulo: 'Bat Night estándar',
     descripcion: 'Actividad nocturna guiada con detección de ultrasonidos en tiempo real, charla científica y sesión de preguntas. Ideal para parques naturales, ayuntamientos y centros de naturaleza.',
     publico: 'Espacios naturales · Ayuntamientos · Centros educativos',
   },
   {
-    Icono: Users,
     titulo: 'Bat Night con VR',
     descripcion: 'Combinación de actividad al aire libre y experiencia de realidad virtual inmersiva. El participante detecta murciélagos en vivo y luego entra en una cueva virtual. Máximo impacto divulgativo.',
     publico: 'Museos · Ferias científicas · Festivales de naturaleza',
   },
   {
-    Icono: MapPin,
     titulo: 'Bat Night en espacios culturales',
     descripcion: 'Adaptación del formato para plazas, patios de museos o recintos urbanos. Incluye exposición fotográfica, zona infantil y módulo de realidad virtual. Formato ferial de larga duración.',
     publico: 'Museos · Centros comerciales · Eventos municipales',
   },
   {
-    Icono: CalendarDays,
     titulo: 'Ciclo de Bat Nights',
     descripcion: 'Programa de varias ediciones a lo largo del año, con fechas coordinadas según calendario de quirópteros. Incluye comunicación, materiales y evaluación de impacto.',
     publico: 'Diputaciones · Paradores · Redes de espacios naturales',
@@ -127,7 +123,6 @@ export default function BatNight() {
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-marca-principal/30 bg-marca-principal/5 mb-7"
             >
-              <Moon size={13} className="text-marca-principal" aria-hidden="true" />
               <span className="text-xs font-semibold tracking-widest text-marca-principal uppercase">
                 Experiencias nocturnas · Conservación y ciencia
               </span>
@@ -164,13 +159,12 @@ export default function BatNight() {
               className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5 mb-12"
             >
               {[
-                { Icono: Zap,       valor: '+6',       etiqueta: 'Ediciones\nrealizadas' },
-                { Icono: Globe,     valor: '2',        etiqueta: 'Países\n(ES · PT)' },
-                { Icono: Users,     valor: '+700',     etiqueta: 'Participantes\nen eventos' },
-                { Icono: Building2, valor: '5',        etiqueta: 'Tipos de\nespacio' },
-              ].map(({ Icono, valor, etiqueta }, i) => (
+                { valor: '+6',   etiqueta: 'Ediciones\nrealizadas' },
+                { valor: '2',    etiqueta: 'Países\n(ES · PT)' },
+                { valor: '+700', etiqueta: 'Participantes\nen eventos' },
+                { valor: '5',    etiqueta: 'Tipos de\nespacio' },
+              ].map(({ valor, etiqueta }, i) => (
                 <div key={i} className="bg-fondo-base px-5 py-6 flex flex-col items-center gap-2">
-                  <Icono size={18} className="text-marca-principal" aria-hidden="true" />
                   <span className="text-3xl font-bold text-texto-titulo leading-none">{valor}</span>
                   <span className="text-xs text-texto-secundario/70 leading-snug text-center whitespace-pre-line">{etiqueta}</span>
                 </div>
@@ -215,17 +209,12 @@ export default function BatNight() {
                   className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 flex flex-col"
                 >
                   <div className="flex items-start justify-between gap-4 mb-4">
-                    <Moon size={24} className="text-marca-principal shrink-0 mt-0.5" aria-hidden="true" />
                     <span className="text-xs font-semibold text-marca-principal/70 text-right leading-snug">{caso.participantes}</span>
                   </div>
                   <h3 className="text-base font-bold text-texto-titulo mb-1 leading-snug">{caso.titulo}</h3>
                   <div className="flex flex-wrap gap-x-4 gap-y-1 mb-4">
-                    <p className="text-xs text-marca-principal/70 flex items-center gap-1">
-                      <CalendarDays size={11} aria-hidden="true" />{caso.fecha}
-                    </p>
-                    <p className="text-xs text-texto-secundario/60 flex items-center gap-1">
-                      <MapPin size={11} aria-hidden="true" />{caso.ubicacion}
-                    </p>
+                    <p className="text-xs text-marca-principal/70">{caso.fecha}</p>
+                    <p className="text-xs text-texto-secundario/60">{caso.ubicacion}</p>
                   </div>
                   <p className="text-sm text-texto-secundario leading-relaxed mb-5 flex-grow">{caso.descripcion}</p>
                   <ul className="space-y-1.5 mb-5">
@@ -302,30 +291,24 @@ export default function BatNight() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
               {[
                 {
-                  Icono: Leaf,
                   titulo: 'Impacto ecológico real',
                   texto: 'Sin murciélagos, los ecosistemas se desequilibran. El control biológico de plagas que ejercen elimina la necesidad de pesticidas en zonas agrícolas y naturales. Cada Bat Night es también una campaña de sensibilización que contribuye a reducir la presión sobre sus poblaciones.',
                 },
                 {
-                  Icono: BookOpen,
                   titulo: 'Educación inmersiva sin huella',
-                  texto: 'La tecnología VR permite llevar la experiencia de una cueva de murciélagos a cualquier espacio urbano o natural  sin generar impacto ecológico. El visitante aprende más en 10 minutos de inmersión que en una hora de charla. No se altera el hábitat. No se disturba a los animales.',
+                  texto: 'La tecnología VR permite llevar la experiencia de una cueva de murciélagos a cualquier espacio urbano o natural sin generar impacto ecológico. El visitante aprende más en 10 minutos de inmersión que en una hora de charla. No se altera el hábitat. No se disturba a los animales.',
                 },
                 {
-                  Icono: Shield,
                   titulo: 'Conservación activa',
                   texto: 'Las Bat Nights no terminan cuando se apagan los proyectores. En varios casos han derivado en instalación de refugios monitorizados, acuerdos de seguimiento científico y programas educativos continuados. El evento es el primer paso de un compromiso más amplio con el territorio.',
                 },
-              ].map(({ Icono, titulo, texto }, i) => (
+              ].map(({ titulo, texto }, i) => (
                 <div
                   key={i}
                   initial="oculto" whileInView="visible" viewport={{ once: true }}
                   variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } } }}
                   className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-marca-principal/25 transition-colors duration-300"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-marca-principal/10 flex items-center justify-center mb-5">
-                    <Icono size={20} className="text-marca-principal" aria-hidden="true" />
-                  </div>
                   <h3 className="text-base font-bold text-texto-titulo mb-3 leading-snug">{titulo}</h3>
                   <p className="text-sm text-texto-secundario leading-relaxed">{texto}</p>
                 </div>
@@ -401,7 +384,6 @@ export default function BatNight() {
               variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } } }}
               className="bg-fondo-superficie rounded-2xl p-8 border border-marca-principal/20 text-center"
             >
-              <Moon size={40} className="text-marca-principal mx-auto mb-5" aria-hidden="true" />
               <h3 className="text-xl font-bold text-texto-titulo mb-3">¿Tu institución quiere organizar una?</h3>
               <p className="text-sm text-texto-secundario leading-relaxed mb-6 max-w-lg mx-auto">
                 Cuéntanos el espacio, las fechas aproximadas y el tipo de público. Preparamos una propuesta adaptada en menos de 48 horas.

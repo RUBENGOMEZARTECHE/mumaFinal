@@ -115,12 +115,22 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-12 py-5 flex items-center justify-between border-b border-white/5">
         <Link
           to="/"
-          className="flex items-center gap-2 text-texto-titulo font-bold tracking-tight no-underline"
+          className="flex items-center gap-3 text-texto-titulo font-bold tracking-tight no-underline group"
         >
-          <span className="text-xl leading-none">MUMA</span>
-          <span className="text-marca-principal text-xl leading-none">
-            BAT COMPANY
-          </span>
+          {/* EL LOGO: Sustituimos el <a> por <img> */}
+          <img
+            src="/images/MUMA LOGO VECTOR-03_resultado.webp"
+            alt="MUMA Bat Company Logo"
+            className="h-9 w-auto object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-110"
+          />
+
+          {/* TEXTO DE MARCA */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-xl leading-none">MUMA</span>
+            <span className="text-marca-principal text-xl leading-none">
+              BAT COMPANY
+            </span>
+          </div>
         </Link>
 
         <div className="hidden md:flex items-center gap-3" ref={dropdownRef}>
@@ -154,12 +164,12 @@ export default function Navbar() {
             onToggle={toggleDropdown}
             onCerrar={cerrarDropdown}
           />
-          <a
-            href="mailto:info@murcielagosmalaga.com"
-            className="flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-200 border border-white/10 text-texto-secundario hover:text-texto-titulo hover:border-white/30 no-underline"
+          <Link
+            to="/donar"
+            className="flex items-center px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 border border-marca-principal/30 text-texto-titulo bg-marca-principal/5 hover:bg-marca-principal/20 hover:border-marca-principal/60 no-underline shadow-sm"
           >
             Donar
-          </a>
+          </Link>
           <DropdownMenu
             nombre="tienda"
             label="Tienda"
