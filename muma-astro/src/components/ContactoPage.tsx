@@ -39,19 +39,38 @@ export default function ContactoPage() {
     e.preventDefault()
     setEnviando(true)
     try {
-      const { error } = await getSupabase().from('contactos').insert([{
-        nombre: form.nombre, email: form.email, telefono: form.telefono,
-        motivo: form.motivo, momento: form.momento, asunto: form.asunto, mensaje: form.mensaje,
-      }])
-      if (error) throw error
+      const payload = {
+        nombre: form.nombre,
+        email: form.email,
+        telefono: form.telefono,
+        motivo: form.motivo,
+        mensaje: form.mensaje,
+      }
+
+      // 1. Enviar a Make.com (siempre, funciona sin Supabase)
+      await fetch('https://hook.eu1.make.com/aetayt9749mswvwcurq4kj4e3gndsqnl', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      // 2. Guardar en Supabase (cuando esté configurado por José Darío)
+      try {
+        await getSupabase().from('contactos').insert([{
+          ...payload, momento: form.momento, asunto: form.asunto,
+        }])
+      } catch (_) {
+        // Supabase aún no configurado — no bloquea el flujo
+      }
+
       setEnviadoExito(true)
       setTimeout(() => {
         setEnviadoExito(false)
         setForm({ nombre: '', email: '', telefono: '', motivo: '', momento: '', asunto: '', mensaje: '', privacidad: false })
       }, 5000)
     } catch (err: any) {
-      console.error('Error enviando a Supabase:', err.message)
-      alert('Hubo un error al guardar el mensaje. Por favor, inténtalo de nuevo.')
+      console.error('Error:', err.message)
+      alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.')
     } finally {
       setEnviando(false)
     }

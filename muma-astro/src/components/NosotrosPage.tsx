@@ -155,7 +155,6 @@ function MediosCarrusel() {
         {/* Header row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span style={{ fontSize: '1.75rem' }}>📰</span>
             <h3 style={{ color: 'var(--color-texto-titulo)', fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>
               MUMA en los medios
             </h3>
@@ -457,7 +456,7 @@ export default function NosotrosPage() {
                   key={i}
                   initial="oculto" whileInView="visible" viewport={{ once: true }}
                   variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.12 } } }}
-                  className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 group"
+                  className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300 group"
                 >
                   {/* Imagen */}
                   <div className="relative overflow-hidden" style={{ height: '240px' }}>
@@ -586,7 +585,7 @@ export default function NosotrosPage() {
                   key={i}
                   initial="oculto" whileInView="visible" viewport={{ once: true }}
                   variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } } }}
-                  className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 group flex flex-col"
+                  className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300 group flex flex-col"
                 >
                   {/* Imagen */}
                   <div className="relative overflow-hidden shrink-0" style={{ height: '180px' }}>

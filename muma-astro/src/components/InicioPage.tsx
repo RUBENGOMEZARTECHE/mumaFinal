@@ -150,8 +150,9 @@ const Diferenciacion = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              
               transition={{ delay: i * 0.1 }}
-              className="group relative p-10 rounded-[2rem] overflow-hidden border border-white/10 hover:border-[#10b981]/40 transition-all duration-500"
+              className="group relative p-10 rounded-[2rem] overflow-hidden border border-white/10 hover:border-purple-500 transition-all duration-500"
             >
               <div className="absolute inset-0 z-0">
                 <img
@@ -250,7 +251,7 @@ const Segmentacion = () => {
             >
               <a
                 href={p.link}
-                className="group relative flex flex-col h-full p-8 rounded-2xl border border-white/8 shadow-lg hover:border-marca-principal/30 transition-all duration-300 no-underline overflow-hidden"
+                className="group relative flex flex-col h-full p-8 rounded-2xl border border-white/8 shadow-lg hover:border-purple-400 transition-all duration-300 no-underline overflow-hidden"
               >
                 {/* Imagen de fondo */}
                 <div className="absolute inset-0 z-0">
@@ -320,7 +321,7 @@ const Servicios = () => {
             <a
               key={i}
               href={s.link}
-              className="group relative rounded-3xl border border-white/8 shadow-lg hover:border-marca-principal/40 transition-all duration-500 no-underline overflow-hidden flex flex-col justify-end"
+              className="group relative rounded-3xl border border-white/8 shadow-lg hover:border-purple-400 transition-all duration-500 no-underline overflow-hidden flex flex-col justify-end"
               style={{ height: 280 }}
             >
               {/* Imagen de fondo */}
@@ -378,7 +379,7 @@ const ProximosEventos = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative rounded-3xl overflow-hidden border border-white/10 hover:border-[#10b981]/40 transition-all duration-500"
+              className="group relative rounded-3xl overflow-hidden border border-white/10 hover:border-purple-400 transition-all duration-500"
               style={{ height: 420 }}
             >
               {/* Imagen de fondo */}

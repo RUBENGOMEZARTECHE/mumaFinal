@@ -101,7 +101,9 @@ export default function RefugiosPage() {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
           >
-            Los murciélagos consumen miles de insectos nocturnos reemplazando pesticidas sintéticos. Ofréceles un hogar con diseño de madera técnica prémium.
+            Los murciélagos consumen miles de insectos nocturnos reemplazando
+            pesticidas sintéticos. Ofréceles un hogar con diseño de madera
+            técnica prémium.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -109,7 +111,16 @@ export default function RefugiosPage() {
             transition={{ delay: 0.3 }}
             className="flex justify-center"
           >
-            <a href="#catalogo-modelos" onClick={(e) => { e.preventDefault(); document.getElementById('catalogo-modelos')?.scrollIntoView({ behavior: 'smooth' }) }} className="inline-flex items-center gap-2 px-8 py-5 bg-marca-principal text-black font-bold rounded-2xl hover:bg-marca-principal-hover hover:scale-105 transition-all shadow-[0_0_30px_rgba(31,225,167,0.3)] no-underline">
+            <a
+              href="#catalogo-modelos"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("catalogo-modelos")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="inline-flex items-center gap-2 px-8 py-5 bg-marca-principal text-black font-bold rounded-2xl hover:bg-marca-principal-hover hover:scale-105 transition-all shadow-[0_0_30px_rgba(31,225,167,0.3)] no-underline"
+            >
               Explorar Catálogo de Refugios
             </a>
           </motion.div>
@@ -123,7 +134,8 @@ export default function RefugiosPage() {
             <span className="text-texto-titulo font-semibold">
               ¿Cuánto te cuesta el pesticida este año?
             </span>{" "}
-            Un refugio MUMA es una inversión única que trabaja 365 días sin coste operativo.
+            Un refugio MUMA es una inversión única que trabaja 365 días sin
+            coste operativo.
           </p>
           <div className="flex gap-3 shrink-0">
             <a
@@ -164,49 +176,84 @@ export default function RefugiosPage() {
               </span>
             </h2>
             <p className="text-texto-secundario text-lg leading-relaxed">
-              Un solo murciélago elimina hasta 1.200 insectos por hora. Un refugio MUMA instala una colonia activa en tu finca, viñedo o espacio urbano — sin químicos, sin mantenimiento y con respaldo científico de un proyecto europeo de investigación.
+              Un solo murciélago elimina hasta 1.200 insectos por hora. Un
+              refugio MUMA instala una colonia activa en tu finca, viñedo o
+              espacio urbano sin químicos, sin mantenimiento y con respaldo
+              científico de un proyecto europeo de investigación.
             </p>
           </motion.div>
 
           {/* ── 3 PILARES BATBNB STYLE ── */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-24 px-4 text-center">
-            <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} className="flex flex-col items-center">
-              <div className="w-36 h-36 rounded-full bg-[#f2e9dc] text-[#2c2b29] flex items-center justify-center mb-6 shadow-[0_10px_30px_rgba(242,233,220,0.1)]">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/><path d="M18 10L12 4M6 10l6-6"/></svg>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center"
+            >
+              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
+                <img
+                  src="/images/batbnb/mosquitos.webp"
+                  alt="Reduce mosquitos y plagas"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">
                 Reduce Mosquitos y Plagas
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                Un solo murciélago puede comer miles de insectos en una noche, convirtiéndolos en el sustituto perfecto de los pesticidas tóxicos. Ayudan a mantener tu jardín seguro para tu familia.
+                Un solo murciélago puede comer miles de insectos en una noche,
+                convirtiéndolos en el sustituto perfecto de los pesticidas
+                tóxicos. Ayudan a mantener tu jardín seguro para tu familia.
               </p>
             </motion.div>
 
-            <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} transition={{delay: 0.1}} className="flex flex-col items-center">
-              <div className="w-36 h-36 rounded-full border border-white/10 flex items-center justify-center mb-6 shadow-lg overflow-hidden relative">
-                 <img src="/images/refugios/Refugio-1.webp" alt="Refugio Seguro" className="w-full h-full object-cover" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="flex flex-col items-center"
+            >
+              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
+                <img
+                  src="/images/batbnb/habitat.webp"
+                  alt="Hábitat seguro para murciélagos"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">
                 Provee un Hábitat Seguro
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                Los murciélagos están amenazados en todo el mundo y necesitan ayuda. Nuestros refugios ofrecen un hogar perfecto y térmicamente estable para que críen a sus crías a salvo de depredadores.
+                Los murciélagos están amenazados en todo el mundo y necesitan
+                ayuda. Nuestros refugios ofrecen un hogar perfecto y
+                térmicamente estable para que críen a sus crías a salvo de
+                depredadores.
               </p>
             </motion.div>
 
-            <motion.div initial={{opacity:0, y:20}} whileInView={{opacity:1, y:0}} transition={{delay: 0.2}} className="flex flex-col items-center">
-               <div className="w-36 h-36 rounded-full bg-[#f2e9dc] text-[#2c2b29] flex items-center justify-center mb-6 shadow-lg">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 13c1.5 0 2-2 4-2s2.5 2 5 2 3.5-2 5-2 2.5 2 4 2M12 20v-5m-5 5L12 9l5 11"/></svg>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col items-center"
+            >
+              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
+                <img
+                  src="/images/batbnb/bat.webp"
+                  alt="Aprende a amar al murciélago"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">
                 Aprende a amar a este animal
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-                La idea de que son monstruos sedientos de sangre es un mito. Son tímidos, duermen de día y cazan de noche. Trátalos con respeto y serán los mejores vecinos de tu ecosistema.
+                La idea de que son monstruos sedientos de sangre es un mito. Son
+                tímidos, duermen de día y cazan de noche. Trátalos con respeto y
+                serán los mejores vecinos de tu ecosistema.
               </p>
             </motion.div>
           </div>
-
           <motion.div
             initial="oculto"
             whileInView="visible"
@@ -257,40 +304,62 @@ export default function RefugiosPage() {
       {/* ── SECCIÓN HOW IT WORKS (Estilo BatBnB) + VIDEO EXPLOTADO ── */}
       <section className="py-24 px-6 bg-white text-black overflow-hidden relative">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-
           <div className="flex-1 order-2 md:order-1">
             <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter uppercase text-center md:text-left">
               Cómo Funciona
             </h2>
             <p className="text-xl text-gray-600 mb-12 text-center md:text-left font-light leading-relaxed">
-              Las unidades pueden colocarse en una pared exterior de una casa, muro alto de finca o un poste en tu patio. Cuando los murciélagos locales salgan de la hibernación, encontrarán tu refugio MUMA y lo llamarán hogar en poco tiempo.
+              Las unidades pueden colocarse en una pared exterior de una casa,
+              muro alto de finca o un poste en tu patio. Cuando los murciélagos
+              locales salgan de la hibernación, encontrarán tu refugio MUMA y lo
+              llamarán hogar en poco tiempo.
             </p>
 
             <div className="space-y-12">
               <div className="flex gap-6">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex flex-col items-center justify-center font-bold text-white shadow-lg">1</div>
+                <div className="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex flex-col items-center justify-center font-bold text-white shadow-lg">
+                  1
+                </div>
                 <div>
-                  <h3 className="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">Simulación Térmica</h3>
+                  <h3 className="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">
+                    Simulación Térmica
+                  </h3>
                   <p className="text-gray-600 leading-relaxed text-sm">
-                    Los espacios interiores imitan su hábitat natural (grietas) mediante madera técnica certificada. La estructura captura el calor del sol directo haciéndola appealing para las hembras lactantes.
+                    Los espacios interiores imitan su hábitat natural (grietas)
+                    mediante madera técnica certificada. La estructura captura
+                    el calor del sol directo haciéndola appealing para las
+                    hembras lactantes.
                   </p>
                 </div>
               </div>
               <div className="flex gap-6">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex items-center justify-center font-bold text-white shadow-lg">2</div>
+                <div className="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex items-center justify-center font-bold text-white shadow-lg">
+                  2
+                </div>
                 <div>
-                  <h3 className="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">Agarre Interior Perfecto</h3>
+                  <h3 className="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">
+                    Agarre Interior Perfecto
+                  </h3>
                   <p className="text-gray-600 leading-relaxed text-sm">
-                    Entran por un drop de 2 centímetros bajo la plataforma. El interior cuenta con ranurados CNC de precisión que permite que los murciélagos se agarren, escalen y cuelguen con total comodidad y seguridad.
+                    Entran por un drop de 2 centímetros bajo la plataforma. El
+                    interior cuenta con ranurados CNC de precisión que permite
+                    que los murciélagos se agarren, escalen y cuelguen con total
+                    comodidad y seguridad.
                   </p>
                 </div>
               </div>
               <div className="flex gap-6">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex items-center justify-center font-bold text-white shadow-lg">3</div>
+                <div className="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex items-center justify-center font-bold text-white shadow-lg">
+                  3
+                </div>
                 <div>
-                  <h3 className="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">Inercia Nocturna</h3>
+                  <h3 className="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">
+                    Inercia Nocturna
+                  </h3>
                   <p className="text-gray-600 leading-relaxed text-sm">
-                    Por la noche, cuando están listos para salir a cenar, usan el espacio bajo el refugio en caída libre para ganar momento e iniciar el vuelo de caza de plagas en tu parcela.
+                    Por la noche, cuando están listos para salir a cenar, usan
+                    el espacio bajo el refugio en caída libre para ganar momento
+                    e iniciar el vuelo de caza de plagas en tu parcela.
                   </p>
                 </div>
               </div>
@@ -310,12 +379,14 @@ export default function RefugiosPage() {
               />
             </div>
           </div>
-
         </div>
       </section>
 
       {/* ── SECCIÓN 2: CARRUSEL DE MODELOS ── */}
-      <section id="catalogo-modelos" className="py-24 px-6 bg-fondo-secundario overflow-hidden">
+      <section
+        id="catalogo-modelos"
+        className="py-24 px-6 bg-fondo-secundario overflow-hidden"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
@@ -404,9 +475,22 @@ export default function RefugiosPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1 */}
-            <div className="group relative overflow-hidden rounded-3xl" style={{border:'2px solid transparent',backgroundImage:'linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent)',backgroundOrigin:'border-box',backgroundClip:'padding-box,border-box'}}>
+            <div
+              className="group relative overflow-hidden rounded-3xl"
+              style={{
+                border: "2px solid transparent",
+                backgroundImage:
+                  "linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box,border-box",
+              }}
+            >
               <div className="relative overflow-hidden rounded-3xl h-full">
-                <img src="/images/agricultura-control-biologico_resultado.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500" />
+                <img
+                  src="/images/agricultura-control-biologico_resultado.webp"
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
                 <div className="relative p-8 bg-gradient-to-t from-black/80 via-black/50 to-black/20">
                   <h4 className="text-xl font-bold text-texto-titulo mb-3">
                     Acceso a Mercados Premium
@@ -419,9 +503,22 @@ export default function RefugiosPage() {
               </div>
             </div>
             {/* Card 2 */}
-            <div className="group relative overflow-hidden rounded-3xl" style={{border:'2px solid transparent',backgroundImage:'linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent)',backgroundOrigin:'border-box',backgroundClip:'padding-box,border-box'}}>
+            <div
+              className="group relative overflow-hidden rounded-3xl"
+              style={{
+                border: "2px solid transparent",
+                backgroundImage:
+                  "linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box,border-box",
+              }}
+            >
               <div className="relative overflow-hidden rounded-3xl h-full">
-                <img src="/images/campo-golf.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500" />
+                <img
+                  src="/images/campo-golf.jpg"
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
                 <div className="relative p-8 bg-gradient-to-t from-black/80 via-black/50 to-black/20">
                   <h4 className="text-xl font-bold text-texto-titulo mb-3">
                     Menos Horas de Maquinaria
@@ -434,9 +531,22 @@ export default function RefugiosPage() {
               </div>
             </div>
             {/* Card 3 */}
-            <div className="group relative overflow-hidden rounded-3xl" style={{border:'2px solid transparent',backgroundImage:'linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent)',backgroundOrigin:'border-box',backgroundClip:'padding-box,border-box'}}>
+            <div
+              className="group relative overflow-hidden rounded-3xl"
+              style={{
+                border: "2px solid transparent",
+                backgroundImage:
+                  "linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box,border-box",
+              }}
+            >
               <div className="relative overflow-hidden rounded-3xl h-full">
-                <img src="/images/colonia_murcielago01.webp" alt="" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500" />
+                <img
+                  src="/images/colonia_murcielago01.webp"
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                />
                 <div className="relative p-8 bg-gradient-to-t from-black/80 via-black/50 to-black/20">
                   <h4 className="text-xl font-bold text-texto-titulo mb-3">
                     Prevención Ininterrumpida
@@ -572,8 +682,8 @@ export default function RefugiosPage() {
                 Coste Operativo
               </p>
               <p className="text-sm text-texto-secundario leading-relaxed">
-                Elimina la dependencia de contratos de fumigación recurrentes
-                y tóxicos.
+                Elimina la dependencia de contratos de fumigación recurrentes y
+                tóxicos.
               </p>
             </div>
             <div className="p-8 bg-gradient-to-br from-violet-500/10 to-transparent rounded-3xl border border-white/5 flex flex-col items-center text-center group hover:border-violet-400/50 transition-all">
@@ -653,9 +763,7 @@ export default function RefugiosPage() {
                 key={i}
                 className="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5"
               >
-                <h4 className="text-texto-titulo font-bold mb-2">
-                  {item.q}
-                </h4>
+                <h4 className="text-texto-titulo font-bold mb-2">{item.q}</h4>
                 <p className="text-sm text-texto-secundario leading-relaxed">
                   {item.a}
                 </p>
@@ -669,30 +777,68 @@ export default function RefugiosPage() {
       <section className="py-16 px-6 bg-fondo-secundario border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <p className="text-xs font-bold uppercase tracking-widest text-marca-principal mb-3">Respaldo científico</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-texto-titulo">No somos una tienda. Somos investigadores.</h2>
+            <p className="text-xs font-bold uppercase tracking-widest text-marca-principal mb-3">
+              Respaldo científico
+            </p>
+            <h2 className="text-2xl md:text-3xl font-bold text-texto-titulo">
+              No somos una tienda. Somos investigadores.
+            </h2>
             <p className="text-texto-secundario mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-              MUMA nació de la investigación de campo, no del marketing. Nuestros refugios están diseñados con datos reales de colonización obtenidos en proyectos europeos en España, Portugal y Eslovenia.
+              MUMA nació de la investigación de campo, no del marketing.
+              Nuestros refugios están diseñados con datos reales de colonización
+              obtenidos en proyectos europeos en España, Portugal y Eslovenia.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { num: "+1.000", label: "personas con experiencia directa en 2025" },
-              { num: "3", label: "países del proyecto europeo de investigación" },
-              { num: "10+", label: "años de estudio de colonias de murciélagos" },
+              {
+                num: "+1.000",
+                label: "personas con experiencia directa en 2025",
+              },
+              {
+                num: "3",
+                label: "países del proyecto europeo de investigación",
+              },
+              {
+                num: "10+",
+                label: "años de estudio de colonias de murciélagos",
+              },
               { num: "0€", label: "coste operativo tras la instalación" },
             ].map((item, i) => (
-              <div key={i} className="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5 text-center">
-                <p className="text-3xl font-extrabold text-texto-titulo mb-1">{item.num}</p>
-                <p className="text-xs text-texto-secundario leading-snug">{item.label}</p>
+              <div
+                key={i}
+                className="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5 text-center"
+              >
+                <p className="text-3xl font-extrabold text-texto-titulo mb-1">
+                  {item.num}
+                </p>
+                <p className="text-xs text-texto-secundario leading-snug">
+                  {item.label}
+                </p>
               </div>
             ))}
           </div>
           <div className="flex flex-wrap justify-center items-center gap-8 mt-12 opacity-50">
-            <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" className="h-8 grayscale" />
-            <img src="/images/Logo_SECEMU.webp" alt="SECEMU" className="h-8 grayscale" />
-            <img src="/images/europa.webp" alt="Proyecto Europeo" className="h-8 grayscale" />
-            <img src="/images/junta-andalucia.webp" alt="Junta de Andalucía" className="h-8 grayscale" />
+            <img
+              src="/images/EUROBATS_logo.webp"
+              alt="EUROBATS"
+              className="h-8 grayscale"
+            />
+            <img
+              src="/images/Logo_SECEMU.webp"
+              alt="SECEMU"
+              className="h-8 grayscale"
+            />
+            <img
+              src="/images/europa.webp"
+              alt="Proyecto Europeo"
+              className="h-8 grayscale"
+            />
+            <img
+              src="/images/junta-andalucia.webp"
+              alt="Junta de Andalucía"
+              className="h-8 grayscale"
+            />
           </div>
         </div>
       </section>
@@ -716,7 +862,8 @@ export default function RefugiosPage() {
             Cuéntanos tu finca o espacio.
           </h2>
           <p className="text-texto-secundario mb-8 max-w-lg mx-auto">
-            Te calculamos cuántos refugios necesitas, qué plagas controlarían y cuánto ahorrarías en pesticidas este año.
+            Te calculamos cuántos refugios necesitas, qué plagas controlarían y
+            cuánto ahorrarías en pesticidas este año.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

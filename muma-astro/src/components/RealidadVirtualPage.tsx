@@ -632,7 +632,7 @@ export default function RealidadVirtualPage() {
                   oculto:  { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
-                className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/20 transition-colors duration-300"
+                className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300"
               >
                 {/* Imagen superior */}
                 <div className="relative h-36 overflow-hidden">

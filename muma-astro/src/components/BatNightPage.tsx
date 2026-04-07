@@ -151,7 +151,7 @@ export default function BatNightPage() {
                 key={i}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } } }}
-                className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 flex flex-col"
+                className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-purple-400 transition-colors duration-300 flex flex-col"
               >
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <span className="text-xs font-semibold text-marca-principal/70 text-right leading-snug">{caso.participantes}</span>
