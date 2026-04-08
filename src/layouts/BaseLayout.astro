@@ -1,0 +1,60 @@
+---
+import '../styles/global.css'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import WhatsAppButton from '../components/WhatsAppButton'
+
+interface Props {
+  title?: string
+  description?: string
+  canonical?: string
+  ogImage?: string
+}
+
+const {
+  title = 'MUMA BAT COMPANY | Ciencia, Tecnología y Conservación',
+  description = 'Empresa especializada en conservación de quirópteros. Experiencias VR, Bat Nights, Refugios y Consultoría bioacústica.',
+  canonical,
+  ogImage = '/images/MUMA LOGO VECTOR-05_resultado.webp',
+} = Astro.props
+
+const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site ?? 'https://mumabatcompany.com').href
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- OG -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Fuentes de Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="bg-fondo-base text-white">
+  <Navbar client:load />
+  <slot />
+  <Footer client:load />
+  <WhatsAppButton client:load />
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</body>
+</html>
