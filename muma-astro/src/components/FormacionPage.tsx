@@ -127,7 +127,7 @@ export default function FormacionPage() {
         <div className="max-w-6xl mx-auto">
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
             <h3 className="text-3xl font-bold text-texto-titulo mb-4">¿Tienes un proyecto concreto?</h3>
-            <p className="text-texto-secundario mb-8 max-w-lg mx-auto">Cuéntanos el contexto — territorio, especie, problema o normativa — y te decimos si podemos ayudarte y cómo.</p>
+            <p className="text-texto-secundario mb-8 max-w-lg mx-auto">Cuéntanos el contexto  territorio, especie, problema o normativa  y te decimos si podemos ayudarte y cómo.</p>
             <a href="/contacto" className="inline-flex items-center gap-2 px-8 py-4 bg-marca-principal text-texto-sobre-accion font-bold rounded-xl hover:bg-marca-principal-hover transition-colors duration-200 no-underline">
               Hablar con el equipo <ArrowRight size={16} aria-hidden="true" />
             </a>

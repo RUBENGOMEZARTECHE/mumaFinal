@@ -21,7 +21,7 @@ import {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const PILARES = [
-  { titulo: 'Contenido de cueva real',        desc: 'Desarrollado desde el conocimiento directo del hábitat subterráneo. No es recreación — es documentación.',        img: '/images/dentro-cueva.webp' },
+  { titulo: 'Contenido de cueva real',        desc: 'Desarrollado desde el conocimiento directo del hábitat subterráneo. No es recreación, es documentación.',        img: '/images/dentro-cueva.webp' },
   { titulo: 'Llegamos con la cueva',          desc: 'Montamos, operamos y recogemos. Tu espacio acoge la experiencia sin obra ni infraestructura adicional.',          img: '/images/fotos_batnight/plaza1.webp' },
   { titulo: 'Divulgador científico incluido', desc: 'Cada sesión la conduce alguien que conoce los murciélagos de verdad. La tecnología tiene fondo.',                 img: '/images/antonio-moret.webp', posicion: '50% 20%' },
   { titulo: 'Aval de proyecto europeo',       desc: 'Investigación respaldada por SECEMU, Fundación Cueva de Nerja y Fondo Europeo de Desarrollo Regional (FEDER).', img: '/images/Proyecto_palazaMayor.webp' },

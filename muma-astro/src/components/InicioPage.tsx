@@ -97,14 +97,14 @@ const Diferenciacion = () => {
   const items = [
     {
       title: "Ciencia de campo",
-      desc: "Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración — es la base de cada servicio.",
+      desc: "Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración es la base de cada servicio.",
       bg: "/images/colonia_murcielago01.webp",
       link: "/nosotros",
       cta: "Conocer el equipo",
     },
     {
       title: "Tecnología que tiene fondo",
-      desc: "La Batcave Experience no es una recreación — es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o espacios naturales sin obra ni infraestructura adicional.",
+      desc: "La Batcave Experience no es una recreación es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o espacios naturales sin obra ni infraestructura adicional.",
       bg: "/images/chica-realidad-virtual.webp",
       link: "/servicios/realidad-virtual",
       cta: "Ver la Batcave Experience",
@@ -440,7 +440,7 @@ const Credibilidad = () => (
     <div className="max-w-5xl mx-auto px-6 mt-12 flex flex-col md:flex-row gap-8 text-center border-t border-gray-100 pt-10">
       {[
         { titulo: "Archivo único", texto: "Único archivo bioacústico privado de quirópteros ibéricos. No existe equivalente generado por una empresa privada en España." },
-        { titulo: "Proyecto europeo completado", texto: "ST3ER finalizado en 3 países — España, Portugal y Eslovenia. Producto comercial activo, no prototipo." },
+        { titulo: "Proyecto europeo completado", texto: "ST3ER finalizado en 3 países  España, Portugal y Eslovenia. Producto comercial activo, no prototipo." },
         { titulo: "Más de 700 personas en 2025", texto: "Experiencias VR reales en museos, reservas naturales y espacios culturales. Feedback directo de campo." },
       ].map((item, i) => (
         <div key={i} className="flex-1 px-4">
@@ -465,7 +465,7 @@ const Vision = () => (
           Durante años de trabajo de campo, MUMA ha construido el único archivo bioacústico privado de quirópteros ibéricos: grabaciones reales, mapas de distribución y datos de colonias en tres países europeos.
         </p>
         <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-          Ese conocimiento es la base de cada servicio que ofrecemos. No somos un centro de interpretación — somos el equipo que lo documentó.
+          Ese conocimiento es la base de cada servicio que ofrecemos. No somos un centro de interpretación somos el equipo que lo documentó.
         </p>
         <a
           href="/nosotros"
@@ -521,9 +521,9 @@ const Captacion = () => {
   const [email, setEmail] = useState("");
   const [estado, setEstado] = useState("idle");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setEstado("enviando");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setEstado("enviando");
 
     const res = await fetch("https://formspree.io/f/TU_ID", {
       method: "POST",

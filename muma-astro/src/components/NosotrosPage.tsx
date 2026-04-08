@@ -38,7 +38,7 @@ const credenciales = [
   {
     sigla: 'ST3ER',
     nombre: 'Proyecto europeo ST3ER',
-    descripcion: 'Investigación en 3 países (España, Portugal, Eslovenia). Financiado por SMP COSME de la UE. Resultado: Batcave Experience — producto comercial activo, más de 700 personas en 2025, sin fase piloto.',
+    descripcion: 'Investigación en 3 países (España, Portugal, Eslovenia). Financiado por SMP COSME de la UE. Resultado: Batcave Experience es un producto comercial activo, con más de 700 personas en 2025, sin fase piloto.',
     img: '/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp',
     imgAlt: 'Logo Proyecto ST3ER — Murciélagos Málaga',
   },
@@ -58,7 +58,7 @@ const credenciales = [
   },
   {
     sigla: 'FEDER',
-    nombre: 'La Brújula — Cámara de Comercio de Málaga',
+    nombre: 'La Brújula | Cámara de Comercio de Málaga',
     descripcion: 'Apoyo institucional de La Brújula (financiado FEDER). Validación por parte del ecosistema empresarial e institucional de Málaga.',
     img: '/images/La-Brujula-150x150.webp',
     imgAlt: 'Logo La Brújula — Cámara de Comercio de Málaga',
@@ -97,7 +97,7 @@ const alianzasImagenes = [
   { nombre: 'Centro Europeo de Empresas',       img: '/images/centro-europeo-empresas.webp',  url: 'https://www.ceei.es' },
   { nombre: 'Polo de Contenido Digital',        img: '/images/polo-contenido-digital.webp',   url: '#' },
   { nombre: 'Red de Emprendedores',             img: '/images/red-emprendedores.webp',        url: '#' },
-  { nombre: 'Unión Europea — Proyecto ST3ER',   img: '/images/europa.webp',                    url: '#' },
+  { nombre: 'Unión Europea Proyecto ST3ER',   img: '/images/europa.webp',                    url: '#' },
 ]
 
 const medios = [
@@ -349,7 +349,7 @@ export default function NosotrosPage() {
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg sm:text-xl text-texto-secundario leading-relaxed max-w-2xl mx-auto mb-10"
             >
-              Todo lo que hacemos parte de la misma idea: no imponemos soluciones a la naturaleza, aprendemos de ella para colaborar con ella. MUMA nace de la cooperación y la escucha — del campo, de las colonias, del territorio. No somos divulgadores ni una ONG. Somos una empresa especializada que trabaja con instituciones, administraciones y empresas que necesitan soluciones con base científica real.
+              Todo lo que hacemos parte de la misma idea: no imponemos soluciones a la naturaleza, aprendemos de ella para colaborar con ella. MUMA nace de la cooperación y la escucha del campo, de las colonias, del territorio. No somos divulgadores ni una ONG. Somos una empresa especializada que trabaja con instituciones, administraciones y empresas que necesitan soluciones con base científica real.
             </motion.p>
 
             {/* Stats de credibilidad rápida */}
@@ -412,7 +412,7 @@ export default function NosotrosPage() {
 
                 <div className="space-y-5 text-texto-secundario leading-relaxed text-base">
                   <p>
-                    Todo empezó en campo: construyendo refugios artesanales, estudiando colonias, midiendo ultrasonidos. Pero rápido nos dimos cuenta de que el problema no era solo falta de hábitat — era falta de conexión. La mayoría de las personas no saben lo que hacen los murciélagos ni por qué están desapareciendo.
+                    Todo empezó en campo: construyendo refugios artesanales, estudiando colonias, midiendo ultrasonidos. Pero rápido nos dimos cuenta de que el problema no era solo falta de hábitat era falta de conexión. La mayoría de las personas no saben lo que hacen los murciélagos ni por qué están desapareciendo.
                   </p>
                   <p>
                     Cuando empezamos a digitalizar cuevas reales en 3D, algo cambió. La tecnología nos abrió un campo de posibilidades que no habíamos planeado: llevar el hábitat a las personas sin pisarlo, medir en tiempo real lo que nunca se había medido, construir el primer archivo bioacústico colaborativo de quirópteros ibéricos. Un archivo que, hoy, no tiene equivalente en ningún otro sitio.
@@ -618,7 +618,7 @@ export default function NosotrosPage() {
                 href="/contacto"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-marca-principal hover:underline"
               >
-                No estoy seguro — hablamos y lo vemos
+                No estoy seguro hablamos y lo vemos
                 <ArrowRight size={14} aria-hidden="true" />
               </a>
             </motion.div>
@@ -699,7 +699,7 @@ export default function NosotrosPage() {
                     Más de una década estudiando colonias de murciélagos sobre el terreno. Coinvestigador del proyecto europeo ST3ER en España, Portugal y Eslovenia. Responsable del único archivo bioacústico colaborativo de quirópteros ibéricos generado por una empresa privada en España.
                   </p>
                   <p className="text-sm text-texto-secundario leading-relaxed">
-                    La visión de MUMA viene de ahí: no de la tecnología, sino del campo. La realidad virtual, los refugios, las Bat Nights — todo parte de años de trabajo directo con el animal y su ecosistema.
+                    La visión de MUMA viene de ahí: no de la tecnología, sino del campo. La realidad virtual, los refugios, las Bat Nights todo parte de años de trabajo directo con el animal y su ecosistema.
                   </p>
                 </div>
               </div>
@@ -774,7 +774,7 @@ export default function NosotrosPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-fondo-secundario/70 via-transparent to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5">
                   <p className="text-xs font-semibold text-marca-principal uppercase tracking-widest">Bat Night · Eslovenia</p>
-                  <p className="text-xs text-white/60 mt-0.5">Proyecto ST3ER — actividades de campo internacionales</p>
+                  <p className="text-xs text-white/60 mt-0.5">Proyecto ST3ER | actividades de campo internacionales</p>
                 </div>
               </motion.div>
 

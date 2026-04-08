@@ -105,7 +105,7 @@ export default function BatNightPlazaMayorPage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-6">El mayor evento urbano de MUMA hasta la fecha</h2>
             <div className="space-y-4 text-texto-secundario leading-relaxed">
               <p>
-                Los días 25 y 26 de julio de 2025, Plaza Mayor Málaga —uno de los centros comerciales y culturales más activos de la provincia— acogió la Bat Night urbana de mayor escala realizada por MUMA hasta la fecha. Durante dos jornadas completas, entre <strong className="text-texto-principal">200 y 300 personas</strong> vivieron de primera mano el universo de los murciélagos.
+                Los días 25 y 26 de julio de 2025, Plaza Mayor Málaga uno de los centros comerciales y culturales más activos de la provincia acogió la Bat Night urbana de mayor escala realizada por MUMA hasta la fecha. Durante dos jornadas completas, entre <strong className="text-texto-principal">200 y 300 personas</strong> vivieron de primera mano el universo de los murciélagos.
               </p>
               <p>
                 El programa fue el más completo de nuestra historia: un <strong className="text-texto-principal">área de realidad virtual inmersiva</strong> donde los participantes podían entrar en una cueva virtual habitada por murciélagos, una <strong className="text-texto-principal">exposición fotográfica</strong> sobre la biodiversidad urbana y el papel ecológico de los quirópteros, y <strong className="text-texto-principal">talleres infantiles</strong> diseñados para que los más pequeños conectaran con la naturaleza de forma lúdica y científica.

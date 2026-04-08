@@ -76,10 +76,14 @@ const requisitos = [
 export default function VoluntariosPage() {
   const [form, setForm] = useState({ nombre: '', email: '', mensaje: '' })
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  setForm({ 
+    ...form, 
+    [e.target.name]: e.target.value 
+  });
+};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
     const asunto = encodeURIComponent(`Solicitud de voluntariado — ${form.nombre}`)
     const cuerpo = encodeURIComponent(
       `Hola, me gustaría unirme como voluntario/a en MUMA.\n\nNombre: ${form.nombre}\nEmail: ${form.email}\n\n${form.mensaje}`

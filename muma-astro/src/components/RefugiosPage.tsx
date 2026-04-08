@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 
-const varianteSeccion = {
+const varianteSeccion: Variants = {
   oculto: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
@@ -255,49 +255,59 @@ export default function RefugiosPage() {
             </motion.div>
           </div>
           <motion.div
-            initial="oculto"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={varianteSeccion}
-            className="bg-fondo-superficie rounded-3xl border border-white/10 overflow-hidden shadow-2xl"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="p-10 lg:p-14 bg-marca-principal/5">
-                <h3 className="text-2xl font-bold text-marca-principal mb-6 flex items-center gap-2">
-                  <Check size={24} /> El Estándar MUMA
-                </h3>
-                <ul className="space-y-4 text-texto-principal text-sm">
-                  <li className="flex gap-2">
-                    <Check size={16} className="text-marca-principal" /> Sin
-                    rendijas: Aislamiento térmico total.
-                  </li>
-                  <li className="flex gap-2">
-                    <Check size={16} className="text-marca-principal" /> Sin
-                    peligros: Sin clavos ni siliconas tóxicas.
-                  </li>
-                  <li className="flex gap-2">
-                    <Check size={16} className="text-marca-principal" />{" "}
-                    Durabilidad: No se dobla ni se agrieta al sol.
-                  </li>
-                  <li className="flex gap-2">
-                    <Check size={16} className="text-marca-principal" />{" "}
-                    Seguimiento: Georeferenciados y numerados.
-                  </li>
-                </ul>
-              </div>
-              <div className="p-10 lg:p-14 border-l border-white/5 bg-black/20">
-                <h3 className="text-2xl font-bold text-red-500/80 mb-6">
-                  Cajas Comerciales
-                </h3>
-                <ul className="space-y-4 text-texto-secundario text-sm opacity-70">
-                  <li>• Rendijas que filtran aire y humedad.</li>
-                  <li>• Clavos y siliconas que dañan al animal.</li>
-                  <li>• Madera de baja calidad que se deforma.</li>
-                  <li>• Sin ventilación ni superficies de aterrizaje.</li>
-                </ul>
-              </div>
-            </div>
-          </motion.div>
+                        initial="oculto"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={varianteSeccion}
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+                      >
+                        {/* MUMA */}
+                        <div className="rounded-3xl border border-marca-principal/20 overflow-hidden bg-marca-principal/5 shadow-2xl">
+                          <div className="relative aspect-video overflow-hidden">
+                            <img
+                              src="/images/refugios/Refugio murciélagos - Render realista_1.webp"
+                              alt="Refugio MUMA de calidad"
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+                            <span className="absolute bottom-4 left-4 bg-marca-principal text-black text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
+                              Estándar MUMA
+                            </span>
+                          </div>
+                          <div className="p-8">
+                            <ul className="space-y-3 text-texto-principal text-sm">
+                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Aislamiento térmico total  sin rendijas ni filtraciones.</span></li>
+                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Sin clavos ni siliconas tóxicas que dañen al animal.</span></li>
+                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Madera técnica certificada: no se dobla ni se agrieta al sol.</span></li>
+                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Georeferenciados, numerados y con seguimiento científico.</span></li>
+                            </ul>
+                          </div>
+                        </div>
+          
+                        {/* Caja comercial mala */}
+                        <div className="rounded-3xl border border-red-500/20 overflow-hidden bg-red-500/5 shadow-2xl">
+                          <div className="relative aspect-video overflow-hidden">
+                            <img
+                              src="/images/batbnb/mala-caja.png"
+                              alt="Caja comercial de baja calidad"
+                              className="w-full h-full object-cover"
+                              style={{ objectPosition: '50% 50%', transform: 'scale(0.75)', filter: 'grayscale(50%) contrast(1.05)' }}
+                            />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+                            <span className="absolute bottom-4 left-4 bg-red-500 text-white text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
+                              Caja Comercial
+                            </span>
+                          </div>
+                          <div className="p-8">
+                            <ul className="space-y-3 text-texto-secundario text-sm opacity-80">
+                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Rendijas que filtran aire y humedad  el animal las abandona.</span></li>
+                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Clavos y siliconas que dañan las membranas del murciélago.</span></li>
+                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Madera de baja calidad que se deforma en 1-2 veranos.</span></li>
+                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Sin ventilación ni superficies de agarre interior.</span></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </motion.div>
         </div>
       </section>
 
