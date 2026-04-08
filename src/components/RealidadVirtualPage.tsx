@@ -299,7 +299,7 @@ export default function RealidadVirtualPage() {
           ══════════════════════════════════════════════════════════════════ */}
       <section
         className="relative flex items-center justify-center text-center overflow-hidden"
-        style={{ minHeight: '55vh' }}
+        style={{ minHeight: '65vh' }}
         aria-label="Cabecera Realidad Virtual"
       >
         {/* Imagen de fondo con animación "Cinematic slow zoom" */}
