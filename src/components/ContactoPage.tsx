@@ -54,13 +54,23 @@ export default function ContactoPage() {
         body: JSON.stringify(payload),
       })
 
-      // 2. Guardar en Supabase (cuando esté configurado por José Darío)
+      // 2. Guardar en Supabase
       try {
-        await getSupabase().from('contactos').insert([{
-          ...payload, momento: form.momento, asunto: form.asunto,
+        const { supabase } = await import('../lib/supabase')
+        const { error: errorSupabase } = await supabase.from('consultas_web').insert([{
+          nombre: form.nombre,
+          nombre_contacto: form.nombre,
+          email: form.email,
+          mensaje: form.mensaje,
+          tipo_solicitud: form.motivo || null,
+          acepta_rgpd: form.privacidad,
+          estado: 'nuevo',
+          origen: 'web_contacto',
         }])
-      } catch (_) {
-        // Supabase aún no configurado — no bloquea el flujo
+        if (errorSupabase) console.error('Error Supabase:', errorSupabase.message)
+        else console.log('Guardado en Supabase correctamente.')
+      } catch (e: any) {
+        console.error('Error inesperado de Supabase:', e)
       }
 
       setEnviadoExito(true)
@@ -135,10 +145,10 @@ export default function ContactoPage() {
               <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Motivo</label>
               <select name="motivo" required value={form.motivo} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:border-marca-principal outline-none appearance-none transition-all">
                 <option value="">Seleccione motivo</option>
-                <option value="Consultoría">Consultoría Técnica</option>
-                <option value="Refugios">Adquisición de Refugios</option>
-                <option value="VR">Experiencia VR</option>
-                <option value="BatNight">Organizar Bat Night</option>
+                <option value="charlas_educativas">Consultoría / Charlas Educativas</option>
+                <option value="refugios_b2b">Adquisición de Refugios</option>
+                <option value="experiencia_vr">Experiencia VR</option>
+                <option value="duda_general">Organizar Bat Night / Duda General</option>
               </select>
             </div>
             <div className="flex flex-col gap-2 md:col-span-2">
