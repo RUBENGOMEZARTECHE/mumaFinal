@@ -111,9 +111,10 @@ function NavbarInner() {
       <div className="max-w-7xl mx-auto px-12 py-5 flex items-center justify-between border-b border-white/5">
         <a href="/" className="flex items-center gap-3 text-texto-titulo font-bold tracking-tight no-underline group">
           <img
-            src="/images/MUMA LOGO VECTOR-05_resultado.webp"
+            src="/images/MUMA LOGO VECTOR-03_resultado.webp"
             alt="MUMA Bat Company Logo"
             className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
+            loading="eager"
           />
           <div className="flex items-center gap-1.5">
             <span className="text-xl leading-none">MUMA</span>
