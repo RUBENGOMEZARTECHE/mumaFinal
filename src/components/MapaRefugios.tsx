@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
+
+interface Refugio {
+  id: string;
+  nombre: string;
+  municipio: string;
+  latitud: number;
+  longitud: number;
+  tipo_refugio: string;
+}
 
 export default function MapaRefugios() {
   const [Componentes, setComponentes] = useState<any>(null);
-  const position: [number, number] = [36.7213, -4.4214];
+  const [refugios, setRefugios] = useState<Refugio[]>([]);
+  const centro: [number, number] = [36.7213, -4.4214];
 
+  // Cargamos refugios desde Supabase
   useEffect(() => {
-    // Importamos Leaflet solo en el cliente, nunca en el servidor
+    supabase
+      .from('refugios')
+      .select('id, nombre, municipio, latitud, longitud, tipo_refugio')
+      .eq('activo', true)
+      .then(({ data, error }) => {
+        if (error) console.error('Error cargando refugios:', error.message);
+        else setRefugios(data || []);
+      });
+  }, []);
+
+  // Cargamos Leaflet solo en el cliente
+  useEffect(() => {
     Promise.all([
       import('react-leaflet'),
       import('leaflet'),
@@ -27,7 +50,7 @@ export default function MapaRefugios() {
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <MapContainer
-        center={position}
+        center={centro}
         zoom={12}
         scrollWheelZoom={false}
         style={{ height: '100%', width: '100%', background: '#050505' }}
@@ -36,14 +59,16 @@ export default function MapaRefugios() {
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://carto.com/">CartoDB</a>'
         />
-        <Marker position={position} icon={mumaIcon}>
-          <Popup>
-            <div className="text-black font-sans">
-              <strong>MUMA SL</strong><br />
-              Punto de control activo.
-            </div>
-          </Popup>
-        </Marker>
+        {refugios.map((r) => (
+          <Marker key={r.id} position={[r.latitud, r.longitud]} icon={mumaIcon}>
+            <Popup>
+              <div className="font-sans text-black">
+                <strong>{r.nombre}</strong><br />
+                {r.municipio} · {r.tipo_refugio}
+              </div>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
     </div>
   );
