@@ -1,0 +1,1114 @@
+-- =========================================================
+-- PROYECTO MURCIÉLAGOS MÁLAGA
+-- ESQUEMA COMPLETO INICIAL PARA SUPABASE / POSTGRESQL
+-- =========================================================
+
+-- =========================================================
+-- 1. EXTENSIONES
+-- =========================================================
+create extension if not exists pgcrypto;
+create extension if not exists "uuid-ossp";
+
+-- =========================================================
+-- 2. ENUMS
+-- =========================================================
+do $$
+begin
+    if not exists (select 1 from pg_type where typname = 'rol_usuario_enum') then
+        create type rol_usuario_enum as enum (
+            'admin',
+            'investigador',
+            'tecnico',
+            'colaborador',
+            'usuario'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'nivel_acceso_enum') then
+        create type nivel_acceso_enum as enum (
+            'basico',
+            'premium',
+            'pro'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'estado_refugio_enum') then
+        create type estado_refugio_enum as enum (
+            'activo',
+            'inactivo',
+            'mantenimiento',
+            'retirado'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'tipo_revision_enum') then
+        create type tipo_revision_enum as enum (
+            'inspeccion',
+            'mantenimiento',
+            'limpieza',
+            'seguimiento',
+            'incidencia'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'estado_cientifico_enum') then
+        create type estado_cientifico_enum as enum (
+            'borrador',
+            'pendiente_revision',
+            'validado',
+            'rechazado'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'estado_operativo_enum') then
+        create type estado_operativo_enum as enum (
+            'activo',
+            'pendiente',
+            'en_proceso',
+            'cerrado',
+            'cancelado'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'tipo_archivo_enum') then
+        create type tipo_archivo_enum as enum (
+            'foto',
+            'audio',
+            'video',
+            'espectrograma',
+            'documento',
+            'otro'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'entidad_archivo_enum') then
+        create type entidad_archivo_enum as enum (
+            'refugio',
+            'revision',
+            'observacion',
+            'evento',
+            'participante',
+            'usuario'
+        );
+    end if;
+
+    if not exists (select 1 from pg_type where typname = 'estado_evento_enum') then
+        create type estado_evento_enum as enum (
+            'planificado',
+            'abierto',
+            'cerrado',
+            'cancelado'
+        );
+    end if;
+end $$;
+
+-- =========================================================
+-- 3. TABLA DE PERFILES DE USUARIO
+--    Vinculada a auth.users de Supabase
+-- =========================================================
+create table if not exists public.perfiles_usuario (
+    id uuid primary key references auth.users(id) on delete cascade,
+    nombre varchar(100) not null,
+    apellidos varchar(150),
+    nombre_mostrado varchar(150),
+    email varchar(255) unique,
+    avatar_url text,
+    rol rol_usuario_enum not null default 'usuario',
+    nivel_acceso nivel_acceso_enum not null default 'basico',
+    telefono varchar(30),
+    institucion varchar(150),
+    activo boolean not null default true,
+    fecha_alta timestamptz not null default now(),
+    ultimo_acceso timestamptz,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.perfiles_usuario is 'Perfil extendido de usuario vinculado a auth.users';
+comment on column public.perfiles_usuario.rol is 'Rol funcional dentro del sistema';
+comment on column public.perfiles_usuario.nivel_acceso is 'Nivel de acceso o plan del usuario';
+
+-- =========================================================
+-- 4. CATÁLOGO DE ESPECIES
+-- =========================================================
+create table if not exists public.especies (
+    id uuid primary key default gen_random_uuid(),
+    nombre_comun varchar(150),
+    nombre_cientifico varchar(200) not null unique,
+    familia varchar(150),
+    genero varchar(150),
+    descripcion text,
+    estado_conservacion varchar(100),
+    distribucion text,
+    observaciones text,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.especies is 'Catálogo científico propio de especies';
+
+-- =========================================================
+-- 5. REFUGIOS
+-- =========================================================
+create table if not exists public.refugios (
+    id uuid primary key default gen_random_uuid(),
+    codigo varchar(50) not null unique,
+    nombre varchar(150),
+    descripcion text,
+    direccion text,
+    municipio varchar(120),
+    provincia varchar(120) default 'Málaga',
+    latitud numeric(10, 7),
+    longitud numeric(10, 7),
+    altitud_metros numeric(8, 2),
+    fecha_instalacion date,
+    estado estado_refugio_enum not null default 'activo',
+    orientacion varchar(50),
+    material varchar(100),
+    altura_instalacion_m numeric(8,2),
+    observaciones text,
+    creado_por uuid references public.perfiles_usuario(id) on delete set null,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.refugios is 'Refugios físicos del proyecto';
+comment on column public.refugios.codigo is 'Código interno único del refugio';
+
+-- =========================================================
+-- 6. REVISIONES DE REFUGIOS
+-- =========================================================
+create table if not exists public.revisiones_refugio (
+    id uuid primary key default gen_random_uuid(),
+    refugio_id uuid not null references public.refugios(id) on delete cascade,
+    fecha_revision timestamptz not null default now(),
+    tipo_revision tipo_revision_enum not null default 'inspeccion',
+    estado_cientifico estado_cientifico_enum not null default 'borrador',
+    estado_operativo estado_operativo_enum not null default 'activo',
+    temperatura numeric(5,2),
+    humedad numeric(5,2),
+    presencia_guano boolean,
+    indicios_uso boolean,
+    numero_individuos integer check (numero_individuos >= 0),
+    descripcion text,
+    incidencias text,
+    validado_por uuid references public.perfiles_usuario(id) on delete set null,
+    realizado_por uuid references public.perfiles_usuario(id) on delete set null,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.revisiones_refugio is 'Inspecciones, mantenimientos y seguimientos de cada refugio';
+
+-- =========================================================
+-- 7. OBSERVACIONES CIENTÍFICAS
+-- =========================================================
+create table if not exists public.observaciones (
+    id uuid primary key default gen_random_uuid(),
+    refugio_id uuid references public.refugios(id) on delete set null,
+    revision_id uuid references public.revisiones_refugio(id) on delete set null,
+    especie_id uuid references public.especies(id) on delete set null,
+    fecha_observacion timestamptz not null default now(),
+    metodo varchar(100),
+    numero_individuos integer check (numero_individuos >= 0),
+    comportamiento text,
+    notas text,
+    estado_cientifico estado_cientifico_enum not null default 'borrador',
+    estado_operativo estado_operativo_enum not null default 'activo',
+    observador_id uuid references public.perfiles_usuario(id) on delete set null,
+    validado_por uuid references public.perfiles_usuario(id) on delete set null,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.observaciones is 'Registros científicos asociados a especies, revisiones o refugios';
+
+-- =========================================================
+-- 8. EVENTOS BAT NIGHT
+-- =========================================================
+create table if not exists public.eventos (
+    id uuid primary key default gen_random_uuid(),
+    codigo varchar(50) unique,
+    nombre varchar(200) not null,
+    descripcion text,
+    fecha_inicio timestamptz not null,
+    fecha_fin timestamptz,
+    ubicacion text,
+    latitud numeric(10,7),
+    longitud numeric(10,7),
+    aforo integer check (aforo is null or aforo >= 0),
+    plazas_disponibles integer check (plazas_disponibles is null or plazas_disponibles >= 0),
+    estado estado_evento_enum not null default 'planificado',
+    publico boolean not null default true,
+    creado_por uuid references public.perfiles_usuario(id) on delete set null,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.eventos is 'Eventos del proyecto, incluyendo Bat Night';
+
+-- =========================================================
+-- 9. PARTICIPANTES
+-- =========================================================
+create table if not exists public.participantes (
+    id uuid primary key default gen_random_uuid(),
+    nombre varchar(120) not null,
+    apellidos varchar(180),
+    email varchar(255),
+    telefono varchar(30),
+    dni_nie varchar(30),
+    fecha_nacimiento date,
+    municipio varchar(120),
+    provincia varchar(120),
+    observaciones text,
+    acepta_rgpd boolean default false,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.participantes is 'Personas registradas o asistentes a eventos';
+
+-- =========================================================
+-- 10. RELACIÓN EVENTO - PARTICIPANTE
+-- =========================================================
+create table if not exists public.eventos_participantes (
+    id uuid primary key default gen_random_uuid(),
+    evento_id uuid not null references public.eventos(id) on delete cascade,
+    participante_id uuid not null references public.participantes(id) on delete cascade,
+    fecha_inscripcion timestamptz not null default now(),
+    asistencia boolean,
+    check_in_at timestamptz,
+    notas text,
+    created_at timestamptz not null default now(),
+    unique (evento_id, participante_id)
+);
+
+comment on table public.eventos_participantes is 'Inscripción y asistencia de participantes a eventos';
+
+-- =========================================================
+-- 11. TABLA AUXILIAR DE IMPORTACIÓN CSV
+--     NO ES TABLA MAESTRA, ES DE CARGA
+-- =========================================================
+create table if not exists public.import_participantes_batnight (
+    id bigserial primary key,
+    lote_importacion varchar(100),
+    nombre_raw text,
+    apellidos_raw text,
+    email_raw text,
+    telefono_raw text,
+    fecha_evento_raw text,
+    evento_raw text,
+    municipio_raw text,
+    observaciones_raw text,
+    procesado boolean not null default false,
+    error_importacion text,
+    created_at timestamptz not null default now()
+);
+
+comment on table public.import_participantes_batnight is 'Tabla auxiliar de importación desde CSV. No forma parte del modelo productivo principal.';
+
+-- =========================================================
+-- 12. ARCHIVOS / EVIDENCIAS
+-- =========================================================
+create table if not exists public.archivos (
+    id uuid primary key default gen_random_uuid(),
+    nombre_original varchar(255) not null,
+    nombre_guardado varchar(255),
+    bucket varchar(100),
+    ruta_storage text,
+    url_publica text,
+    mime_type varchar(120),
+    extension varchar(20),
+    tamano_bytes bigint check (tamano_bytes is null or tamano_bytes >= 0),
+    tipo_archivo tipo_archivo_enum not null default 'otro',
+    entidad_relacionada entidad_archivo_enum not null,
+    entidad_id uuid not null,
+    descripcion text,
+    metadata jsonb default '{}'::jsonb,
+    subido_por uuid references public.perfiles_usuario(id) on delete set null,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.archivos is 'Sistema general de evidencias: fotos, audios, espectrogramas, documentos, etc.';
+
+-- =========================================================
+-- 13. CONFIGURACIÓN GENERAL
+-- =========================================================
+create table if not exists public.configuracion_sistema (
+    id uuid primary key default gen_random_uuid(),
+    clave varchar(120) not null unique,
+    valor text,
+    descripcion text,
+    publico boolean not null default false,
+    updated_by uuid references public.perfiles_usuario(id) on delete set null,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
+comment on table public.configuracion_sistema is 'Parámetros generales del sistema';
+
+-- =========================================================
+-- 14. AUDITORÍA DE CAMBIOS
+-- =========================================================
+create table if not exists public.auditoria_cambios (
+    id bigserial primary key,
+    tabla varchar(120) not null,
+    registro_id uuid,
+    accion varchar(20) not null,
+    datos_anteriores jsonb,
+    datos_nuevos jsonb,
+    usuario_id uuid references public.perfiles_usuario(id) on delete set null,
+    fecha timestamptz not null default now()
+);
+
+comment on table public.auditoria_cambios is 'Trazabilidad de inserciones, actualizaciones y borrados';
+
+-- =========================================================
+-- 15. FUNCIÓN UPDATED_AT
+-- =========================================================
+create or replace function public.fn_set_updated_at()
+returns trigger
+language plpgsql
+as $$
+begin
+    new.updated_at = now();
+    return new;
+end;
+$$;
+
+-- =========================================================
+-- 16. TRIGGERS UPDATED_AT
+-- =========================================================
+drop trigger if exists trg_perfiles_usuario_updated_at on public.perfiles_usuario;
+create trigger trg_perfiles_usuario_updated_at
+before update on public.perfiles_usuario
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_especies_updated_at on public.especies;
+create trigger trg_especies_updated_at
+before update on public.especies
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_refugios_updated_at on public.refugios;
+create trigger trg_refugios_updated_at
+before update on public.refugios
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_revisiones_refugio_updated_at on public.revisiones_refugio;
+create trigger trg_revisiones_refugio_updated_at
+before update on public.revisiones_refugio
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_observaciones_updated_at on public.observaciones;
+create trigger trg_observaciones_updated_at
+before update on public.observaciones
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_eventos_updated_at on public.eventos;
+create trigger trg_eventos_updated_at
+before update on public.eventos
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_participantes_updated_at on public.participantes;
+create trigger trg_participantes_updated_at
+before update on public.participantes
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_archivos_updated_at on public.archivos;
+create trigger trg_archivos_updated_at
+before update on public.archivos
+for each row
+execute function public.fn_set_updated_at();
+
+drop trigger if exists trg_configuracion_sistema_updated_at on public.configuracion_sistema;
+create trigger trg_configuracion_sistema_updated_at
+before update on public.configuracion_sistema
+for each row
+execute function public.fn_set_updated_at();
+
+-- =========================================================
+-- 17. FUNCIÓN DE AUDITORÍA
+-- =========================================================
+create or replace function public.fn_auditar_cambios()
+returns trigger
+language plpgsql
+security definer
+as $$
+declare
+    v_usuario uuid;
+begin
+    begin
+        v_usuario := auth.uid();
+    exception
+        when others then
+            v_usuario := null;
+    end;
+
+    if tg_op = 'INSERT' then
+        insert into public.auditoria_cambios(tabla, registro_id, accion, datos_nuevos, usuario_id)
+        values (tg_table_name, new.id, 'INSERT', to_jsonb(new), v_usuario);
+        return new;
+    elsif tg_op = 'UPDATE' then
+        insert into public.auditoria_cambios(tabla, registro_id, accion, datos_anteriores, datos_nuevos, usuario_id)
+        values (tg_table_name, new.id, 'UPDATE', to_jsonb(old), to_jsonb(new), v_usuario);
+        return new;
+    elsif tg_op = 'DELETE' then
+        insert into public.auditoria_cambios(tabla, registro_id, accion, datos_anteriores, usuario_id)
+        values (tg_table_name, old.id, 'DELETE', to_jsonb(old), v_usuario);
+        return old;
+    end if;
+
+    return null;
+end;
+$$;
+
+-- =========================================================
+-- 18. TRIGGERS DE AUDITORÍA
+-- =========================================================
+drop trigger if exists trg_aud_refugios on public.refugios;
+create trigger trg_aud_refugios
+after insert or update or delete on public.refugios
+for each row execute function public.fn_auditar_cambios();
+
+drop trigger if exists trg_aud_revisiones_refugio on public.revisiones_refugio;
+create trigger trg_aud_revisiones_refugio
+after insert or update or delete on public.revisiones_refugio
+for each row execute function public.fn_auditar_cambios();
+
+drop trigger if exists trg_aud_observaciones on public.observaciones;
+create trigger trg_aud_observaciones
+after insert or update or delete on public.observaciones
+for each row execute function public.fn_auditar_cambios();
+
+drop trigger if exists trg_aud_eventos on public.eventos;
+create trigger trg_aud_eventos
+after insert or update or delete on public.eventos
+for each row execute function public.fn_auditar_cambios();
+
+drop trigger if exists trg_aud_participantes on public.participantes;
+create trigger trg_aud_participantes
+after insert or update or delete on public.participantes
+for each row execute function public.fn_auditar_cambios();
+
+drop trigger if exists trg_aud_archivos on public.archivos;
+create trigger trg_aud_archivos
+after insert or update or delete on public.archivos
+for each row execute function public.fn_auditar_cambios();
+
+-- =========================================================
+-- 19. FUNCIÓN PARA CREAR PERFIL AUTOMÁTICO
+-- =========================================================
+create or replace function public.fn_crear_perfil_usuario()
+returns trigger
+language plpgsql
+security definer
+as $$
+begin
+    insert into public.perfiles_usuario (
+        id,
+        nombre,
+        apellidos,
+        nombre_mostrado,
+        email,
+        rol,
+        nivel_acceso,
+        activo
+    )
+    values (
+        new.id,
+        coalesce(new.raw_user_meta_data->>'nombre', 'Usuario'),
+        new.raw_user_meta_data->>'apellidos',
+        coalesce(new.raw_user_meta_data->>'nombre_mostrado', new.email),
+        new.email,
+        'usuario',
+        'basico',
+        true
+    )
+    on conflict (id) do nothing;
+
+    return new;
+end;
+$$;
+
+drop trigger if exists trg_auth_user_created on auth.users;
+create trigger trg_auth_user_created
+after insert on auth.users
+for each row execute function public.fn_crear_perfil_usuario();
+
+-- =========================================================
+-- 20. ÍNDICES
+-- =========================================================
+create index if not exists idx_refugios_codigo on public.refugios(codigo);
+create index if not exists idx_refugios_municipio on public.refugios(municipio);
+create index if not exists idx_refugios_estado on public.refugios(estado);
+
+create index if not exists idx_revisiones_refugio_refugio_id on public.revisiones_refugio(refugio_id);
+create index if not exists idx_revisiones_refugio_fecha on public.revisiones_refugio(fecha_revision);
+create index if not exists idx_revisiones_refugio_estado_cientifico on public.revisiones_refugio(estado_cientifico);
+create index if not exists idx_revisiones_refugio_estado_operativo on public.revisiones_refugio(estado_operativo);
+
+create index if not exists idx_observaciones_refugio_id on public.observaciones(refugio_id);
+create index if not exists idx_observaciones_revision_id on public.observaciones(revision_id);
+create index if not exists idx_observaciones_especie_id on public.observaciones(especie_id);
+create index if not exists idx_observaciones_fecha on public.observaciones(fecha_observacion);
+
+create index if not exists idx_eventos_fecha_inicio on public.eventos(fecha_inicio);
+create index if not exists idx_eventos_estado on public.eventos(estado);
+
+create index if not exists idx_participantes_email on public.participantes(email);
+create index if not exists idx_eventos_participantes_evento_id on public.eventos_participantes(evento_id);
+create index if not exists idx_eventos_participantes_participante_id on public.eventos_participantes(participante_id);
+
+create index if not exists idx_archivos_entidad on public.archivos(entidad_relacionada, entidad_id);
+create index if not exists idx_archivos_tipo on public.archivos(tipo_archivo);
+
+create index if not exists idx_auditoria_tabla on public.auditoria_cambios(tabla);
+create index if not exists idx_auditoria_registro_id on public.auditoria_cambios(registro_id);
+create index if not exists idx_auditoria_fecha on public.auditoria_cambios(fecha);
+
+-- =========================================================
+-- 21. VISTAS ÚTILES
+-- =========================================================
+
+-- Vista general de refugios con número de revisiones
+create or replace view public.v_refugios_resumen as
+select
+    r.id,
+    r.codigo,
+    r.nombre,
+    r.municipio,
+    r.estado,
+    r.latitud,
+    r.longitud,
+    r.fecha_instalacion,
+    count(rr.id) as total_revisiones,
+    max(rr.fecha_revision) as ultima_revision
+from public.refugios r
+left join public.revisiones_refugio rr on rr.refugio_id = r.id
+group by
+    r.id, r.codigo, r.nombre, r.municipio, r.estado, r.latitud, r.longitud, r.fecha_instalacion;
+
+-- Vista de observaciones con especie
+create or replace view public.v_observaciones_detalle as
+select
+    o.id,
+    o.fecha_observacion,
+    o.numero_individuos,
+    o.metodo,
+    o.comportamiento,
+    o.estado_cientifico,
+    o.estado_operativo,
+    e.nombre_comun,
+    e.nombre_cientifico,
+    r.codigo as codigo_refugio,
+    r.nombre as nombre_refugio,
+    pu.nombre_mostrado as observador
+from public.observaciones o
+left join public.especies e on e.id = o.especie_id
+left join public.refugios r on r.id = o.refugio_id
+left join public.perfiles_usuario pu on pu.id = o.observador_id;
+
+-- Vista de eventos con asistentes
+create or replace view public.v_eventos_resumen as
+select
+    e.id,
+    e.codigo,
+    e.nombre,
+    e.fecha_inicio,
+    e.fecha_fin,
+    e.ubicacion,
+    e.estado,
+    count(ep.id) as total_inscritos,
+    count(case when ep.asistencia = true then 1 end) as total_asistentes
+from public.eventos e
+left join public.eventos_participantes ep on ep.evento_id = e.id
+group by
+    e.id, e.codigo, e.nombre, e.fecha_inicio, e.fecha_fin, e.ubicacion, e.estado;
+
+-- Vista de archivos con usuario
+create or replace view public.v_archivos_detalle as
+select
+    a.id,
+    a.nombre_original,
+    a.tipo_archivo,
+    a.entidad_relacionada,
+    a.entidad_id,
+    a.url_publica,
+    a.mime_type,
+    a.tamano_bytes,
+    a.created_at,
+    pu.nombre_mostrado as subido_por
+from public.archivos a
+left join public.perfiles_usuario pu on pu.id = a.subido_por;
+
+-- =========================================================
+-- 22. FUNCIÓN HELPER PARA SABER SI ES ADMIN
+-- =========================================================
+create or replace function public.es_admin()
+returns boolean
+language sql
+stable
+as $$
+    select exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol = 'admin'
+          and pu.activo = true
+    );
+$$;
+
+-- =========================================================
+-- 23. RLS (ROW LEVEL SECURITY)
+-- =========================================================
+
+alter table public.perfiles_usuario enable row level security;
+alter table public.especies enable row level security;
+alter table public.refugios enable row level security;
+alter table public.revisiones_refugio enable row level security;
+alter table public.observaciones enable row level security;
+alter table public.eventos enable row level security;
+alter table public.participantes enable row level security;
+alter table public.eventos_participantes enable row level security;
+alter table public.import_participantes_batnight enable row level security;
+alter table public.archivos enable row level security;
+alter table public.configuracion_sistema enable row level security;
+alter table public.auditoria_cambios enable row level security;
+
+-- =========================================================
+-- 24. POLÍTICAS BÁSICAS
+-- =========================================================
+
+-- PERFILES
+drop policy if exists "perfil_select_propietario_o_admin" on public.perfiles_usuario;
+create policy "perfil_select_propietario_o_admin"
+on public.perfiles_usuario
+for select
+using (id = auth.uid() or public.es_admin());
+
+drop policy if exists "perfil_update_propietario_o_admin" on public.perfiles_usuario;
+create policy "perfil_update_propietario_o_admin"
+on public.perfiles_usuario
+for update
+using (id = auth.uid() or public.es_admin())
+with check (id = auth.uid() or public.es_admin());
+
+-- ESPECIES: lectura abierta a autenticados, escritura solo admin/investigador/tecnico
+drop policy if exists "especies_select_auth" on public.especies;
+create policy "especies_select_auth"
+on public.especies
+for select
+to authenticated
+using (true);
+
+drop policy if exists "especies_insert_roles" on public.especies;
+create policy "especies_insert_roles"
+on public.especies
+for insert
+to authenticated
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+drop policy if exists "especies_update_roles" on public.especies;
+create policy "especies_update_roles"
+on public.especies
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- REFUGIOS
+drop policy if exists "refugios_select_auth" on public.refugios;
+create policy "refugios_select_auth"
+on public.refugios
+for select
+to authenticated
+using (true);
+
+drop policy if exists "refugios_insert_roles" on public.refugios;
+create policy "refugios_insert_roles"
+on public.refugios
+for insert
+to authenticated
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+drop policy if exists "refugios_update_roles" on public.refugios;
+create policy "refugios_update_roles"
+on public.refugios
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- REVISIONES
+drop policy if exists "revisiones_select_auth" on public.revisiones_refugio;
+create policy "revisiones_select_auth"
+on public.revisiones_refugio
+for select
+to authenticated
+using (true);
+
+drop policy if exists "revisiones_insert_roles" on public.revisiones_refugio;
+create policy "revisiones_insert_roles"
+on public.revisiones_refugio
+for insert
+to authenticated
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico', 'colaborador')
+    )
+);
+
+drop policy if exists "revisiones_update_roles" on public.revisiones_refugio;
+create policy "revisiones_update_roles"
+on public.revisiones_refugio
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- OBSERVACIONES
+drop policy if exists "observaciones_select_auth" on public.observaciones;
+create policy "observaciones_select_auth"
+on public.observaciones
+for select
+to authenticated
+using (true);
+
+drop policy if exists "observaciones_insert_roles" on public.observaciones;
+create policy "observaciones_insert_roles"
+on public.observaciones
+for insert
+to authenticated
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico', 'colaborador')
+    )
+);
+
+drop policy if exists "observaciones_update_roles" on public.observaciones;
+create policy "observaciones_update_roles"
+on public.observaciones
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- EVENTOS
+drop policy if exists "eventos_select_publico_auth" on public.eventos;
+create policy "eventos_select_publico_auth"
+on public.eventos
+for select
+to authenticated
+using (true);
+
+drop policy if exists "eventos_insert_roles" on public.eventos;
+create policy "eventos_insert_roles"
+on public.eventos
+for insert
+to authenticated
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+drop policy if exists "eventos_update_roles" on public.eventos;
+create policy "eventos_update_roles"
+on public.eventos
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- PARTICIPANTES
+drop policy if exists "participantes_select_roles" on public.participantes;
+create policy "participantes_select_roles"
+on public.participantes
+for select
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+drop policy if exists "participantes_insert_auth" on public.participantes;
+create policy "participantes_insert_auth"
+on public.participantes
+for insert
+to authenticated
+with check (true);
+
+drop policy if exists "participantes_update_roles" on public.participantes;
+create policy "participantes_update_roles"
+on public.participantes
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- EVENTOS_PARTICIPANTES
+drop policy if exists "eventos_participantes_select_roles" on public.eventos_participantes;
+create policy "eventos_participantes_select_roles"
+on public.eventos_participantes
+for select
+to authenticated
+using (true);
+
+drop policy if exists "eventos_participantes_insert_auth" on public.eventos_participantes;
+create policy "eventos_participantes_insert_auth"
+on public.eventos_participantes
+for insert
+to authenticated
+with check (true);
+
+drop policy if exists "eventos_participantes_update_roles" on public.eventos_participantes;
+create policy "eventos_participantes_update_roles"
+on public.eventos_participantes
+for update
+to authenticated
+using (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+)
+with check (
+    exists (
+        select 1
+        from public.perfiles_usuario pu
+        where pu.id = auth.uid()
+          and pu.rol in ('admin', 'investigador', 'tecnico')
+    )
+);
+
+-- IMPORT CSV
+drop policy if exists "import_csv_admin_only" on public.import_participantes_batnight;
+create policy "import_csv_admin_only"
+on public.import_participantes_batnight
+for all
+to authenticated
+using (public.es_admin())
+with check (public.es_admin());
+
+-- ARCHIVOS
+drop policy if exists "archivos_select_auth" on public.archivos;
+create policy "archivos_select_auth"
+on public.archivos
+for select
+to authenticated
+using (true);
+
+drop policy if exists "archivos_insert_auth" on public.archivos;
+create policy "archivos_insert_auth"
+on public.archivos
+for insert
+to authenticated
+with check (auth.uid() is not null);
+
+drop policy if exists "archivos_update_propietario_o_admin" on public.archivos;
+create policy "archivos_update_propietario_o_admin"
+on public.archivos
+for update
+to authenticated
+using (subido_por = auth.uid() or public.es_admin())
+with check (subido_por = auth.uid() or public.es_admin());
+
+-- CONFIGURACIÓN
+drop policy if exists "config_select_auth" on public.configuracion_sistema;
+create policy "config_select_auth"
+on public.configuracion_sistema
+for select
+to authenticated
+using (true);
+
+drop policy if exists "config_admin_only" on public.configuracion_sistema;
+create policy "config_admin_only"
+on public.configuracion_sistema
+for all
+to authenticated
+using (public.es_admin())
+with check (public.es_admin());
+
+-- AUDITORÍA
+drop policy if exists "auditoria_admin_only" on public.auditoria_cambios;
+create policy "auditoria_admin_only"
+on public.auditoria_cambios
+for select
+to authenticated
+using (public.es_admin());
+
+-- =========================================================
+-- 25. DATOS SEMILLA BÁSICOS
+-- =========================================================
+insert into public.configuracion_sistema (clave, valor, descripcion, publico)
+values
+    ('app_nombre', 'Murciélagos Málaga', 'Nombre general del sistema', true),
+    ('modo_mapa_activo', 'true', 'Activa la vista de mapa en la plataforma', true),
+    ('captura_automatica_raspberry', 'true', 'Permite activar captura automática al arrancar', false)
+on conflict (clave) do nothing;
+
+-- =========================================================
+-- 26. EJEMPLOS DE INSERCIÓN
+-- =========================================================
+-- ESPECIE DE EJEMPLO
+insert into public.especies (
+    nombre_comun,
+    nombre_cientifico,
+    familia,
+    descripcion
+)
+values (
+    'Murciélago común',
+    'Pipistrellus pipistrellus',
+    'Vespertilionidae',
+    'Especie frecuente en entornos urbanos y periurbanos.'
+)
+on conflict (nombre_cientifico) do nothing;
+
+-- REFUGIO DE EJEMPLO
+insert into public.refugios (
+    codigo,
+    nombre,
+    descripcion,
+    municipio,
+    provincia,
+    latitud,
+    longitud,
+    estado
+)
+values (
+    'REF-001',
+    'Refugio Parque Norte',
+    'Refugio piloto instalado para seguimiento.',
+    'Málaga',
+    'Málaga',
+    36.7213,
+    -4.4214,
+    'activo'
+)
+on conflict (codigo) do nothing;
+
+-- =========================================================
+-- FIN DEL SCRIPT
+-- =========================================================
