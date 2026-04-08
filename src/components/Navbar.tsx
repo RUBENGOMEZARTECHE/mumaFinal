@@ -109,17 +109,10 @@ function NavbarInner() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-fondo-base/95 backdrop-blur-md border-b border-white/5">
       <div className="max-w-7xl mx-auto px-12 py-5 flex items-center justify-between border-b border-white/5">
-        <a href="/" className="flex items-center gap-3 text-texto-titulo font-bold tracking-tight no-underline group">
-          <img
-            src="/images/MUMA LOGO VECTOR-03_resultado.webp"
-            alt="MUMA Bat Company Logo"
-            className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
-            loading="eager"
-          />
-          <div className="flex items-center gap-1.5">
-            <span className="text-xl leading-none">MUMA</span>
-            <span className="text-marca-principal text-xl leading-none">BAT COMPANY</span>
-          </div>
+        <a href="/" className="flex items-center gap-1.5 text-texto-titulo font-bold tracking-tight no-underline group hover:opacity-80 transition-opacity">
+          <span className="text-xl leading-none">🦇</span>
+          <span className="text-xl leading-none">MUMA</span>
+          <span className="text-marca-principal text-xl leading-none">BAT COMPANY</span>
         </a>
 
         <div className="hidden md:flex items-center gap-3" ref={dropdownRef}>
