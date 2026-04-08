@@ -56,8 +56,8 @@ export default function MapaRefugios() {
         style={{ height: '100%', width: '100%', background: '#050505' }}
       >
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CartoDB</a>'
+          url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>'
         />
         {refugios.map((r) => (
           <Marker key={r.id} position={[r.latitud, r.longitud]} icon={mumaIcon}>

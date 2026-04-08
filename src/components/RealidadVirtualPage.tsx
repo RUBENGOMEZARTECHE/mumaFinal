@@ -15,6 +15,7 @@ import {
   ArrowRight,
   CheckCircle,
 } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 
 /* ═══════════════════════════════════════════════════════════════════════════
    DATOS
@@ -248,17 +249,32 @@ function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, i
 export default function RealidadVirtualPage() {
   const [enviado, setEnviado] = useState(false)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = e.target as HTMLFormElement
     const data = new FormData(form)
-    const nombre       = data.get('nombre') || ''
-    const email        = data.get('email') || ''
-    const organizacion = data.get('organizacion') || ''
-    const tipoEspacio  = data.get('tipo_espacio') || ''
-    const participantes = data.get('participantes') || ''
-    const fecha        = data.get('fecha') || ''
+    const nombre        = String(data.get('nombre') || '')
+    const email         = String(data.get('email') || '')
+    const organizacion  = String(data.get('organizacion') || '')
+    const tipoEspacio   = String(data.get('tipo_espacio') || '')
+    const participantes = String(data.get('participantes') || '')
+    const fecha         = String(data.get('fecha') || '')
 
+    // 1. Guardar en Supabase
+    const { error } = await supabase.from('consultas_web').insert([{
+      nombre,
+      nombre_contacto: nombre,
+      email,
+      mensaje: `Organización: ${organizacion} | Tipo espacio: ${tipoEspacio} | Participantes: ${participantes} | Fecha tentativa: ${fecha}`,
+      tipo_solicitud: 'experiencia_vr',
+      acepta_rgpd: true,
+      estado: 'nuevo',
+      origen: 'web_vr',
+    }])
+    if (error) console.error('Error Supabase VR:', error.message)
+    else console.log('Solicitud VR guardada en Supabase.')
+
+    // 2. Abrir mailto como confirmación adicional
     const cuerpo = [
       `Nombre: ${nombre}`,
       `Email: ${email}`,
@@ -267,11 +283,10 @@ export default function RealidadVirtualPage() {
       `Participantes estimados: ${participantes}`,
       `Fecha tentativa: ${fecha}`,
     ].join('\n')
-
     const subject = encodeURIComponent(`[Web VR] Solicitud demostración — ${nombre}`)
     const body    = encodeURIComponent(cuerpo)
-
     window.location.href = `mailto:info@murcielagosmalaga.com?subject=${subject}&body=${body}`
+
     setEnviado(true)
     form.reset()
   }
@@ -280,97 +295,126 @@ export default function RealidadVirtualPage() {
     <main>
 
       {/* ══════════════════════════════════════════════════════════════════
-          1. CABECERA GENERAL — Realidad Virtual
+          1. CABECERA GENERAL — Realidad Virtual (Hero Cinematic/Tech)
           ══════════════════════════════════════════════════════════════════ */}
       <section
         className="relative flex items-center justify-center text-center overflow-hidden"
-        style={{ minHeight: '62vh' }}
+        style={{ minHeight: '75vh' }} /* Ligeramente más alto para mayor impacto */
         aria-label="Cabecera Realidad Virtual"
       >
-        <img
-          src="/images/VR-Malaga.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="eager"
-          fetchPriority="high"
-        />
-        {/* Overlay oscuro */}
+        {/* Imagen de fondo con animación "Cinematic slow zoom" */}
+        <div className="absolute inset-0 w-full h-full">
+  <img
+    src="/images/VR-Malaga.webp"
+    alt="Realidad Virtual Málaga"
+    aria-hidden="true"
+    className="w-full h-full object-cover"
+    loading="eager"
+  />
+</div>
+
+        {/* Overlay base oscuro */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(11,17,23,0.82) 0%, rgba(11,17,23,0.65) 50%, rgba(11,17,23,0.94) 100%)',
-          }}
-          aria-hidden="true"
-        />
-        {/* Halo VR — lila atmosférico */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse 70% 50% at 50% 60%, rgba(192,132,252,0.08) 0%, transparent 70%)',
+              'linear-gradient(to bottom, rgba(11,17,23,0.2) 0%, rgba(11,17,23,0.15) 40%, rgba(11,17,23,0.3) 100%)',
           }}
           aria-hidden="true"
         />
 
-        <div className="relative z-10 max-w-3xl mx-auto px-6 py-32 lg:py-40">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
+        {/* Grid tecnológico superpuesto sutilmente */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+          aria-hidden="true"
+        />
+
+        {/* Halo VR — brillos de luz atmosférica */}
+        <div
+          className="absolute inset-0 pointer-events-none mix-blend-screen"
+          style={{
+            background:
+              'radial-gradient(circle at 20% 30%, rgba(100,50,255,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(50,150,255,0.06) 0%, transparent 50%)',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 py-32 lg:py-40">
+          {/* Badge interactivo superior */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="text-[10px] font-bold tracking-[0.25em] text-marca-principal uppercase mb-5"
+            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-marca-principal/40 bg-marca-principal/10 backdrop-blur-md mb-8"
           >
-            Realidad Virtual · MUMA BAT COMPANY
-          </motion.p>
+            <span className="w-2 h-2 rounded-full bg-marca-principal animate-pulse"></span>
+            <span className="text-[11px] font-bold tracking-[0.2em] text-marca-principal uppercase">
+              MUMA BAT COMPANY VR
+            </span>
+          </motion.div>
+
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-            className="font-bold leading-[1.08] tracking-tight text-texto-titulo mb-6"
-            style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)' }}
+            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+            className="font-extrabold leading-[1.05] tracking-tight mb-6"
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
           >
-            Tecnología inmersiva al servicio de los murciélagos.
+            <span className="text-white block">Tecnología inmersiva</span>
+            <span className="text-white block mt-1 pb-2">
+              al servicio de los murciélagos.
+            </span>
           </motion.h1>
+
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16 }}
-            className="text-lg text-texto-secundario leading-relaxed max-w-xl mx-auto mb-10"
+            transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
+            className="text-lg sm:text-xl text-texto-secundario/90 leading-relaxed max-w-2xl mx-auto mb-10 font-medium"
           >
-            Cinco herramientas digitales para acercar a las personas
+            Cinco herramientas digitales avanzadas para acercar a las personas
             a una especie que casi nadie ha visto de cerca.
           </motion.p>
+
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.28 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <a
               href="#demo"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
+              className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-all duration-300 overflow-hidden shadow-[0_0_20px_rgba(var(--color-marca-rgb),0.3)] hover:shadow-[0_0_30px_rgba(var(--color-marca-rgb),0.5)] w-full sm:w-auto"
             >
-              Pedir demostración <ArrowRight size={15} aria-hidden="true" />
+              {/* Brillo dinámico en el botón */}
+              <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:animate-[shimmer_1.5s_infinite]" />
+              Pedir demostración interactiva <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </a>
             <a
               href="https://wa.me/34664213450"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-white/20 text-texto-principal hover:bg-white/5 hover:border-white/30 transition-all duration-200 no-underline"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300 w-full sm:w-auto"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" className="text-estado-exito" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              WhatsApp
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-estado-exito group-hover:scale-110 transition-transform" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Contactar por WhatsApp
             </a>
           </motion.div>
         </div>
 
-        {/* Degradado inferior de fusión */}
+        {/* Degradado curvo inferior para fusión con la siguiente sección */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, transparent 0%, #0b1117 100%)' }}
+          className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to bottom, transparent 0%, #0b1117 100%)',
+          }}
           aria-hidden="true"
         />
+        
+        {/* Decoración visual en la parte inferior simulando tecnología */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-marca-principal/40 to-transparent"></div>
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[40%] max-w-md h-[30px] rounded-full blur-2xl bg-marca-principal/20"></div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
