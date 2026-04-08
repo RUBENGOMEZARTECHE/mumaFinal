@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
 } from "lucide-react";
+import { supabase } from "../lib/supabase";
 
 // --- COMPONENTES INTERNOS (BLOQUES) ---
 
@@ -522,16 +523,19 @@ const Captacion = () => {
   const [estado, setEstado] = useState("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setEstado("enviando");
+    e.preventDefault();
+    setEstado("enviando");
 
-    const res = await fetch("https://formspree.io/f/TU_ID", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    const { error } = await supabase.from('consultas_web').insert([{
+      email,
+      nombre_contacto: email,
+      tipo_solicitud: 'batcave_waitlist',
+      origen: 'web_inicio',
+      acepta_rgpd: true,
+      estado: 'nuevo',
+    }]);
 
-    setEstado(res.ok ? "ok" : "error");
+    setEstado(error ? "error" : "ok");
   };
 
   return (
