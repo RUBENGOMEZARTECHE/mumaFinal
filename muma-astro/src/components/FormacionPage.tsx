@@ -76,7 +76,7 @@ export default function FormacionPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {grupo.servicios.map(({ titulo, desc, para, img }, i) => (
-                  <div key={i} className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 flex flex-col overflow-hidden">
+                  <div key={i} className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-purple-400 transition-colors duration-300 flex flex-col overflow-hidden">
                     {img && (
                       <div className="aspect-video overflow-hidden">
                         <img src={img} alt={titulo} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />

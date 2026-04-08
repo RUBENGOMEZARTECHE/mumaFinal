@@ -55,10 +55,10 @@ export default function Footer() {
           ))}
         </div>
         <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-xs text-texto-secundario">
+          <p className="text-xs text-purple-400">
             © {new Date().getFullYear()} MUMA BAT COMPANY. Todos los derechos reservados.
           </p>
-          <p className="text-xs text-texto-secundario/40">Diseño y desarrollo: interfaz MUMA</p>
+          <p className="text-xs text-purple-400">Diseño y desarrollo: interfaz MUMA</p>
         </div>
       </div>
     </footer>
