@@ -1,6 +1,16 @@
 // Componente — Bat Nights (página principal)
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
+
+interface EventoBatNight {
+  id: string
+  nombre: string
+  fecha_evento: string
+  municipio: string
+  descripcion: string | null
+}
 
 const varianteSeccion = {
   oculto: { opacity: 0, y: 24 },
@@ -70,6 +80,19 @@ const formatosBatNight = [
 ]
 
 export default function BatNightPage() {
+  const [eventosDB, setEventosDB] = useState<EventoBatNight[]>([])
+
+  useEffect(() => {
+    supabase
+      .from('eventos_batnight')
+      .select('id, nombre, fecha_evento, municipio, descripcion')
+      .eq('publicado', true)
+      .then(({ data, error }) => {
+        if (error) console.error('Error cargando eventos:', error.message)
+        else setEventosDB(data || [])
+      })
+  }, [])
+
   return (
     <main>
 
@@ -146,11 +169,31 @@ export default function BatNightPage() {
             <p className="text-texto-secundario max-w-xl mx-auto">Más de 700 personas han participado en nuestras Bat Nights en 2025, en entornos tan distintos como una gruta portuguesa, una reserva natural andaluza o una plaza urbana.</p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {casosBatNight.map((caso, i) => (
+            {/* Eventos desde Supabase */}
+            {eventosDB.map((evento, i) => (
               <motion.article
-                key={i}
+                key={evento.id}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } } }}
+                className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-marca-principal/40 transition-colors duration-300 flex flex-col"
+              >
+                <h3 className="text-base font-bold text-texto-titulo mb-1 leading-snug">{evento.nombre}</h3>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 mb-4">
+                  <p className="text-xs text-marca-principal/70 flex items-center gap-1">{evento.fecha_evento}</p>
+                  <p className="text-xs text-texto-secundario/60 flex items-center gap-1">{evento.municipio}</p>
+                </div>
+                {evento.descripcion && (
+                  <p className="text-sm text-texto-secundario leading-relaxed flex-grow">{evento.descripcion}</p>
+                )}
+              </motion.article>
+            ))}
+
+            {/* Eventos hardcodeados (fallback/complementarios) */}
+            {casosBatNight.map((caso, i) => (
+              <motion.article
+                key={`caso-${i}`}
+                initial="oculto" whileInView="visible" viewport={{ once: true }}
+                variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: (eventosDB.length + i) * 0.1 } } }}
                 className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-purple-400 transition-colors duration-300 flex flex-col"
               >
                 <div className="flex items-start justify-between gap-4 mb-4">
