@@ -58,7 +58,7 @@ export default function Footer() {
           <p className="text-xs text-purple-400">
             © {new Date().getFullYear()} MUMA BAT COMPANY. Todos los derechos reservados.
           </p>
-          <p className="text-xs text-purple-400">Diseño y desarrollo: interfaz MUMA</p>
+          <p className="text-xs text-purple-400">Diseñado y desarrollado por Antonio Capel</p>
         </div>
       </div>
     </footer>

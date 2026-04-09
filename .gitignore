@@ -1,3 +1,6 @@
+# Información externa — documentos internos no publicables
+infromacion-externa/
+
 # Variables de entorno — NUNCA subir al repositorio
 .env
 .env.local

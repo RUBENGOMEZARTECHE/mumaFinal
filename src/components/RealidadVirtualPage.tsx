@@ -198,8 +198,8 @@ function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, i
         oculto:  { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.08 } },
       }}
-      className="relative rounded-2xl p-6 border border-acento-tecnologico-borde hover:border-acento-tecnologico/40 transition-colors duration-300 flex flex-col overflow-hidden"
-      style={{ background: `linear-gradient(135deg, #16212d 0%, #16212d 55%, ${acento} 100%)` }}
+      className="relative rounded-2xl p-6 transition-colors duration-300 flex flex-col overflow-hidden"
+      style={{ background: `linear-gradient(135deg, #16212d 0%, #16212d 55%, ${acento} 100%)`, border: '1px solid rgba(192,132,252,0.6)' }}
     >
       {/* Imagen de fondo opcional */}
       {imagen && (
@@ -213,9 +213,9 @@ function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, i
       <div className="relative z-10 flex flex-col flex-1">
         {/* Cabecera */}
         <div className="flex items-start justify-between gap-3 mb-5">
-          <h3 className="text-base font-bold text-texto-titulo leading-tight">{titulo}</h3>
+          <h3 className="text-base font-bold text-marca-principal leading-tight">{titulo}</h3>
           {proximamente && (
-            <span className="text-[9px] font-bold tracking-widest text-acento-tecnologico/80 uppercase bg-acento-tecnologico-suave border border-acento-tecnologico-borde px-2.5 py-1 rounded-lg shrink-0">
+            <span className="text-[9px] font-bold tracking-widest text-marca-principal uppercase bg-acento-tecnologico-suave px-2.5 py-1 rounded-lg shrink-0" style={{ border: '1px solid rgba(192,132,252,0.6)' }}>
               Próximamente
             </span>
           )}
@@ -232,7 +232,8 @@ function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, i
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border border-acento-tecnologico text-acento-tecnologico hover:bg-acento-tecnologico hover:text-white transition-all duration-200 no-underline w-full"
+            className="mt-5 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-marca-principal hover:opacity-80 transition-all duration-200 no-underline w-full"
+            style={{ border: '1px solid rgba(192,132,252,0.6)' }}
           >
             Entrar al museo virtual <ArrowRight size={14} aria-hidden="true" />
           </a>
@@ -255,33 +256,45 @@ export default function RealidadVirtualPage() {
     const data = new FormData(form)
     const nombre        = String(data.get('nombre') || '')
     const email         = String(data.get('email') || '')
+    const telefono      = String(data.get('telefono') || '')
     const organizacion  = String(data.get('organizacion') || '')
     const tipoEspacio   = String(data.get('tipo_espacio') || '')
     const participantes = String(data.get('participantes') || '')
-    const fecha         = String(data.get('fecha') || '')
+    // Recogemos mes y año por separado y construimos "YYYY-MM-01"
+    // El día siempre es 01 porque el cliente solo sabe el mes aproximado.
+    const fechaMes  = String(data.get('fecha_mes') || '')
+    const fechaAño  = String(data.get('fecha_año') || '')
+    const fecha     = fechaMes && fechaAño ? `${fechaAño}-${fechaMes}-01` : null
 
     // 1. Guardar en Supabase
-    const { error } = await supabase.from('consultas_web').insert([{
+    // Ahora cada dato va en su columna correcta dentro de solicitudes_vr.
+    // Así el admin puede filtrar por tipo_espacio, ver participantes, etc.
+    const { error } = await supabase.from('solicitudes_vr').insert([{
       nombre,
-      nombre_contacto: nombre,
       email,
-      mensaje: `Organización: ${organizacion} | Tipo espacio: ${tipoEspacio} | Participantes: ${participantes} | Fecha tentativa: ${fecha}`,
-      tipo_solicitud: 'experiencia_vr',
-      acepta_rgpd: true,
-      estado: 'nuevo',
-      origen: 'web_vr',
+      organizacion:              organizacion || null,
+      tipo_espacio:              tipoEspacio  || null,
+      // parseInt convierte el string "25" al número 25.
+      // Si el campo viene vacío, guardamos null (no un string vacío).
+      participantes_estimados:   participantes ? parseInt(participantes) : null,
+      // fecha ya viene en formato "2026-07-01" — listo para Supabase
+      fecha_evento:              fecha,
+      mensaje:                   null,
+      acepta_rgpd:               true,
+      estado:                    'nuevo',
     }])
     if (error) console.error('Error Supabase VR:', error.message)
-    else console.log('Solicitud VR guardada en Supabase.')
+    else console.log('Solicitud VR guardada en solicitudes_vr.')
 
     // 2. Abrir mailto como confirmación adicional
     const cuerpo = [
       `Nombre: ${nombre}`,
       `Email: ${email}`,
-      `Organización: ${organizacion}`,
+      `Teléfono: ${telefono || 'No indicado'}`,
+      `Organización: ${organizacion || 'No indicada'}`,
       `Tipo de espacio: ${tipoEspacio}`,
       `Participantes estimados: ${participantes}`,
-      `Fecha tentativa: ${fecha}`,
+      `Fecha tentativa: ${fecha || 'No especificada'}`,
     ].join('\n')
     const subject = encodeURIComponent(`[Web VR] Solicitud demostración — ${nombre}`)
     const body    = encodeURIComponent(cuerpo)
@@ -305,10 +318,11 @@ export default function RealidadVirtualPage() {
         {/* Imagen de fondo con animación "Cinematic slow zoom" */}
         <div className="absolute inset-0 w-full h-full">
   <img
-    src="/images/VR-Malaga.webp"
+    src="/images/murcielagosVr-3.png"
     alt="Realidad Virtual Málaga"
     aria-hidden="true"
     className="w-full h-full object-cover"
+    style={{ objectPosition: 'center center' }}
     loading="eager"
   />
 </div>
@@ -318,7 +332,7 @@ export default function RealidadVirtualPage() {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(11,17,23,0.2) 0%, rgba(11,17,23,0.15) 40%, rgba(11,17,23,0.3) 100%)',
+              'linear-gradient(to bottom, rgba(11,17,23,0.0) 0%, rgba(11,17,23,0.0) 40%, rgba(11,17,23,0.3) 100%)',
           }}
           aria-hidden="true"
         />
@@ -413,8 +427,8 @@ export default function RealidadVirtualPage() {
         />
         
         {/* Decoración visual en la parte inferior simulando tecnología */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-marca-principal/40 to-transparent"></div>
-        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[40%] max-w-md h-[30px] rounded-full blur-2xl bg-marca-principal/20"></div>
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[40%] max-w-md h-[30px] rounded-full blur-2xl bg-purple-400/20"></div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
@@ -503,7 +517,8 @@ export default function RealidadVirtualPage() {
                 </a>
                 <a
                   href="mailto:info@murcielagosmalaga.com"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-white/20 text-texto-principal hover:bg-white/8 hover:border-white/35 transition-all duration-200 no-underline"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-marca-principal hover:opacity-80 transition-all duration-200 no-underline"
+                  style={{ border: '1px solid rgba(192,132,252,0.6)' }}
                 >
                   Escribir al equipo <ArrowRight size={15} aria-hidden="true" />
                 </a>
@@ -567,7 +582,8 @@ export default function RealidadVirtualPage() {
                   oculto:  { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
-                className="relative rounded-xl overflow-hidden border border-white/5 flex flex-col"
+                className="relative rounded-xl overflow-hidden flex flex-col"
+                style={{ border: '1px solid rgba(192,132,252,0.6)' }}
               >
                 {/* Imagen superior */}
                 <div className="relative h-40 shrink-0">
@@ -576,7 +592,7 @@ export default function RealidadVirtualPage() {
                 </div>
                 {/* Texto inferior */}
                 <div className="p-4 bg-fondo-superficie flex-1">
-                  <p className="text-sm font-bold text-texto-titulo mb-1">{titulo}</p>
+                  <p className="text-sm font-bold text-marca-principal mb-1">{titulo}</p>
                   <p className="text-xs text-texto-secundario leading-relaxed">{desc}</p>
                 </div>
               </motion.div>
@@ -594,9 +610,9 @@ export default function RealidadVirtualPage() {
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {SPECS.map(({ label, valor }) => (
-                <div key={label} className="bg-fondo-superficie border border-white/5 rounded-xl px-4 py-3">
+                <div key={label} className="bg-fondo-superficie rounded-xl px-4 py-3" style={{ border: '1px solid rgba(192,132,252,0.6)' }}>
                   <p className="text-[10px] font-bold tracking-[0.15em] text-texto-secundario/50 uppercase mb-1">{label}</p>
-                  <p className="text-sm font-semibold text-texto-titulo">{valor}</p>
+                  <p className="text-sm font-semibold text-marca-principal">{valor}</p>
                 </div>
               ))}
             </div>
@@ -606,7 +622,8 @@ export default function RealidadVirtualPage() {
           <motion.div
             initial="oculto" whileInView="visible" viewport={{ once: true }}
             variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } } }}
-            className="mt-16 rounded-2xl bg-white/5 border border-white/10 px-8 py-10"
+            className="mt-16 rounded-2xl bg-white/5 px-8 py-10"
+            style={{ border: '1px solid rgba(192,132,252,0.6)' }}
           >
             <p className="text-xs font-bold tracking-[0.2em] text-marca-principal uppercase mb-8 text-center">
               Proyecto financiado por
@@ -676,7 +693,8 @@ export default function RealidadVirtualPage() {
                   oculto:  { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
-                className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300"
+                className="bg-fondo-superficie rounded-2xl overflow-hidden transition-colors duration-300"
+                style={{ border: '1px solid rgba(192,132,252,0.6)' }}
               >
                 {/* Imagen superior */}
                 <div className="relative h-36 overflow-hidden">
@@ -689,7 +707,7 @@ export default function RealidadVirtualPage() {
                 </div>
                 {/* Contenido */}
                 <div className="p-5">
-                  <p className="text-sm font-bold text-texto-titulo mb-2">{tipo}</p>
+                  <p className="text-sm font-bold text-marca-principal mb-2">{tipo}</p>
                   <p className="text-xs text-texto-secundario leading-relaxed">{desc}</p>
                 </div>
               </motion.div>
@@ -806,7 +824,7 @@ export default function RealidadVirtualPage() {
                   oculto:  { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
-                className="relative rounded-2xl overflow-hidden border border-white/5 min-h-50 flex flex-col justify-end"
+                className="relative rounded-2xl overflow-hidden border border-purple-400/60 min-h-50 flex flex-col justify-end"
               >
                 {/* Imagen de fondo */}
                 <img
@@ -826,7 +844,7 @@ export default function RealidadVirtualPage() {
                 <div className="relative z-10 p-6">
                   <div className="flex items-end justify-between gap-3 mb-3">
                     <div>
-                      <p className="font-bold text-white text-base">{lugar}</p>
+                      <p className="font-bold text-marca-principal text-base">{lugar}</p>
                       <p className="text-xs text-white/60">{pais} · {fecha}</p>
                     </div>
                     <div className="text-right shrink-0">
@@ -994,7 +1012,7 @@ export default function RealidadVirtualPage() {
               <CheckCircle size={40} className="text-marca-principal mx-auto mb-4" aria-hidden="true" />
               <h3 className="text-xl font-bold text-texto-titulo mb-2">Solicitud recibida</h3>
               <p className="text-texto-secundario text-sm leading-relaxed">
-                Nos pondremos en contacto contigo en menos de 48 horas
+                Nos pondremos en contacto contigo en menos de 48 horas laborables
                 para coordinar la demostración.
               </p>
             </motion.div>
@@ -1006,56 +1024,117 @@ export default function RealidadVirtualPage() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } },
               }}
               onSubmit={handleSubmit}
-              className="bg-fondo-superficie rounded-2xl p-8 border border-white/5 space-y-5"
+              className="rounded-2xl p-8 space-y-5"
+              style={{ background: '#0f1a24', border: '1px solid rgba(192,132,252,0.6)' }}
               noValidate
             >
+              {/* FILA 1: Nombre + Teléfono — lo mínimo para poder llamar */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <Campo
-                  id="nombre" name="nombre" label="Nombre"
-                  placeholder="Tu nombre" required autoComplete="name"
+                  id="nombre" name="nombre" label="Nombre y apellidos"
+                  placeholder="Tu nombre completo" required autoComplete="name"
                 />
+                <Campo
+                  id="telefono" name="telefono" type="tel" label="Teléfono de contacto"
+                  placeholder="+34 600 000 000" autoComplete="tel"
+                />
+              </div>
+
+              {/* FILA 2: Email + Organización */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <Campo
                   id="email" name="email" type="email" label="Correo electrónico"
                   placeholder="tu@email.com" required autoComplete="email"
                 />
+                <Campo
+                  id="organizacion" name="organizacion" label="Organización"
+                  placeholder="Colegio, empresa, museo…" autoComplete="organization"
+                />
               </div>
-              <Campo
-                id="organizacion" name="organizacion" label="Organización"
-                placeholder="Museo, ayuntamiento, hotel…" required
-              />
 
-              {/* Select — tipo de espacio */}
+              {/* FILA 3: Tipo de espacio — ordenado por prioridad comercial */}
               <div>
                 <label
                   htmlFor="tipo-espacio"
                   className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5"
                 >
-                  Tipo de espacio
+                  ¿Qué tipo de espacio representas?
                 </label>
                 <select
-                  id="tipo-espacio" name="tipo_espacio" required
+                  id="tipo-espacio" name="tipo_espacio"
                   defaultValue=""
                   className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 transition-colors duration-200 appearance-none"
                 >
                   <option value="" disabled>Selecciona una opción</option>
-                  <option value="museo">Museo o centro de interpretación</option>
-                  <option value="ayuntamiento">Ayuntamiento o diputación</option>
-                  <option value="hotel">Hotel o espacio turístico</option>
-                  <option value="educativo">Centro educativo</option>
-                  <option value="evento">Evento o feria</option>
+                  <option value="empresa">Empresa o espacio corporativo</option>
+                  <option value="educativo">Centro educativo (colegio, instituto, universidad)</option>
+                  <option value="museo">Museo o centro cultural</option>
+                  <option value="evento">Evento, feria o congreso</option>
+                  <option value="ayuntamiento">Ayuntamiento o institución pública</option>
                   <option value="otro">Otro</option>
                 </select>
               </div>
 
+              {/* FILA 4: Participantes (select con rangos) + Fecha */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <Campo
-                  id="participantes" name="participantes" label="Participantes estimados"
-                  placeholder="Ej: 100–200 personas"
-                />
-                <Campo
-                  id="fecha" name="fecha" label="Fecha tentativa"
-                  placeholder="Ej: junio 2026"
-                />
+                {/* Select con rangos → menos fricción que escribir un número */}
+                <div>
+                  <label
+                    htmlFor="participantes"
+                    className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5"
+                  >
+                    Participantes estimados
+                  </label>
+                  <select
+                    id="participantes" name="participantes"
+                    defaultValue=""
+                    className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 transition-colors duration-200 appearance-none"
+                  >
+                    <option value="" disabled>¿Cuántas personas?</option>
+                    <option value="25">Menos de 25</option>
+                    <option value="50">25 – 50 personas</option>
+                    <option value="100">50 – 100 personas</option>
+                    <option value="200">100 – 200 personas</option>
+                    <option value="500">Más de 200 personas</option>
+                  </select>
+                </div>
+
+                {/* Mes + Año */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em]">
+                    Fecha tentativa
+                  </label>
+                  <div className="flex gap-2">
+                    <select
+                      name="fecha_mes"
+                      className="flex-1 bg-fondo-base border border-white/10 rounded-xl px-3 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 appearance-none"
+                    >
+                      <option value="">Mes</option>
+                      <option value="01">Enero</option>
+                      <option value="02">Febrero</option>
+                      <option value="03">Marzo</option>
+                      <option value="04">Abril</option>
+                      <option value="05">Mayo</option>
+                      <option value="06">Junio</option>
+                      <option value="07">Julio</option>
+                      <option value="08">Agosto</option>
+                      <option value="09">Septiembre</option>
+                      <option value="10">Octubre</option>
+                      <option value="11">Noviembre</option>
+                      <option value="12">Diciembre</option>
+                    </select>
+                    <select
+                      name="fecha_año"
+                      className="flex-1 bg-fondo-base border border-white/10 rounded-xl px-3 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 appearance-none"
+                    >
+                      <option value="">Año</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <input
@@ -1063,28 +1142,38 @@ export default function RealidadVirtualPage() {
                 value="Solicitud demostración VR — MuMa VR² Cave Experience"
               />
 
-              <div className="flex items-center gap-3">
-                <input type="checkbox" name="privacidad" required className="accent-marca-principal w-4 h-4 shrink-0" />
-                <span className="text-xs text-texto-secundario/60 italic">Acepto el tratamiento de datos para fines de consultoría ambiental.</span>
+              {/* Checkbox con texto claro y directo */}
+              <div className="flex items-start gap-3">
+                <input type="checkbox" name="privacidad" required className="accent-marca-principal w-4 h-4 shrink-0 mt-0.5" />
+                <span className="text-xs text-texto-secundario/60">
+                  Acepto que MUMA BAT COMPANY contacte conmigo para informarme sobre la experiencia de realidad virtual.{' '}
+                  <a href="/privacidad" className="text-marca-principal hover:opacity-80 no-underline">Política de privacidad</a>.
+                </span>
               </div>
 
+              {/* CTA con mensaje orientado a la acción del cliente, no a procesos internos */}
               <button
                 type="submit"
                 className="w-full bg-marca-principal text-texto-sobre-accion font-black py-5 rounded-2xl flex items-center justify-center gap-3 hover:bg-marca-principal-hover transition-all active:scale-95"
               >
                 <ArrowRight size={18} aria-hidden="true" />
-                ENVIAR A DIRECCIÓN TÉCNICA
+                SOLICITAR DEMOSTRACIÓN GRATUITA
               </button>
 
+              {/* Refuerzo de confianza debajo del botón */}
               <p className="text-xs text-center text-texto-secundario/50">
-                O escríbenos a{' '}
+                Te contactamos en menos de 48h laborables. Sin compromiso.
+              </p>
+
+              <p className="text-xs text-center text-texto-secundario/50">
+                ¿Prefieres hablar directamente?{' '}
                 <a
                   href="mailto:info@murcielagosmalaga.com"
                   className="text-marca-principal hover:opacity-80 transition-opacity no-underline"
                 >
                   info@murcielagosmalaga.com
                 </a>
-                {' '}o por{' '}
+                {' '}·{' '}
                 <a
                   href="https://wa.me/34664213450"
                   target="_blank"
