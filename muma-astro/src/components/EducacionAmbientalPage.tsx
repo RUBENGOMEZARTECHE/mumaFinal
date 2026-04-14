@@ -74,7 +74,7 @@ export default function EducacionAmbientalPage() {
               </div>
               <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {u.avales.map((aval, i) => (
-                  <div key={i} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-all group">
+                  <div key={i} className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl hover:bg-white/[0.05] hover:border-purple-400 transition-all group">
                     <div className="flex items-center gap-3 mb-2">
                       <Zap size={14} className={`${u.textClass} opacity-50 group-hover:opacity-100`} />
                       <h4 className="text-sm font-bold text-white uppercase tracking-wider">{aval.nombre}</h4>

@@ -29,7 +29,7 @@ const porQueUnirte = [
     Icono: Microscope,
     titulo: 'Investigación científica',
     descripcion: 'Participa en la recogida de datos de campo, monitorización de colonias y proyectos de ciencia ciudadana junto a biólogos especializados en quirópteros.',
-    img: '/images/colonia_murcielago01.webp',
+    img: '/images/ciencia.webp',
   },
   {
     Icono: Megaphone,
@@ -164,7 +164,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
                   key={i}
                   initial="oculto" whileInView="visible" viewport={{ once: true }}
                   variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } }}
-                  className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 overflow-hidden flex flex-col"
+                  className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-purple-400 transition-colors duration-300 overflow-hidden flex flex-col"
                 >
                   {item.img && (
                     <div className="aspect-video overflow-hidden">
@@ -196,7 +196,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
                   key={i}
                   initial="oculto" whileInView="visible" viewport={{ once: true }}
                   variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } }}
-                  className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 overflow-hidden flex flex-col"
+                  className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-purple-400 transition-colors duration-300 overflow-hidden flex flex-col"
                 >
                   {item.img && (
                     <div className="aspect-video overflow-hidden">

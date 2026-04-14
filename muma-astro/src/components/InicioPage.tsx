@@ -476,13 +476,13 @@ const Vision = () => (
       </div>
       <div className="flex-1 grid grid-cols-2 gap-4">
         {[
-          { img: "/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp", alt: "Proyecto ST3ER" },
-          { img: "/images/Logo_SECEMU.webp",   alt: "SECEMU" },
-          { img: "/images/EUROBATS_logo.webp", alt: "EUROBATS" },
-          { img: "/images/europa.webp",        alt: "Unión Europea — FEDER" },
+          { img: "/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp", alt: "Proyecto ST3ER",       invert: false },
+          { img: "/images/Logo_SECEMU.webp",   alt: "SECEMU",                                             invert: false },
+          { img: "/images/EUROBATS_logo.webp", alt: "EUROBATS",                                           invert: false },
+          { img: "/images/europa.webp",        alt: "Unión Europea — FEDER",                              invert: true  },
         ].map((item, i) => (
-          <div key={i} className="p-6 rounded-2xl bg-acento-tecnologico-hover border border-white/10 shadow-md flex items-center justify-center" style={{ minHeight: 110 }}>
-            <img src={item.img} alt={item.alt} className="max-h-14 max-w-full object-contain" />
+          <div key={i} className="p-6 rounded-2xl bg-white border border-white/10 shadow-md flex items-center justify-center" style={{ minHeight: 110 }}>
+            <img src={item.img} alt={item.alt} className="max-h-14 max-w-full object-contain" style={{ filter: item.invert ? 'invert(1)' : 'none' }} />
           </div>
         ))}
       </div>

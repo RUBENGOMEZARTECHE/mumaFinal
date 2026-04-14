@@ -244,7 +244,7 @@ export default function BatNightPage() {
                 key={i}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1 } } }}
-                className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-marca-principal/25 transition-colors duration-300"
+                className="bg-fondo-superficie rounded-2xl p-7 border border-white/5 hover:border-purple-400 transition-colors duration-300"
               >
                 <h3 className="text-base font-bold text-texto-titulo mb-3 leading-snug">{titulo}</h3>
                 <p className="text-sm text-texto-secundario leading-relaxed">{texto}</p>
@@ -292,7 +292,7 @@ export default function BatNightPage() {
                 key={i}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } }}
-                className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-marca-principal/25 transition-colors duration-300 flex flex-col"
+                className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300 flex flex-col"
               >
                 <h3 className="text-base font-bold text-texto-titulo mb-3 leading-snug">{formato.titulo}</h3>
                 <p className="text-sm text-texto-secundario leading-relaxed flex-grow">{formato.descripcion}</p>

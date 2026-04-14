@@ -853,6 +853,28 @@ export default function RefugiosPage() {
         </div>
       </section>
 
+      {/* ── MAPA DE REFUGIOS ── */}
+      <section className="py-24 px-6 bg-fondo-base border-t border-white/5">
+        <motion.div
+          initial="oculto"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={varianteSeccion}
+          className="max-w-6xl mx-auto"
+        >
+          <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
+            Red activa
+          </p>
+          <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
+            Refugios instalados en tiempo real.
+          </h2>
+          <p className="text-texto-secundario mb-10 max-w-xl">
+            Cada punto es un refugio MUMA activo. Los datos se sincronizan directamente desde nuestra base de datos de campo.
+          </p>
+          <div id="mapa-refugios-slot" className="w-full h-[480px] rounded-2xl overflow-hidden border border-white/10" />
+        </motion.div>
+      </section>
+
       {/* ── SECCIÓN 7: CONTACTO ── */}
       <section
         id="contacto"
