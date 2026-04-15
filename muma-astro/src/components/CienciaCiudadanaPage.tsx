@@ -1,5 +1,6 @@
 // Página — Ciencia Ciudadana
 import { motion } from 'framer-motion' // animaciones de entrada
+import FormularioMuma from './formularioContacto'
 
 export default function CienciaCiudadanaPage() {
   return (
@@ -87,7 +88,7 @@ export default function CienciaCiudadanaPage() {
             >
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <a
-                  href="mailto:info@murcielagosmalaga.com"
+                  href="#inscripcion"
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
                 >
                   Quiero participar
@@ -317,7 +318,7 @@ export default function CienciaCiudadanaPage() {
 
                 {/* Botón "Quiero participar" con asunto de correo predefinido */}
                 <a
-                  href="mailto:info@murcielagosmalaga.com?subject=Quiero%20participar%20en%20Red%20de%20refugios%20Costa%20del%20Sol"
+                  href="#inscripcion"
                   className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold border border-marca-principal text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion transition-colors duration-200 no-underline"
                 >
                   Quiero participar
@@ -348,7 +349,7 @@ export default function CienciaCiudadanaPage() {
 
                 {/* Botón "Quiero participar" con asunto de correo predefinido */}
                 <a
-                  href="mailto:info@murcielagosmalaga.com?subject=Quiero%20participar%20en%20Monitorizaci%C3%B3n%20Laguna%20de%20Fuente%20de%20Piedra"
+                  href="#inscripcion"
                   className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold border border-marca-principal text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion transition-colors duration-200 no-underline"
                 >
                   Quiero participar
@@ -379,7 +380,7 @@ export default function CienciaCiudadanaPage() {
 
                 {/* Botón "Quiero participar" con asunto de correo predefinido */}
                 <a
-                  href="mailto:info@murcielagosmalaga.com?subject=Quiero%20participar%20en%20Atlas%20de%20colonias%20urbanas%20M%C3%A1laga"
+                  href="#inscripcion"
                   className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold border border-marca-principal text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion transition-colors duration-200 no-underline"
                 >
                   Quiero participar
@@ -410,7 +411,7 @@ export default function CienciaCiudadanaPage() {
 
                 {/* Botón "Quiero participar" con asunto de correo predefinido */}
                 <a
-                  href="mailto:info@murcielagosmalaga.com?subject=Quiero%20participar%20en%20Seguimiento%20post-Bat%20Night%20Cueva%20de%20Nerja"
+                  href="#inscripcion"
                   className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-semibold border border-marca-principal text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion transition-colors duration-200 no-underline"
                 >
                   Quiero participar
@@ -419,6 +420,41 @@ export default function CienciaCiudadanaPage() {
 
             </div> {/* fin cuadrícula de tarjetas */}
           </div> {/* fin contenedor centrado */}
+        </section>
+
+        {/* FORMULARIO DE INSCRIPCIÓN A PROYECTOS */}
+        <section id="inscripcion" className="bg-fondo-secundario py-24 px-6 border-t border-white/5">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <p className="text-[10px] font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">Únete a la red MUMA</p>
+              <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-6">Formulario de Participación</h2>
+              <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed">
+                Selecciona el proyecto en el que deseas colaborar y cuéntanos un poco sobre tu zona o intereses. Nos pondremos en contacto contigo para darte los detalles técnicos.
+              </p>
+            </div>
+
+            <div className="max-w-2xl mx-auto">
+              <FormularioMuma
+                tablaBD="consultas_web"
+                asuntoCorreo="[Web Ciencia Ciudadana] Nueva inscripción a proyecto"
+                textoBoton="ENVIAR INSCRIPCIÓN"
+                selectName="proyecto_interes"
+                selectLabel="¿En qué proyecto quieres participar?"
+                opcionesSelect={[
+                  { valor: 'refugios_costa', texto: 'Red de refugios Costa del Sol' },
+                  { valor: 'fuente_piedra', texto: 'Monitorización Laguna de Fuente de Piedra' },
+                  { valor: 'atlas_urbanas', texto: 'Atlas de colonias urbanas Málaga' },
+                  { valor: 'seguimiento_nerja', texto: 'Seguimiento post-Bat Night Cueva de Nerja' },
+                  { valor: 'otros_avistamientos', texto: 'Reportar avistamientos / Otros' }
+                ]}
+                mostrarOrganizacion={true}
+                mostrarTelefono={true}
+                mostrarMensaje={true}
+                placeholderMensaje="Cuéntanos dónde has visto murciélagos o qué te motiva a participar..."
+                camposOcultos={{ origen: 'web_ciencia_ciudadana', tipo_solicitud: 'ciencia_ciudadana' }}
+              />
+            </div>
+          </div>
         </section>
 
       </main>

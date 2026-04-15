@@ -5,8 +5,7 @@ const columnas = [
       { etiqueta: 'Bat Night',                 href: '/servicios/bat-night' },
       { etiqueta: 'Museo Virtual y VR',        href: '/servicios/realidad-virtual' },
       { etiqueta: 'Refugios para murciélagos', href: '/servicios/refugios' },
-      { etiqueta: 'Educación ambiental',       href: '/servicios/educacion-ambiental' },
-      { etiqueta: 'Consultoría',               href: '/servicios/formacion' },
+      { etiqueta: 'Formación y Consultoría',   href: '/servicios/formacion' },
     ],
   },
   {

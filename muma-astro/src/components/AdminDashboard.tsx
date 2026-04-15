@@ -22,6 +22,22 @@ interface Refugio {
   activo: boolean
 }
 
+interface Lead {
+  id: string
+  created_at: string
+  nombre?: string
+  email?: string
+  correo?: string
+  telefono?: string
+  organizacion?: string
+  mensaje?: string
+  estado: string
+  tipo_solicitud?: string
+  origen?: string
+  tipo_evento?: string
+  tipo_espacio?: string
+}
+
 // ── Helpers ────────────────────────────────────────────────────────────
 function parseRevisiones(obs: string): { numero: string; fecha: string; estado: string }[] {
   const regex = /(\d+)º\s*[Rr]evisión\s*\(([^)]+)\)\s*[:：]\s*([^/\n]+)/g
@@ -173,6 +189,8 @@ function DashboardContent() {
   const [isAdmin, setIsAdmin] = useState<boolean>(true)
   const [currentUserData, setCurrentUserData] = useState<any>(null)
   const [misObservaciones, setMisObservaciones] = useState<any[]>([])
+  const [leads, setLeads] = useState<Lead[]>([])
+  const [loadingLeads, setLoadingLeads] = useState(true)
 
   useEffect(() => {
     async function fetchMe() {
@@ -246,6 +264,36 @@ function DashboardContent() {
     }
     fetchStats()
   }, [])
+
+  useEffect(() => {
+    async function fetchLeads() {
+      if (!isAdmin) return;
+      setLoadingLeads(true);
+      try {
+        // Fetch de múltiples tablas para centralizar leads
+        const [resConsultas, resVR, resRefugios, resContactos] = await Promise.all([
+          supabase.from('consultas_web').select('*').order('created_at', { ascending: false }),
+          supabase.from('solicitudes_vr').select('*').order('created_at', { ascending: false }),
+          supabase.from('solicitudes_refugios').select('*').order('created_at', { ascending: false }),
+          supabase.from('contactos').select('*').order('created_at', { ascending: false })
+        ]);
+
+        const combinedLeads: Lead[] = [
+          ...(resConsultas.data || []).map(l => ({ ...l, tipo_solicitud: l.tipo_evento || 'Consulta General' })),
+          ...(resVR.data || []).map(l => ({ ...l, tipo_solicitud: 'Realidad Virtual', origen: 'Web VR' })),
+          ...(resRefugios.data || []).map(l => ({ ...l, tipo_solicitud: 'Refugios', origen: 'Web Refugios' })),
+          ...(resContactos.data || []).map(l => ({ ...l, email: l.correo, tipo_solicitud: 'Contacto/Voluntariado', origen: 'Web Contacto' }))
+        ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
+        setLeads(combinedLeads);
+      } catch (err) {
+        console.error("Error cargando leads:", err);
+      } finally {
+        setLoadingLeads(false);
+      }
+    }
+    fetchLeads();
+  }, [isAdmin])
 
   const refugiosFiltrados = refugios.filter(r =>
     busqueda === '' ||
@@ -332,9 +380,9 @@ function DashboardContent() {
 
         {/* Tabs */}
         <div style={{ display: 'flex', gap: '12px', borderBottom: '1px solid rgba(192,132,252,0.3)', paddingBottom: '16px', marginBottom: '24px' }}>
-          {['usuarios', 'refugios'].map(tab => (
+          {['usuarios', 'refugios', 'solicitudes'].map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)} style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '14px', background: activeTab === tab ? 'rgba(31, 225, 167, 0.1)' : 'transparent', color: activeTab === tab ? '#1fe1a7' : '#a1a1aa', textTransform: 'capitalize' }}>
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {tab === 'solicitudes' ? 'Solicitudes' : tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
         </div>
@@ -469,6 +517,60 @@ function DashboardContent() {
                 }
               </div>
             )}
+          </div>
+        )}
+
+        {/* Tab Solicitudes (Leads) */}
+        {activeTab === 'solicitudes' && (
+          <div style={{ background: '#0a0a0a', border: '1px solid #c084fc', borderRadius: '12px', overflow: 'hidden' }}>
+            <div style={{ padding: '24px', borderBottom: '1px solid rgba(192,132,252,0.15)' }}>
+              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 600 }}>Solicitudes y Leads</h2>
+              <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#6b7280' }}>Bandeja de entrada unificada de solicitudes técnicas y comerciales.</p>
+            </div>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <thead>
+                  <tr style={{ background: '#121212', borderBottom: '1px solid rgba(192,132,252,0.3)' }}>
+                    {['Fecha', 'Nombre', 'Email / Origen', 'Tipo Solicitud', 'Estado', ''].map(h => (
+                      <th key={h} style={{ padding: '12px 24px', color: '#a1a1aa', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {loadingLeads ? <tr><td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: '#1fe1a7' }}>Cargando solicitudes...</td></tr>
+                    : leads.length === 0 ? <tr><td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: '#6b7280' }}>No hay solicitudes registradas.</td></tr>
+                    : leads.map(l => (
+                      <tr key={l.id} style={{ borderBottom: '1px solid rgba(192,132,252,0.15)' }}>
+                        <td style={{ padding: '16px 24px', color: '#a1a1aa', fontSize: '12px' }}>{new Date(l.created_at).toLocaleDateString('es-ES')}</td>
+                        <td style={{ padding: '16px 24px' }}>
+                          <p style={{ color: '#fff', fontSize: '14px', fontWeight: 500, margin: 0 }}>{l.nombre || '—'}</p>
+                          <p style={{ color: '#6b7280', fontSize: '11px', margin: 0 }}>{l.organizacion || 'Individual'}</p>
+                        </td>
+                        <td style={{ padding: '16px 24px' }}>
+                          <p style={{ color: '#fff', fontSize: '14px', margin: 0 }}>{l.email || l.correo}</p>
+                          <p style={{ color: '#1fe1a7', fontSize: '10px', margin: 0, textTransform: 'uppercase' }}>{l.origen || 'Web Muma'}</p>
+                        </td>
+                        <td style={{ padding: '16px 24px', color: '#c084fc', fontSize: '13px', fontWeight: 600 }}>
+                          {l.tipo_solicitud || 'Consulta'}
+                        </td>
+                        <td style={{ padding: '16px 24px' }}>
+                          <span style={{ padding: '4px 10px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: l.estado === 'nuevo' ? 'rgba(31,225,167,0.1)' : 'rgba(255,255,255,0.05)', color: l.estado === 'nuevo' ? '#1fe1a7' : '#a1a1aa' }}>
+                            {l.estado || 'Procesado'}
+                          </span>
+                        </td>
+                        <td style={{ padding: '16px 24px' }}>
+                          <button 
+                            onClick={() => alert(`Mensaje de ${l.nombre}: \n\n ${l.mensaje || 'Sin mensaje'}`)}
+                            style={{ background: 'transparent', border: '1px solid rgba(192,132,252,0.3)', color: '#c084fc', padding: '6px 12px', borderRadius: '8px', cursor: 'pointer', fontSize: '12px' }}
+                          >
+                            Detalles
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
           </>

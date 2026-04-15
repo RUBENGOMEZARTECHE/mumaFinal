@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import FormularioMuma from "./formularioContacto";
 
 function MapaDinamico() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -168,7 +169,7 @@ export default function RefugiosPage() {
           </p>
           <div className="flex gap-3 shrink-0">
             <a
-              href="mailto:info@murcielagosmalaga.com?subject=Solicitud%20presupuesto%20refugios%20MUMA"
+              href="#contacto"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
             >
               Pedir presupuesto gratis
@@ -1056,44 +1057,46 @@ export default function RefugiosPage() {
       </section>
 
       {/* ── SECCIÓN 7: CONTACTO ── */}
-      <section
-        id="contacto"
-        className="bg-fondo-base py-24 px-6 border-t border-white/5 text-center"
-      >
-        <motion.div
-          initial="oculto"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={varianteSeccion}
-          className="max-w-2xl mx-auto"
-        >
-          <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
-            Sin compromiso · Respuesta en 24h
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
-            Cuéntanos tu finca o espacio.
-          </h2>
-          <p className="text-texto-secundario mb-8 max-w-lg mx-auto">
-            Te calculamos cuántos refugios necesitas, qué plagas controlarían y
-            cuánto ahorrarías en pesticidas este año.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:info@murcielagosmalaga.com?subject=Quiero%20saber%20cuánto%20ahorro%20con%20refugios%20MUMA"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl text-sm font-bold bg-marca-principal text-black transition-transform hover:scale-105 no-underline"
-            >
-              Quiero mi presupuesto gratis
-            </a>
-            <a
-              href="https://wa.me/34664213450"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl text-sm font-bold border border-white/10 text-texto-principal hover:bg-fondo-superficie transition-all no-underline"
-            >
-              WhatsApp directo
-            </a>
+      <section id="contacto" className="bg-fondo-base py-24 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial="oculto"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={varianteSeccion}
+            className="text-center mb-12"
+          >
+            <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
+              Sin compromiso · Respuesta en 24h
+            </p>
+            <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
+              Cuéntanos tu finca o espacio.
+            </h2>
+            <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed mb-6">
+              Te calculamos cuántos refugios necesitas, qué plagas controlarían y cuánto ahorrarías en pesticidas este año.
+            </p>
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto">
+            <FormularioMuma
+              tablaBD="solicitudes_refugios"
+              asuntoCorreo="[Web Refugios] Solicitud de propuesta"
+              textoBoton="SOLICITAR ESTUDIO DE VIABILIDAD"
+              selectName="tipo_espacio"
+              selectLabel="¿Qué tipo de espacio gestionas?"
+              opcionesSelect={[
+                { valor: 'finca_agricola', texto: 'Finca agrícola / Cultivo' },
+                { valor: 'parque_publico', texto: 'Parque o jardín público' },
+                { valor: 'espacio_privado', texto: 'Propiedad privada / Jardín' },
+                { valor: 'campo_golf', texto: 'Campo de Golf / Resort' },
+                { valor: 'otro', texto: 'Otro' },
+              ]}
+              mostrarOrganizacion={true}
+              mostrarParticipantes={false}
+              mostrarFecha={false}
+            />
           </div>
-        </motion.div>
+        </div>
       </section>
     </main>
   );

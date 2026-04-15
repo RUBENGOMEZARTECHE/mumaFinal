@@ -16,3 +16,35 @@ body {
   background-color: #050505;
   color: #ffffff;
 }
+
+/* ── Carrusel de logos infinito (usado en Realidad Virtual y Nosotros) ── */
+@keyframes scroll-logos {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.logos-track {
+  animation: scroll-logos 45s linear infinite;
+}
+.logos-wrapper:hover .logos-track {
+  animation-play-state: paused;
+}
+.logos-wrapper {
+  cursor: grab;
+}
+.logos-wrapper:active {
+  cursor: grabbing;
+}
+
+/* ── Reveal de secciones al entrar en viewport (reemplaza Framer Motion) ── */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  animation: reveal-up 0.55s ease-out forwards;
+  animation-play-state: paused;
+}
+.reveal.is-visible {
+  animation-play-state: running;
+}

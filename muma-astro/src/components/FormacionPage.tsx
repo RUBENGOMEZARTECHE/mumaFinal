@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import FormularioMuma from './formularioContacto'
 
 const fadeUp = {
   oculto:  { opacity: 0, y: 24 },
@@ -86,7 +87,7 @@ export default function FormacionPage() {
                       <h3 className="text-base font-bold text-texto-titulo mb-3 leading-tight">{titulo}</h3>
                       <p className="text-sm text-texto-secundario leading-relaxed mb-4 flex-1">{desc}</p>
                       <p className="text-[10px] font-bold tracking-widest text-marca-principal/60 uppercase mb-5">{para}</p>
-                      <a href="/contacto" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border border-marca-principal/40 text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion hover:border-marca-principal transition-all duration-200 no-underline group self-start">
+                      <a href="#inscripcion" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border border-marca-principal/40 text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion hover:border-marca-principal transition-all duration-200 no-underline group self-start">
                         Solicitar información
                         <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform duration-200" aria-hidden="true" />
                       </a>
@@ -128,10 +129,44 @@ export default function FormacionPage() {
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
             <h3 className="text-3xl font-bold text-texto-titulo mb-4">¿Tienes un proyecto concreto?</h3>
             <p className="text-texto-secundario mb-8 max-w-lg mx-auto">Cuéntanos el contexto  territorio, especie, problema o normativa  y te decimos si podemos ayudarte y cómo.</p>
-            <a href="/contacto" className="inline-flex items-center gap-2 px-8 py-4 bg-marca-principal text-texto-sobre-accion font-bold rounded-xl hover:bg-marca-principal-hover transition-colors duration-200 no-underline">
+            <a href="#inscripcion" className="inline-flex items-center gap-2 px-8 py-4 bg-marca-principal text-texto-sobre-accion font-bold rounded-xl hover:bg-marca-principal-hover transition-colors duration-200 no-underline">
               Hablar con el equipo <ArrowRight size={16} aria-hidden="true" />
             </a>
           </motion.div>
+        </div>
+      </section>
+
+      {/* FORMULARIO DE INSCRIPCIÓN TÉCNICA */}
+      <section id="inscripcion" className="bg-fondo-secundario py-24 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-12">
+            <p className="text-[10px] font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">Solicitud de consultoría y formación</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-6">Inicia tu proyecto con MUMA</h2>
+            <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed">
+              Dinos en qué área necesitas apoyo técnico y un consultor de nuestro equipo se pondrá en contacto contigo para evaluar la viabilidad.
+            </p>
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto">
+            <FormularioMuma
+              tablaBD="consultas_web"
+              asuntoCorreo="[Web Formación] Nueva solicitud técnica"
+              textoBoton="ENVIAR SOLICITUD TÉCNICA"
+              selectName="area_interes"
+              selectLabel="¿En qué área necesitas consultoría o formación?"
+              opcionesSelect={[
+                { valor: 'bioacustica', texto: 'Consultoría Bioacústica' },
+                { valor: 'agricultura', texto: 'Agricultura y Control Biológico' },
+                { valor: 'formacion', texto: 'Formación y Educación Ambiental' },
+                { valor: 'legislacion', texto: 'Asesoría Jurídico-Ambiental' },
+                { valor: 'innovacion', texto: 'Innovación y I+D' },
+                { valor: 'otro', texto: 'Otro' }
+              ]}
+              mostrarOrganizacion={true}
+              mostrarMensaje={true}
+              camposOcultos={{ origen: 'web_formacion', tipo_solicitud: 'formacion_consultoria' }}
+            />
+          </div>
         </div>
       </section>
     </main>

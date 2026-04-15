@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import RefugiosPage from '../../components/RefugiosPage'
+---
+<BaseLayout
+  title="Refugios para murciélagos | MUMA BAT COMPANY"
+  description="Refugios para murciélagos en Málaga. Control biológico de plagas sin pesticidas: mosca del olivo, procesionaria, mosquito tigre. Fabricación artesanal e instalación por nuestro equipo."
+  canonical="https://mumabatcompany.com/servicios/refugios"
+>
+  <RefugiosPage client:load />
+</BaseLayout>

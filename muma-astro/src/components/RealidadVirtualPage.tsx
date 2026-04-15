@@ -9,13 +9,9 @@
 //   4. Franja de logos de alianzas
 //   5. CTA de conversión + formulario integrado
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  ArrowRight,
-  CheckCircle,
-} from 'lucide-react'
-import { supabase } from '../lib/supabase'
+import { ArrowRight } from 'lucide-react'
+import FormularioMuma from './formularioContacto'
 
 /* ═══════════════════════════════════════════════════════════════════════════
    DATOS
@@ -119,12 +115,12 @@ const ALIANZAS = [
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const fadeUp = {
-  oculto:  { opacity: 0, y: 24 },
+  oculto: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' as const } },
 }
 
 const fadeIn = {
-  oculto:  { opacity: 0 },
+  oculto: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.5 } },
 }
 
@@ -132,36 +128,7 @@ const fadeIn = {
    SUB-COMPONENTES
    ═══════════════════════════════════════════════════════════════════════════ */
 
-// Campo de formulario reutilizable
-function Campo({ id, name, label, type = 'text', placeholder, required = false, autoComplete }: {
-  id: string
-  name: string
-  label: string
-  type?: string
-  placeholder?: string
-  required?: boolean
-  autoComplete?: string
-}) {
-  return (
-    <div>
-      <label
-        htmlFor={id}
-        className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5"
-      >
-        {label}
-      </label>
-      <input
-        id={id}
-        name={name}
-        type={type}
-        required={required}
-        autoComplete={autoComplete}
-        placeholder={placeholder}
-        className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal placeholder-texto-secundario/40 focus:outline-none focus:border-marca-principal/50 transition-colors duration-200"
-      />
-    </div>
-  )
-}
+
 
 // Card de módulo secundario
 function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, index }: {
@@ -179,7 +146,7 @@ function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, i
       whileInView="visible"
       viewport={{ once: true }}
       variants={{
-        oculto:  { opacity: 0, y: 20 },
+        oculto: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.08 } },
       }}
       className="relative rounded-2xl p-6 transition-colors duration-300 flex flex-col overflow-hidden border border-white/5 hover:border-purple-400"
@@ -232,61 +199,6 @@ function CardModulo({ titulo, descripcion, acento, proximamente, imagen, href, i
    ═══════════════════════════════════════════════════════════════════════════ */
 
 export default function RealidadVirtualPage() {
-  const [enviado, setEnviado] = useState(false)
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const form = e.target as HTMLFormElement
-    const data = new FormData(form)
-    const nombre        = String(data.get('nombre') || '')
-    const email         = String(data.get('email') || '')
-    const telefono      = String(data.get('telefono') || '')
-    const organizacion  = String(data.get('organizacion') || '')
-    const tipoEspacio   = String(data.get('tipo_espacio') || '')
-    const participantes = String(data.get('participantes') || '')
-    // Recogemos mes y año por separado y construimos "YYYY-MM-01"
-    // El día siempre es 01 porque el cliente solo sabe el mes aproximado.
-    const fechaMes  = String(data.get('fecha_mes') || '')
-    const fechaAño  = String(data.get('fecha_año') || '')
-    const fecha     = fechaMes && fechaAño ? `${fechaAño}-${fechaMes}-01` : null
-
-    // 1. Guardar en Supabase
-    // Ahora cada dato va en su columna correcta dentro de solicitudes_vr.
-    // Así el admin puede filtrar por tipo_espacio, ver participantes, etc.
-    const { error } = await supabase.from('solicitudes_vr').insert([{
-      nombre,
-      email,
-      organizacion:              organizacion || null,
-      tipo_espacio:              tipoEspacio  || null,
-      // parseInt convierte el string "25" al número 25.
-      // Si el campo viene vacío, guardamos null (no un string vacío).
-      participantes_estimados:   participantes ? parseInt(participantes) : null,
-      // fecha ya viene en formato "2026-07-01" — listo para Supabase
-      fecha_evento:              fecha,
-      mensaje:                   null,
-      acepta_rgpd:               true,
-      estado:                    'nuevo',
-    }])
-    if (error) console.error('Error Supabase VR:', error.message)
-    else console.log('Solicitud VR guardada en solicitudes_vr.')
-
-    // 2. Abrir mailto como confirmación adicional
-    const cuerpo = [
-      `Nombre: ${nombre}`,
-      `Email: ${email}`,
-      `Teléfono: ${telefono || 'No indicado'}`,
-      `Organización: ${organizacion || 'No indicada'}`,
-      `Tipo de espacio: ${tipoEspacio}`,
-      `Participantes estimados: ${participantes}`,
-      `Fecha tentativa: ${fecha || 'No especificada'}`,
-    ].join('\n')
-    const subject = encodeURIComponent(`[Web VR] Solicitud demostración — ${nombre}`)
-    const body    = encodeURIComponent(cuerpo)
-    window.location.href = `mailto:info@murcielagosmalaga.com?subject=${subject}&body=${body}`
-
-    setEnviado(true)
-    form.reset()
-  }
 
   return (
     <main>
@@ -301,14 +213,14 @@ export default function RealidadVirtualPage() {
       >
         {/* Imagen de fondo con animación "Cinematic slow zoom" */}
         <div className="absolute inset-0 w-full h-full">
-  <img
-    src="/images/fondovirtual.webp"
-    alt="Realidad Virtual en Cuevas de Málaga para educación ambiental y museos - MuMa Bat Company"
-    aria-hidden="true"
-    className="w-full h-full object-cover opacity-30" style={{ objectPosition: '50% 20%' }}
-    loading="eager"
-  />
-</div>
+          <img
+            src="/images/fondovirtual.webp"
+            alt="Realidad Virtual en Cuevas de Málaga para educación ambiental y museos - MuMa Bat Company"
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-30" style={{ objectPosition: '50% 20%' }}
+            loading="eager"
+          />
+        </div>
 
         {/* Overlay base oscuro */}
         <div
@@ -317,7 +229,7 @@ export default function RealidadVirtualPage() {
         />
 
         {/* Grid tecnológico superpuesto sutilmente */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
           aria-hidden="true"
@@ -393,7 +305,7 @@ export default function RealidadVirtualPage() {
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300 w-full sm:w-auto"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-estado-exito group-hover:scale-110 transition-transform" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-estado-exito group-hover:scale-110 transition-transform" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg>
               Contactar por WhatsApp
             </a>
           </motion.div>
@@ -469,6 +381,7 @@ export default function RealidadVirtualPage() {
                 </p>
                 <cite className="text-[10px] text-marca-principal font-bold tracking-widest uppercase not-italic mt-2 block">
                   MUMA BAT COMPANY
+
                 </cite>
               </blockquote>
 
@@ -519,7 +432,7 @@ export default function RealidadVirtualPage() {
                   <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
                   Experiencia VR 360
                 </div>
-                
+
                 <video
                   src="/videos/MuMaBAT-VR.mp4"
                   controls
@@ -543,7 +456,7 @@ export default function RealidadVirtualPage() {
                 key={titulo}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{
-                  oculto:  { opacity: 0, y: 16 },
+                  oculto: { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
                 className="relative rounded-xl overflow-hidden flex flex-col border border-white/5 hover:border-purple-400 transition-colors duration-300"
@@ -651,89 +564,21 @@ export default function RealidadVirtualPage() {
             </p>
           </motion.div>
 
-          {enviado ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className="bg-fondo-superficie rounded-2xl p-10 border border-marca-principal/20 text-center"
-            >
-              <CheckCircle size={40} className="text-marca-principal mx-auto mb-4" aria-hidden="true" />
-              <h3 className="text-xl font-bold text-texto-titulo mb-2">Solicitud recibida</h3>
-              <p className="text-texto-secundario text-sm leading-relaxed">
-                Nos pondremos en contacto contigo en menos de 48 horas laborables.
-              </p>
-            </motion.div>
-          ) : (
-            <motion.form
-              initial="oculto" whileInView="visible" viewport={{ once: true }}
-              variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } } }}
-              onSubmit={handleSubmit}
-              className="rounded-2xl p-8 space-y-5"
-              style={{ background: '#0f1a24', border: '1px solid rgba(192,132,252,0.6)' }}
-              noValidate
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <Campo id="nombre-inline" name="nombre" label="Nombre y apellidos" placeholder="Tu nombre completo" required autoComplete="name" />
-                <Campo id="telefono-inline" name="telefono" type="tel" label="Teléfono de contacto" placeholder="+34 600 000 000" autoComplete="tel" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <Campo id="email-inline" name="email" type="email" label="Correo electrónico" placeholder="tu@email.com" required autoComplete="email" />
-                <Campo id="organizacion-inline" name="organizacion" label="Organización" placeholder="Colegio, empresa, museo…" autoComplete="organization" />
-              </div>
-              {/* Servicio de interés */}
-              <div>
-                <label htmlFor="servicio-inline" className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5">
-                  ¿Qué servicio te interesa?
-                </label>
-                <select id="servicio-inline" name="servicio_interes" defaultValue=""
-                  className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 appearance-none">
-                  <option value="" disabled>Selecciona un servicio</option>
-                  <option value="vr">Batcave Experience VR (museos, eventos)</option>
-                  <option value="batnight">Bat Night (evento nocturno con ultrasonidos)</option>
-                  <option value="refugios">Refugios para murciélagos (fincas, ayuntamientos)</option>
-                  <option value="formacion">Formación y consultoría ambiental</option>
-                  <option value="museo_virtual">Museo Virtual online</option>
-                  <option value="varios">Varios servicios / todavía no lo sé</option>
-                </select>
-              </div>
-              {/* Tipo de espacio */}
-              <div>
-                <label htmlFor="tipo-inline" className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5">
-                  ¿Qué tipo de espacio representas?
-                </label>
-                <select id="tipo-inline" name="tipo_espacio" defaultValue=""
-                  className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 appearance-none">
-                  <option value="" disabled>Selecciona una opción</option>
-                  <option value="museo">Museo o centro cultural</option>
-                  <option value="educativo">Centro educativo (colegio, instituto, universidad)</option>
-                  <option value="ayuntamiento">Ayuntamiento o institución pública</option>
-                  <option value="empresa">Empresa o espacio corporativo</option>
-                  <option value="evento">Evento, feria o congreso</option>
-                  <option value="finca">Finca agrícola o espacio natural</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </div>
-              <div className="flex items-start gap-3">
-                <input type="checkbox" name="privacidad" required className="accent-marca-principal w-4 h-4 shrink-0 mt-0.5" />
-                <span className="text-xs text-texto-secundario/60">
-                  Acepto que MUMA BAT COMPANY contacte conmigo para informarme sobre sus servicios.{' '}
-                  <a href="/privacidad" className="text-marca-principal hover:opacity-80 no-underline">Política de privacidad</a>.
-                </span>
-              </div>
-              <button type="submit"
-                className="w-full bg-marca-principal text-texto-sobre-accion font-black py-5 rounded-2xl flex items-center justify-center gap-3 hover:bg-marca-principal-hover transition-all active:scale-95">
-                <ArrowRight size={18} aria-hidden="true" />
-                SOLICITAR DEMOSTRACIÓN GRATUITA
-              </button>
-              <p className="text-xs text-center text-texto-secundario/50">
-                Respondemos en menos de 48 h. Sin compromiso.{' '}
-                <a href="mailto:info@murcielagosmalaga.com" className="text-marca-principal hover:opacity-80 no-underline">info@murcielagosmalaga.com</a>
-                {' '}·{' '}
-                <a href="https://wa.me/34664213450" target="_blank" rel="noopener noreferrer" className="text-marca-principal hover:opacity-80 no-underline">WhatsApp</a>
-              </p>
-            </motion.form>
-          )}
+          <FormularioMuma
+            tablaBD="solicitudes_vr"
+            asuntoCorreo="[Web VR] Solicitud demostración"
+            textoBoton="SOLICITAR DEMOSTRACIÓN GRATUITA"
+            selectName="tipo_espacio"
+            selectLabel="¿Qué tipo de espacio representas?"
+            opcionesSelect={[
+              { valor: 'museo', texto: 'Museo o centro cultural' },
+              { valor: 'educativo', texto: 'Centro educativo (colegio, instituto)' },
+              { valor: 'ayuntamiento', texto: 'Ayuntamiento o institución pública' },
+              { valor: 'empresa', texto: 'Empresa o espacio corporativo' },
+              { valor: 'evento', texto: 'Evento, feria o congreso' },
+              { valor: 'otro', texto: 'Otro' },
+            ]}
+          />
         </div>
       </section>
 
@@ -767,7 +612,7 @@ export default function RealidadVirtualPage() {
                 key={tipo}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{
-                  oculto:  { opacity: 0, y: 16 },
+                  oculto: { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
                 className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300"
@@ -998,7 +843,7 @@ export default function RealidadVirtualPage() {
                 key={lugar}
                 initial="oculto" whileInView="visible" viewport={{ once: true }}
                 variants={{
-                  oculto:  { opacity: 0, y: 16 },
+                  oculto: { opacity: 0, y: 16 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, delay: i * 0.07 } },
                 }}
                 className="relative rounded-2xl overflow-hidden border border-purple-400/60 min-h-50 flex flex-col justify-end"
@@ -1190,291 +1035,6 @@ export default function RealidadVirtualPage() {
               />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          5. CTA DE CONVERSIÓN + FORMULARIO
-          ══════════════════════════════════════════════════════════════════ */}
-      <section
-        id="demo"
-        className="relative py-24 px-6 overflow-hidden"
-        aria-labelledby="cta-titulo"
-      >
-        {/* Fondo */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(135deg, #1b2836 0%, #101923 50%, #0b1117 100%)',
-          }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 55% 55% at 50% 50%, rgba(31,225,167,0.04) 0%, transparent 70%)',
-          }}
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 max-w-2xl mx-auto">
-
-          {/* Cabecera del CTA */}
-          <motion.div
-            initial="oculto" whileInView="visible" viewport={{ once: true }}
-            variants={fadeUp}
-            className="text-center mb-12"
-          >
-            <p className="text-[10px] font-bold tracking-[0.22em] text-marca-principal uppercase mb-4">
-              Solicita tu demostración gratuita — sin compromiso
-            </p>
-            <h2
-              id="cta-titulo"
-              className="font-bold leading-tight tracking-tight text-texto-titulo mb-4"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)' }}
-            >
-              Lleva la experiencia a tu espacio.
-            </h2>
-            <p className="text-texto-secundario leading-relaxed max-w-md mx-auto mb-8">
-              Cuéntanos qué espacio tienes y qué servicio te interesa. Respondemos en menos de 48 horas con una propuesta adaptada a ti.
-            </p>
-            {/* Garantías breves */}
-            <div className="flex flex-col sm:flex-row justify-center gap-4 text-xs text-texto-secundario/70">
-              {[
-                'Sin compromiso de contratación',
-                'MUMA lleva todo el equipo',
-                'Respuesta en 48 h',
-              ].map((item) => (
-                <span key={item} className="flex items-center justify-center gap-1.5">
-                  <CheckCircle size={12} className="text-marca-principal shrink-0" aria-hidden="true" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Formulario */}
-          {enviado ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className="bg-fondo-superficie rounded-2xl p-10 border border-marca-principal/20 text-center"
-            >
-              <CheckCircle size={40} className="text-marca-principal mx-auto mb-4" aria-hidden="true" />
-              <h3 className="text-xl font-bold text-texto-titulo mb-2">Solicitud recibida</h3>
-              <p className="text-texto-secundario text-sm leading-relaxed">
-                Nos pondremos en contacto contigo en menos de 48 horas laborables
-                para coordinar la demostración.
-              </p>
-            </motion.div>
-          ) : (
-            <motion.form
-              initial="oculto" whileInView="visible" viewport={{ once: true }}
-              variants={{
-                oculto:  { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } },
-              }}
-              onSubmit={handleSubmit}
-              className="rounded-2xl p-8 space-y-5"
-              style={{ background: '#0f1a24', border: '1px solid rgba(192,132,252,0.6)' }}
-              noValidate
-            >
-              {/* FILA 1: Nombre + Teléfono — lo mínimo para poder llamar */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <Campo
-                  id="nombre" name="nombre" label="Nombre y apellidos"
-                  placeholder="Tu nombre completo" required autoComplete="name"
-                />
-                <Campo
-                  id="telefono" name="telefono" type="tel" label="Teléfono de contacto"
-                  placeholder="+34 600 000 000" autoComplete="tel"
-                />
-              </div>
-
-              {/* FILA 2: Email + Organización */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <Campo
-                  id="email" name="email" type="email" label="Correo electrónico"
-                  placeholder="tu@email.com" required autoComplete="email"
-                />
-                <Campo
-                  id="organizacion" name="organizacion" label="Organización"
-                  placeholder="Colegio, empresa, museo…" autoComplete="organization"
-                />
-              </div>
-
-              {/* FILA NUEVA: Servicio de interés — lo primero que quiere saber el equipo comercial */}
-              <div>
-                <label
-                  htmlFor="servicio-interes"
-                  className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5"
-                >
-                  ¿Qué servicio te interesa?
-                </label>
-                <select
-                  id="servicio-interes" name="servicio_interes"
-                  defaultValue=""
-                  className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 transition-colors duration-200 appearance-none"
-                >
-                  <option value="" disabled>Selecciona un servicio</option>
-                  <option value="vr">Batcave Experience VR (museos, eventos, espacios)</option>
-                  <option value="batnight">Bat Night (evento nocturno con ultrasonidos)</option>
-                  <option value="refugios">Refugios para murciélagos (fincas, ayuntamientos)</option>
-                  <option value="formacion">Formación y consultoría ambiental</option>
-                  <option value="museo_virtual">Museo Virtual online</option>
-                  <option value="varios">Varios servicios / todavía no lo sé</option>
-                </select>
-              </div>
-
-              {/* FILA: Tipo de espacio */}
-              <div>
-                <label
-                  htmlFor="tipo-espacio"
-                  className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5"
-                >
-                  ¿Qué tipo de espacio representas?
-                </label>
-                <select
-                  id="tipo-espacio" name="tipo_espacio"
-                  defaultValue=""
-                  className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 transition-colors duration-200 appearance-none"
-                >
-                  <option value="" disabled>Selecciona una opción</option>
-                  <option value="empresa">Empresa o espacio corporativo</option>
-                  <option value="educativo">Centro educativo (colegio, instituto, universidad)</option>
-                  <option value="museo">Museo o centro cultural</option>
-                  <option value="evento">Evento, feria o congreso</option>
-                  <option value="ayuntamiento">Ayuntamiento o institución pública</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </div>
-
-              {/* FILA 4: Participantes (select con rangos) + Fecha */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {/* Select con rangos → menos fricción que escribir un número */}
-                <div>
-                  <label
-                    htmlFor="participantes"
-                    className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em] mb-1.5"
-                  >
-                    Participantes estimados
-                  </label>
-                  <select
-                    id="participantes" name="participantes"
-                    defaultValue=""
-                    className="w-full bg-fondo-base border border-white/10 rounded-xl px-4 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 transition-colors duration-200 appearance-none"
-                  >
-                    <option value="" disabled>¿Cuántas personas?</option>
-                    <option value="25">Menos de 25</option>
-                    <option value="50">25 – 50 personas</option>
-                    <option value="100">50 – 100 personas</option>
-                    <option value="200">100 – 200 personas</option>
-                    <option value="500">Más de 200 personas</option>
-                  </select>
-                </div>
-
-                {/* Mes + Año */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="block text-[10px] font-bold text-texto-secundario uppercase tracking-[0.12em]">
-                    Fecha tentativa
-                  </label>
-                  <div className="flex gap-2">
-                    <select
-                      name="fecha_mes"
-                      className="flex-1 bg-fondo-base border border-white/10 rounded-xl px-3 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 appearance-none"
-                    >
-                      <option value="">Mes</option>
-                      <option value="01">Enero</option>
-                      <option value="02">Febrero</option>
-                      <option value="03">Marzo</option>
-                      <option value="04">Abril</option>
-                      <option value="05">Mayo</option>
-                      <option value="06">Junio</option>
-                      <option value="07">Julio</option>
-                      <option value="08">Agosto</option>
-                      <option value="09">Septiembre</option>
-                      <option value="10">Octubre</option>
-                      <option value="11">Noviembre</option>
-                      <option value="12">Diciembre</option>
-                    </select>
-                    <select
-                      name="fecha_año"
-                      className="flex-1 bg-fondo-base border border-white/10 rounded-xl px-3 py-3 text-sm text-texto-principal focus:outline-none focus:border-marca-principal/50 appearance-none"
-                    >
-                      <option value="">Año</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                      <option value="2028">2028</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <input
-                type="hidden" name="_subject"
-                value="Solicitud demostración VR — MuMa VR² Cave Experience"
-              />
-
-              {/* Checkbox con texto claro y directo */}
-              <div className="flex items-start gap-3">
-                <input type="checkbox" name="privacidad" required className="accent-marca-principal w-4 h-4 shrink-0 mt-0.5" />
-                <span className="text-xs text-texto-secundario/60">
-                  Acepto que MUMA BAT COMPANY contacte conmigo para informarme sobre la experiencia de realidad virtual.{' '}
-                  <a href="/privacidad" className="text-marca-principal hover:opacity-80 no-underline">Política de privacidad</a>.
-                </span>
-              </div>
-
-              {/* CTA con mensaje orientado a la acción del cliente, no a procesos internos */}
-              <button
-                type="submit"
-                className="w-full bg-marca-principal text-texto-sobre-accion font-black py-5 rounded-2xl flex items-center justify-center gap-3 hover:bg-marca-principal-hover transition-all active:scale-95"
-              >
-                <ArrowRight size={18} aria-hidden="true" />
-                SOLICITAR DEMOSTRACIÓN GRATUITA
-              </button>
-
-              {/* Refuerzo de confianza debajo del botón */}
-              <p className="text-xs text-center text-texto-secundario/50">
-                Te contactamos en menos de 48h laborables. Sin compromiso.
-              </p>
-
-              <p className="text-xs text-center text-texto-secundario/50">
-                ¿Prefieres hablar directamente?{' '}
-                <a
-                  href="mailto:info@murcielagosmalaga.com"
-                  className="text-marca-principal hover:opacity-80 transition-opacity no-underline"
-                >
-                  info@murcielagosmalaga.com
-                </a>
-                {' '}·{' '}
-                <a
-                  href="https://wa.me/34664213450"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-marca-principal hover:opacity-80 transition-opacity no-underline"
-                >
-                  WhatsApp
-                </a>
-              </p>
-            </motion.form>
-          )}
-
-          {/* Link de salida */}
-          <motion.p
-            initial="oculto" whileInView="visible" viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center text-sm text-texto-secundario/60 mt-8"
-          >
-            ¿Buscas otro servicio?{' '}
-            <a
-              href="/#servicios"
-              className="text-marca-principal hover:opacity-80 transition-opacity duration-200 no-underline"
-            >
-              Ver todos los servicios
-            </a>
-          </motion.p>
         </div>
       </section>
 

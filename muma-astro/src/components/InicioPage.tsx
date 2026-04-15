@@ -4,6 +4,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { supabase } from "../lib/supabase";
+import FormularioMuma from "./formularioContacto";
 
 // --- COMPONENTES INTERNOS (BLOQUES) ---
 
@@ -551,25 +552,6 @@ const CTAFinal = () => (
 );
 
 const Captacion = () => {
-  const [email, setEmail] = useState("");
-  const [estado, setEstado] = useState("idle");
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setEstado("enviando");
-
-    const { error } = await supabase.from('consultas_web').insert([{
-      email,
-      nombre_contacto: email,
-      tipo_solicitud: 'batcave_waitlist',
-      origen: 'web_inicio',
-      acepta_rgpd: true,
-      estado: 'nuevo',
-    }]);
-
-    setEstado(error ? "error" : "ok");
-  };
-
   return (
     <section className="relative py-24 px-6 overflow-hidden border-t border-white/5">
       {/* Imagen de fondo con overlay */}
@@ -594,33 +576,23 @@ const Captacion = () => {
           Más de 700 personas ya la han probado en eventos. Cuando abramos acceso directo, avisamos primero a esta lista.
         </p>
 
-        {estado === "ok" ? (
-          <div className="inline-flex items-center gap-3 px-8 py-4 bg-[#10b981]/10 border border-[#10b981]/30 rounded-2xl text-[#10b981] font-bold">
-            ✓ Apuntado. Te avisamos cuando esté listo.
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              required
-              placeholder="tu@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-5 py-4 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/50 focus:outline-none focus:border-[#10b981] focus:bg-white/25 transition-all"
-            />
-            <button
-              type="submit"
-              disabled={estado === "enviando"}
-              className="px-6 py-4 bg-marca-principal text-texto-sobre-accion font-bold rounded-xl hover:bg-marca-principal-hover hover:scale-105 hover:shadow-[0_0_25px_rgba(31,225,167,0.5)] active:scale-95 transition-all duration-200 disabled:opacity-50 shrink-0"
-            >
-              {estado === "enviando" ? "Enviando..." : "Apuntarme"}
-            </button>
-          </form>
-        )}
-
-        {estado === "error" && (
-          <p className="text-red-400 text-sm mt-3">Algo ha fallado. Inténtalo de nuevo.</p>
-        )}
+        <FormularioMuma 
+          tablaBD="consultas_web"
+          asuntoCorreo="[Web Inicio] Nueva alta en lista de espera Batcave"
+          textoBoton="APUNTARME AHORA"
+          mostrarNombre={false}
+          mostrarOrganizacion={false}
+          mostrarTelefono={false}
+          mostrarMensaje={false}
+          mostrarSelect={false}
+          mostrarFecha={false}
+          mostrarParticipantes={false}
+          nombreCampoNombre="nombre_contacto"
+          camposOcultos={{
+            tipo_solicitud: 'batcave_waitlist',
+            origen: 'web_inicio'
+          }}
+        />
 
         <p className="text-white/50 text-xs mt-6">Sin spam. Solo novedades de la Batcave Experience.</p>
       </div>

@@ -1,11 +1,720 @@
 ---
+/**
+ * /servicios/realidad-virtual — Batcave Experience
+ *
+ * Estructura estratégica (8 bloques):
+ *   1. Hero             — problema → solución → nombre único del producto
+ *   2. Credibilidad     — sello europeo ST3ER inmediatamente visible
+ *   3. Cómo funciona    — vídeo + 4 pasos llave en mano + specs + quote
+ *   4. Para quién es    — segmentación por propuesta de valor
+ *   5. Formulario       — captación principal (después de 3 bloques de contexto)
+ *   6. Eventos reales   — prueba social
+ *   7. Ecosistema       — módulos complementarios + wishlist
+ *   8. Alianzas         — cierre institucional
+ *
+ * Islands:
+ *   - FormularioMuma   client:visible  (único estado real)
+ *   - WishlistForm     client:visible  (3 instancias en módulos Próximamente)
+ *
+ * Animaciones: CSS reveal via IntersectionObserver (global.css)
+ * Sin Framer Motion.
+ */
+
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import RealidadVirtualPage from '../../components/RealidadVirtualPage'
+import FormularioMuma from '../../components/formularioContacto'
+import WishlistForm from '../../components/WishlistForm'
+
+const PASOS = [
+  { n: '01', titulo: 'Escaneo 3D de la cueva', desc: 'Digitalizamos cuevas de alto valor ecológico con tecnología de escaneo 3D de precisión científica.' },
+  { n: '02', titulo: 'Creación de la experiencia', desc: 'Construimos el entorno inmersivo con puntos interactivos, fichas de especies y narración bioacústica.' },
+  { n: '03', titulo: 'Lo llevamos a tu espacio', desc: 'MUMA aporta todo el equipo (Meta Quest 3). Solo necesitas el espacio y la fecha.' },
+  { n: '04', titulo: 'Operamos el día del evento', desc: 'Nuestro equipo monta, opera y recoge. Sin formación previa ni infraestructura por tu parte.' },
+]
+
+const SPECS = [
+  { label: 'Hardware',            valor: 'Meta Quest 3 / 3S' },
+  { label: 'Duración',            valor: '5, 15 o 30 minutos' },
+  { label: 'Idiomas',             valor: 'Español / Inglés' },
+  { label: 'Cueva de referencia', valor: 'Cueva de Nerja (Málaga)' },
+  { label: 'Puntos interactivos', valor: '11 estaciones' },
+  { label: 'Tablet virtual',      valor: 'Mapa GPS, especies, fichas' },
+]
+
+const CLIENTES = [
+  { tipo: 'Museos e instituciones',           problema: 'Necesitas divulgación inmersiva sin obra ni infraestructura.',         obtienen: 'Una cueva real en tu sala. Montamos, operamos y recogemos.',                   img: '/images/ayuntamientos.webp' },
+  { tipo: 'Centros comerciales',              problema: 'Buscas experiencias diferenciadoras con alto impacto en afluencia.',    obtienen: 'Evento llave en mano que genera tráfico y cobertura mediática.',                img: '/images/museos.webp' },
+  { tipo: 'Espacios naturales y cuevas',      problema: 'Quieres mostrar hábitats frágiles sin incrementar la presión humana.', obtienen: 'Tu cueva accesible a cientos de personas sin pisarla.',                         img: '/images/cuevas-nerja.webp' },
+  { tipo: 'Centros educativos y AMPAs',       problema: 'Necesitas ciencia real que enganche a estudiantes.',                   obtienen: 'Taller VR con base científica SECEMU, adaptable de primaria a universidad.',   img: '/images/educacion-ambiental.webp' },
+  { tipo: 'Hoteles, golf y turismo premium',  problema: 'Buscas actividades de valor diferencial para tus huéspedes.',          obtienen: 'Experiencia exclusiva de naturaleza inmersiva en formato premium.',              img: '/images/campo-golf.jpg' },
+  { tipo: 'ONGs y entidades ambientales',     problema: 'Quieres sensibilizar con herramientas de impacto real.',               obtienen: 'VR científica que conecta emocionalmente con la conservación.',                 img: '/images/rerfugios-tintados.webp' },
+]
+
+const EVENTOS = [
+  { lugar: 'Plaza Mayor Málaga',  pais: 'España',   fecha: 'Julio 2025',       asistentes: '200–300', destacado: 'Zona VR, exposición, talleres infantiles y charlas divulgativas.',                            img: '/images/plaza-6.webp' },
+  { lugar: 'Cueva de Nerja',      pais: 'España',   fecha: 'Septiembre 2025',  asistentes: '50+',     destacado: 'Instalación de refugios monitorizados e inicio de colaboración científica.',                   img: '/images/cueva-nerja.webp' },
+  { lugar: 'Grutas da Moeda',     pais: 'Portugal', fecha: '14 sept 2025',     asistentes: '200+',    destacado: 'Interés formal de la institución en licenciar la experiencia VR.',                             img: '/images/grutas-da-moeda.webp' },
+  { lugar: 'Notranjski Museum',   pais: 'Eslovenia',fecha: '5–6 sept 2025',    asistentes: '100+',    destacado: 'Detección de ultrasonidos, actividades educativas y experiencia VR en museo de 5 plantas.',    img: '/images/-notranjski-muzej-.webp' },
+]
+
+const MODULOS = [
+  { titulo: 'MuMa Bats 360',     desc: 'Vídeos inmersivos en 360° grabados en entornos reales de murciélagos. Accesibles desde navegador o gafas VR.',                                   tabla: 'wishlist_muma_bats_360' },
+  { titulo: 'MuMa Virtual Bats', desc: 'Fichas interactivas de especies con modelos 3D, hábitat y archivo acústico. Recurso científico para museos y centros educativos.',                tabla: 'wishlist_virtual_bats' },
+  { titulo: 'MuMa Game',         desc: 'Experiencia gamificada con base científica real. Para aulas, eventos y actividades de sensibilización ambiental.',                                tabla: 'wishlist_muma_game' },
+]
+
+const ALIANZAS = [
+  { nombre: 'Fundación Cueva de Nerja',   logo: '/images/cueva-nerja/logo-cueva-de-nerja-150x150.jpg' },
+  { nombre: 'ST3ER',                       logo: '/images/st3er.webp' },
+  { nombre: 'BIC Euronova',               logo: '/images/centro-europeo-empresas.webp' },
+  { nombre: 'Málaga TechPark',            logo: '/images/malaga-tech-park.webp' },
+  { nombre: 'Cámara de Comercio Málaga',  logo: '/images/Camara-malaga-150x150.webp' },
+  { nombre: 'La Brújula XR',              logo: '/images/polo-contenido-digital.webp' },
+]
 ---
+
 <BaseLayout
-  title="Realidad Virtual — Batcave Experience | MUMA BAT COMPANY"
-  description="La Batcave Experience: una cueva real digitalizada en 3D para museos y espacios culturales. Sin obra, sin infraestructura. Respaldada por proyecto europeo ST3ER."
+  title="Batcave Experience — Realidad Virtual para Museos y Espacios | MUMA BAT COMPANY"
+  description="Lleva una cueva real de murciélagos a tu museo, colegio o evento. Sin obra, sin infraestructura. Respaldado por proyecto europeo ST3ER. Respuesta en 48h."
   canonical="https://mumabatcompany.com/servicios/realidad-virtual"
 >
-  <RealidadVirtualPage client:visible />
+  <main>
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 1 — HERO
+         Problema → solución → nombre del producto → CTAs
+         ══════════════════════════════════════════════════════ -->
+    <section
+      class="relative flex items-center justify-center text-center overflow-hidden"
+      style="min-height: 70vh"
+      aria-label="Batcave Experience — Realidad Virtual para cuevas"
+    >
+      <!-- Imagen de fondo: 55% opacidad para dar presencia sin quemar texto -->
+      <div class="absolute inset-0 w-full h-full">
+        <img
+          src="/images/fondovirtual.webp"
+          alt="Cueva de murciélagos digitalizada en 3D — Batcave Experience de MUMA BAT COMPANY"
+          class="w-full h-full object-cover"
+          style="opacity: 0.55; object-position: 50% 35%"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+
+      <!-- Overlay radial: centro semitransparente, bordes oscuros
+           — protege el texto que vive en el centro sin un plano de color uniforme -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse 80% 70% at 50% 45%, rgba(5,5,5,0.30) 0%, rgba(5,5,5,0.82) 100%)"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Vignette lateral: oscurece los flancos sin tocar el centro -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: linear-gradient(to right, rgba(5,5,5,0.55) 0%, transparent 30%, transparent 70%, rgba(5,5,5,0.55) 100%)"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Halo verde central: presencia sutil del brand color sobre el motivo visual -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse 60% 45% at 50% 42%, rgba(31,225,167,0.09) 0%, transparent 65%)"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Contenido -->
+      <div class="relative z-10 max-w-4xl mx-auto px-6 py-32 lg:py-44">
+        <p class="text-xs font-bold tracking-[0.25em] text-marca-principal uppercase mb-5">
+          Batcave Experience · MUMA BAT COMPANY
+        </p>
+
+        <h1
+          class="font-extrabold leading-[1.05] tracking-tight mb-6 text-white"
+          style="font-size: clamp(2.4rem, 5vw, 4.2rem)"
+        >
+          Hay cuevas de murciélagos<br/>
+          que no se pueden visitar.<br/>
+          <span class="text-marca-principal">Nosotros las llevamos a ti.</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-texto-secundario/90 leading-relaxed max-w-2xl mx-auto mb-10 font-medium">
+          MUMA digitaliza cuevas de alto valor ecológico en 3D y lleva la experiencia inmersiva a tu museo, colegio, centro comercial o evento.
+          <strong class="text-white font-semibold"> Sin pisar la cueva. Sin alterar nada.</strong>
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="#demo"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 w-full sm:w-auto no-underline"
+          >
+            Solicitar demostración
+          </a>
+          <a
+            href="#como-funciona"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white border border-white/15 hover:bg-white/5 hover:border-white/30 transition-all duration-200 w-full sm:w-auto no-underline"
+          >
+            Ver cómo funciona
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Degradado inferior -->
+      <div
+        class="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style="background: linear-gradient(to bottom, transparent 0%, #050505 100%)"
+        aria-hidden="true"
+      ></div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 2 — SELLO DE CREDIBILIDAD
+         Panel destacado, visible sin scroll
+         ══════════════════════════════════════════════════════ -->
+    <section class="py-10 px-6" aria-label="Respaldo científico e institucional">
+      <div class="max-w-5xl mx-auto">
+        <div class="relative rounded-2xl border border-white/10 bg-zinc-900/70 px-8 py-8 sm:px-10 sm:py-9 overflow-hidden">
+
+          <!-- Línea accent verde — parte superior del panel -->
+          <div
+            class="absolute top-0 left-0 right-0 h-px pointer-events-none"
+            style="background: linear-gradient(90deg, transparent 0%, rgba(31,225,167,0.45) 50%, transparent 100%)"
+            aria-hidden="true"
+          ></div>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+
+            <!-- Texto del sello -->
+            <div>
+              <p class="text-[11px] font-bold tracking-[0.22em] text-marca-principal uppercase mb-2">
+                Proyecto europeo · Producto terminado
+              </p>
+              <p class="text-base sm:text-lg font-bold text-white leading-snug mb-1">
+                ST3ER · Grant Agreement Nº101121592 · Programa COSME-SMP
+              </p>
+              <p class="text-sm text-texto-secundario/70">
+                Desarrollado en España, Portugal y Eslovenia
+              </p>
+            </div>
+
+            <!-- Logos avales -->
+            <div class="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+              <div class="bg-white/20 border border-white/10 rounded-xl px-4 py-2.5 flex items-center justify-center">
+                <img src="/images/Logo_SECEMU.webp" alt="SECEMU" class="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-200" loading="lazy" />
+              </div>
+              <div class="bg-white/20 border border-white/10 rounded-xl px-4 py-2.5 flex items-center justify-center">
+                <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" class="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-200" loading="lazy" />
+              </div>
+              <div class="bg-white/20 border border-white/10 rounded-xl px-4 py-2.5 flex items-center justify-center">
+                <img src="/images/europa.webp" alt="Unión Europea FEDER" class="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-200" loading="lazy" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 3 — QUÉ ES Y CÓMO FUNCIONA
+         Panel principal: quote ancla + vídeo/pasos + ficha técnica
+         ══════════════════════════════════════════════════════ -->
+    <section
+      id="como-funciona"
+      class="py-20 lg:py-28 px-6 border-y border-white/[0.06]"
+      style="background: #0b0b0b"
+      aria-labelledby="como-funciona-titulo"
+    >
+      <div class="max-w-6xl mx-auto">
+
+        <!-- Cabecera + quote como ancla emocional del bloque -->
+        <div class="reveal mb-14 max-w-3xl">
+          <p class="text-[10px] font-bold tracking-[0.22em] text-marca-principal uppercase mb-4">
+            Servicio llave en mano
+          </p>
+          <h2
+            id="como-funciona-titulo"
+            class="font-bold leading-[1.1] tracking-tight text-texto-titulo mb-8"
+            style="font-size: clamp(1.9rem, 3.2vw, 2.75rem)"
+          >
+            Batcave Experience
+          </h2>
+          <blockquote class="border-l-[3px] border-marca-principal pl-6 py-1">
+            <p class="text-xl sm:text-2xl font-semibold text-white leading-snug italic">
+              "Llevamos la cueva a las personas,<br class="hidden sm:block"/> no las personas a la cueva."
+            </p>
+            <cite class="text-[10px] text-marca-principal font-bold tracking-widest uppercase not-italic mt-3 block">
+              MUMA BAT COMPANY
+            </cite>
+          </blockquote>
+        </div>
+
+        <!-- ZONA A — Vídeo + 4 pasos + CTA -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start mb-20">
+
+          <!-- Vídeo -->
+          <div class="reveal" style="animation-delay: 0.05s">
+            <div class="relative rounded-2xl overflow-hidden aspect-video bg-black border border-white/10 shadow-[0_20px_50px_rgba(31,225,167,0.1)]">
+              <div class="absolute top-4 left-4 z-20 bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1.5 rounded-full flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-red-500 rounded-full" style="animation: pulse 2s infinite"></span>
+                Experiencia VR 360
+              </div>
+              <video
+                src="/videos/MuMaBAT-VR.mp4"
+                controls
+                playsinline
+                title="Vídeo demostrativo Batcave Experience — MUMA BAT COMPANY"
+                poster="/images/VR-Malaga1920.png"
+                class="w-full h-full object-cover"
+              ></video>
+            </div>
+            <p class="text-center text-texto-secundario text-xs mt-3 italic">
+              Activa el sonido para disfrutar de la bioacústica real.
+            </p>
+          </div>
+
+          <!-- 4 pasos + CTA -->
+          <div class="flex flex-col gap-5">
+            {PASOS.map((paso, i) => (
+              <div class="reveal flex gap-5 items-start" style={`animation-delay: ${0.1 + i * 0.08}s`}>
+                <span class="shrink-0 w-10 h-10 rounded-xl bg-marca-principal/10 border border-marca-principal/30 flex items-center justify-center text-[11px] font-bold text-marca-principal">
+                  {paso.n}
+                </span>
+                <div>
+                  <p class="text-sm font-bold text-texto-titulo mb-1">{paso.titulo}</p>
+                  <p class="text-sm text-texto-secundario leading-relaxed">{paso.desc}</p>
+                </div>
+              </div>
+            ))}
+
+            <!-- CTA principal -->
+            <div class="reveal mt-6" style="animation-delay: 0.45s">
+              <a
+                href="#demo"
+                class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-all duration-200 no-underline shadow-[0_4px_24px_rgba(31,225,167,0.18)] hover:shadow-[0_6px_32px_rgba(31,225,167,0.28)]"
+              >
+                Solicitar demostración en tu espacio
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Separador zona A / zona B -->
+        <div
+          class="h-px mb-12"
+          style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%)"
+          aria-hidden="true"
+        ></div>
+
+        <!-- ZONA B — Ficha técnica -->
+        <div class="reveal" style="animation-delay: 0.1s">
+          <p class="text-[10px] font-bold tracking-[0.22em] text-marca-principal uppercase mb-5">Ficha técnica</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {SPECS.map(({ label, valor }) => (
+              <div
+                class="rounded-xl px-5 py-4"
+                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1)"
+              >
+                <p class="text-[10px] font-bold tracking-[0.15em] text-texto-secundario/60 uppercase mb-1.5">{label}</p>
+                <p class="text-base font-bold text-white">{valor}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 4 — PARA QUIÉN ES
+         Segmentación por propuesta de valor, no por descripción
+         ══════════════════════════════════════════════════════ -->
+    <section
+      class="bg-fondo-secundario py-20 px-6 border-t border-white/5"
+      aria-labelledby="para-quien-titulo"
+    >
+      <div class="max-w-5xl mx-auto">
+
+        <div class="reveal text-center mb-14">
+          <p class="text-[10px] font-bold tracking-[0.25em] text-marca-principal uppercase mb-4">
+            ¿Es para ti?
+          </p>
+          <h2
+            id="para-quien-titulo"
+            class="text-2xl sm:text-3xl font-bold text-texto-titulo mb-4"
+          >
+            Si gestionas uno de estos espacios,<br class="hidden sm:block"/> la Batcave Experience es para ti.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {CLIENTES.map(({ tipo, problema, obtienen, img }, i) => (
+            <article
+              class="reveal bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300"
+              style={`animation-delay: ${i * 0.07}s`}
+            >
+              <div class="relative h-32 overflow-hidden">
+                <img
+                  src={img}
+                  alt={`Batcave Experience para ${tipo}`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-fondo-superficie/90 to-transparent"></div>
+              </div>
+              <div class="p-5">
+                <p class="text-sm font-bold text-marca-principal mb-2">{tipo}</p>
+                <p class="text-xs text-texto-secundario/70 leading-relaxed mb-3 italic">{problema}</p>
+                <p class="text-xs text-texto-secundario leading-relaxed">{obtienen}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="reveal text-center" style="animation-delay: 0.3s">
+          <a
+            href="#demo"
+            class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
+          >
+            Consulta disponibilidad para tu espacio
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 5 — FORMULARIO DE CAPTACIÓN
+         Principal. Después de 3 bloques de contexto.
+         ══════════════════════════════════════════════════════ -->
+    <section
+      id="demo"
+      class="relative py-20 px-6 overflow-hidden bg-fondo-base border-t border-white/5"
+      aria-labelledby="form-titulo"
+    >
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(31,225,167,0.05) 0%, transparent 70%)"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+          <!-- Contexto de confianza -->
+          <div class="reveal">
+            <p class="text-[10px] font-bold tracking-[0.22em] text-marca-principal uppercase mb-4">
+              Solicita tu demostración gratuita · Sin compromiso
+            </p>
+            <h2
+              id="form-titulo"
+              class="font-bold leading-tight tracking-tight text-texto-titulo mb-4"
+              style="font-size: clamp(1.8rem, 3vw, 2.5rem)"
+            >
+              ¿Cuándo llevamos<br/>la cueva a tu espacio?
+            </h2>
+            <p class="text-texto-secundario leading-relaxed mb-8">
+              Cuéntanos qué espacio tienes. Respondemos en menos de <strong class="text-white">48 horas</strong> con una propuesta a medida.
+            </p>
+
+            <!-- Métricas de confianza -->
+            <div class="grid grid-cols-3 gap-4">
+              <div class="bg-fondo-superficie rounded-xl p-4 border border-white/5 text-center">
+                <p class="text-2xl font-bold text-marca-principal">+1000</p>
+                <p class="text-[10px] text-texto-secundario uppercase tracking-wider mt-1">Participantes</p>
+              </div>
+              <div class="bg-fondo-superficie rounded-xl p-4 border border-white/5 text-center">
+                <p class="text-2xl font-bold text-marca-principal">4</p>
+                <p class="text-[10px] text-texto-secundario uppercase tracking-wider mt-1">Países</p>
+              </div>
+              <div class="bg-fondo-superficie rounded-xl p-4 border border-white/5 text-center">
+                <p class="text-2xl font-bold text-marca-principal">2025</p>
+                <p class="text-[10px] text-texto-secundario uppercase tracking-wider mt-1">En activo</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario React island -->
+          <div class="reveal" style="animation-delay: 0.1s">
+            <FormularioMuma
+              client:visible
+              tablaBD="solicitudes_vr"
+              asuntoCorreo="[Web VR] Solicitud demostración Batcave Experience"
+              textoBoton="SOLICITAR DEMOSTRACIÓN GRATUITA"
+
+              {/* Selector 1: tipo de espacio — quién eres */}
+              selectName="tipo_espacio"
+              selectLabel="¿Qué tipo de espacio representas?"
+              opcionesSelect={[
+                { valor: 'museo',         texto: 'Museo o centro cultural' },
+                { valor: 'educativo',     texto: 'Centro educativo (colegio, instituto)' },
+                { valor: 'ayuntamiento',  texto: 'Ayuntamiento o institución pública' },
+                { valor: 'empresa',       texto: 'Empresa o espacio corporativo' },
+                { valor: 'evento',        texto: 'Evento, feria o congreso' },
+                { valor: 'naturaleza',    texto: 'Espacio natural o cueva turística' },
+                { valor: 'otro',          texto: 'Otro' },
+              ]}
+
+              {/* Selector 2: servicio de interés — qué producto quieren */}
+              mostrarSelect2={true}
+              selectName2="servicio_interes"
+              selectLabel2="¿Qué servicio te interesa?"
+              opcionesSelect2={[
+                { valor: 'batcave_vr',    texto: 'Batcave Experience VR' },
+                { valor: 'refugios',      texto: 'Refugios para murciélagos' },
+                { valor: 'bat_night',     texto: 'Bat Night / Salida nocturna' },
+                { valor: 'formacion',     texto: 'Formación y consultoría' },
+              ]}
+
+              {/* Teléfono: obligatorio para demos B2B */}
+              mostrarTelefono={true}
+
+              {/* Participantes: select guiado, no campo libre */}
+              mostrarParticipantes={true}
+              opcionesParticipantes={[
+                { valor: 'menos_20',   texto: 'Menos de 20 personas' },
+                { valor: '20_50',      texto: '20 – 50 personas' },
+                { valor: '50_100',     texto: '50 – 100 personas' },
+                { valor: 'mas_100',    texto: 'Más de 100 personas' },
+              ]}
+
+              {/* Sin fecha: el usuario todavía no sabe cuándo, no bloquear */}
+              mostrarFecha={false}
+
+              {/* RGPD alineado con VR y tecnología, no "consultoría ambiental" */}
+              textoRGPD="Acepto el tratamiento de mis datos para recibir información sobre los servicios de MUMA Bat Company y esta solicitud."
+            />
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 6 — PRUEBA SOCIAL: EVENTOS REALIZADOS
+         Sin CTA. Argumento de confianza post-formulario.
+         ══════════════════════════════════════════════════════ -->
+    <section
+      class="bg-fondo-secundario py-20 px-6 border-t border-white/5"
+      aria-labelledby="eventos-titulo"
+    >
+      <div class="max-w-6xl mx-auto">
+
+        <div class="reveal text-center mb-14">
+          <p class="text-[10px] font-bold tracking-[0.25em] text-marca-principal uppercase mb-3">Trayectoria</p>
+          <h2
+            id="eventos-titulo"
+            class="text-2xl sm:text-3xl font-bold text-texto-titulo mb-3"
+          >
+            Ya en 4 países. Más de 1000 personas.
+          </h2>
+          <p class="text-texto-secundario max-w-xl mx-auto text-sm">
+            La Batcave Experience ha operado en museos, cuevas turísticas, plazas urbanas y eventos internacionales durante 2025.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {EVENTOS.map(({ lugar, pais, fecha, asistentes, destacado, img }, i) => (
+            <article
+              class="reveal bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300 flex flex-col"
+              style={`animation-delay: ${i * 0.09}s`}
+            >
+              <div class="relative h-44 overflow-hidden">
+                <img
+                  src={img}
+                  alt={`Batcave Experience en ${lugar}, ${pais}`}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-fondo-superficie/80 to-transparent"></div>
+                <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                  {pais}
+                </div>
+              </div>
+              <div class="p-6 flex flex-col flex-1">
+                <p class="text-base font-bold text-texto-titulo mb-1">{lugar}</p>
+                <div class="flex gap-4 mb-3">
+                  <p class="text-xs text-marca-principal/70">{fecha}</p>
+                  <p class="text-xs text-texto-secundario/60">{asistentes} asistentes</p>
+                </div>
+                <p class="text-sm text-texto-secundario leading-relaxed flex-1">{destacado}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 7 — ECOSISTEMA: MÓDULOS COMPLEMENTARIOS
+         Batcave Experience = hoy. Ecosistema = lo que viene.
+         ══════════════════════════════════════════════════════ -->
+    <section
+      class="relative bg-fondo-base py-20 px-6 border-t border-white/5 overflow-hidden"
+      aria-labelledby="ecosistema-titulo"
+    >
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse 60% 35% at 50% 20%, rgba(192,132,252,0.05) 0%, transparent 70%)"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10 max-w-5xl mx-auto">
+
+        <div class="reveal text-center mb-14">
+          <p class="text-[10px] font-bold tracking-[0.25em] text-marca-principal uppercase mb-4">
+            El ecosistema MUMA VR
+          </p>
+          <h2
+            id="ecosistema-titulo"
+            class="text-2xl sm:text-3xl font-bold text-texto-titulo mb-4"
+          >
+            La Batcave Experience es el núcleo.<br/>Esto es lo que viene.
+          </h2>
+          <p class="text-texto-secundario max-w-xl mx-auto text-sm">
+            Estamos construyendo un ecosistema completo de herramientas inmersivas para la divulgación científica. Apúntate para ser de los primeros.
+          </p>
+        </div>
+
+        <!-- Museo Virtual — hero card del ecosistema, único módulo activo -->
+        <div class="reveal mb-6" style="animation-delay: 0.05s">
+          <div class="relative rounded-2xl overflow-hidden border border-marca-principal/40" style="min-height: 180px">
+
+            <!-- Imagen de fondo con overlay oscuro -->
+            <div class="absolute inset-0" aria-hidden="true">
+              <img
+                src="/images/museos.webp"
+                alt=""
+                class="w-full h-full object-cover opacity-20"
+                loading="lazy"
+              />
+              <div
+                class="absolute inset-0"
+                style="background: linear-gradient(135deg, rgba(5,5,5,0.96) 0%, rgba(5,5,5,0.80) 55%, rgba(31,225,167,0.06) 100%)"
+              ></div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="relative z-10 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <div class="flex-1">
+                <div class="flex items-center gap-2.5 mb-3">
+                  <span class="w-2 h-2 rounded-full bg-marca-principal animate-pulse shrink-0"></span>
+                  <span class="text-xs font-bold text-marca-principal uppercase tracking-widest">Disponible ahora</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold text-white leading-snug mb-2">Museo Virtual MUMA</h3>
+                <p class="text-sm text-texto-secundario/80 leading-relaxed max-w-lg">
+                  Explora el archivo científico de MUMA: especies ibéricas, bioacústica y material de investigación. Accesible desde cualquier navegador.
+                </p>
+              </div>
+              <a
+                href="https://murcielagosmalaga.com/museo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-all duration-200 no-underline shrink-0 shadow-[0_4px_20px_rgba(31,225,167,0.2)] hover:shadow-[0_6px_28px_rgba(31,225,167,0.3)]"
+              >
+                Entrar al museo virtual
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 módulos Próximamente — peso visual reducido, claramente secundarios -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {MODULOS.map(({ titulo, desc, tabla }, i) => (
+            <article
+              class="reveal rounded-2xl p-5 flex flex-col border border-white/[0.07] transition-colors duration-300 hover:border-white/15"
+              style={`background: rgba(22,33,45,0.55); animation-delay: ${0.1 + i * 0.08}s`}
+            >
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <h3 class="text-sm font-semibold text-texto-secundario leading-tight">{titulo}</h3>
+                <span
+                  class="text-[9px] font-bold tracking-widest text-texto-secundario/50 uppercase px-2 py-1 rounded-md shrink-0"
+                  style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08)"
+                >
+                  Próximamente
+                </span>
+              </div>
+              <p class="text-xs text-texto-secundario/60 leading-relaxed flex-1 mb-5">{desc}</p>
+
+              <!-- Wishlist island -->
+              <WishlistForm
+                client:visible
+                tablaBD={tabla}
+                modulo={titulo}
+              />
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════════
+         BLOQUE 8 — ALIANZAS
+         Cierre institucional. Sin CTA.
+         ══════════════════════════════════════════════════════ -->
+    <section
+      class="bg-fondo-secundario py-16 px-6 border-t border-white/5"
+      aria-labelledby="alianzas-titulo"
+    >
+      <div class="max-w-5xl mx-auto">
+        <div class="reveal text-center mb-10">
+          <p
+            id="alianzas-titulo"
+            class="text-xs font-bold tracking-[0.2em] text-texto-secundario/50 uppercase"
+          >
+            Con quiénes trabajamos
+          </p>
+        </div>
+
+        <!-- Carrusel de logos CSS puro -->
+        <div class="logos-wrapper overflow-hidden" aria-label="Logos de alianzas institucionales">
+          <div class="logos-track flex gap-12 w-max items-center">
+            {/* Primera pasada */}
+            {ALIANZAS.map(({ nombre, logo }) => (
+              <div class="shrink-0 bg-white/90 rounded-lg px-5 py-3 flex items-center justify-center" style="min-width: 120px; height: 56px">
+                <img src={logo} alt={nombre} class="h-8 w-auto object-contain" loading="lazy" />
+              </div>
+            ))}
+            {/* Segunda pasada para loop infinito */}
+            {ALIANZAS.map(({ logo }) => (
+              <div class="shrink-0 bg-white/90 rounded-lg px-5 py-3 flex items-center justify-center" style="min-width: 120px; height: 56px" aria-hidden="true">
+                <img src={logo} alt="" class="h-8 w-auto object-contain" loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
 </BaseLayout>
+
+<!-- IntersectionObserver para animaciones CSS reveal -->
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.12 }
+  )
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+</script>

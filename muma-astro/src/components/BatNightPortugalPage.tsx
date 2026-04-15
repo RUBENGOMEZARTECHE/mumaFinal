@@ -1,6 +1,7 @@
 // Componente — Bat Night Portugal · Grutas da Moeda
 import { motion } from 'framer-motion'
 import { Moon, MapPin, CalendarDays, Users, Check, Camera, ArrowLeft } from 'lucide-react'
+import FormularioMuma from './formularioContacto'
 
 const varianteSeccion = {
   oculto: { opacity: 0, y: 24 },
@@ -88,7 +89,7 @@ export default function BatNightPortugalPage() {
             className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <a
-              href="mailto:info@murcielagosmalaga.com?subject=Quiero%20apuntarme%20a%20la%20próxima%20Bat%20Night"
+              href="#formulario"
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
             >
               Quiero apuntarme a la próxima Bat Night
@@ -189,7 +190,7 @@ export default function BatNightPortugalPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
               <a
-                href="mailto:info@murcielagosmalaga.com?subject=Quiero%20organizar%20una%20Bat%20Night%20similar%20a%20Portugal"
+                href="#formulario"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
               >
                 Solicitar propuesta por email
@@ -211,24 +212,35 @@ export default function BatNightPortugalPage() {
       </section>
 
       {/* ── APUNTARSE CTA ── */}
-      <section className="bg-fondo-secundario py-16 px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion}>
-            <h2 className="text-2xl sm:text-3xl font-bold text-texto-titulo mb-5">¿No quieres perderte la próxima edición?</h2>
-            <p className="text-texto-secundario leading-relaxed mb-8">
-              Escríbenos y te avisamos cuando lancemos nuevas Bat Nights. Sin compromiso.
-            </p>
-            <a
-              href="mailto:info@murcielagosmalaga.com?subject=Quiero%20apuntarme%20a%20la%20próxima%20Bat%20Night"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline shadow-lg shadow-marca-principal/20"
-            >
-              <Moon size={18} aria-hidden="true" />
-              Quiero apuntarme a la próxima Bat Night
-            </a>
-            <p className="mt-6 text-xs text-texto-secundario/50">
-              Al hacer clic se abrirá tu cliente de correo con el asunto predefinido.
+      <section id="formulario" className="bg-fondo-secundario py-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-5">¿Quieres apuntarte a la próxima edición?</h2>
+            <p className="text-texto-secundario leading-relaxed max-w-xl mx-auto">
+              Escríbenos y te avisamos cuando lancemos nuevas Bat Nights en Portugal o entornos similares. Sin compromiso.
             </p>
           </motion.div>
+
+          <div className="bg-fondo-base/50 backdrop-blur-md border border-white/5 rounded-[3rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            <FormularioMuma 
+              tablaBD="consultas_web"
+              asuntoCorreo="[Web Bat Night Portugal] Interés en próxima edición"
+              textoBoton="AVÍSAME DE PRÓXIMAS EDICIONES"
+              mostrarOrganizacion={false}
+              mostrarTelefono={true}
+              mostrarMensaje={true}
+              placeholderMensaje="Cuéntanos si vienes solo, en familia o con algún interés específico..."
+              mostrarSelect={false}
+              mostrarFecha={false}
+              mostrarParticipantes={false}
+              nombreCampoNombre="nombre_contacto"
+              camposOcultos={{
+                tipo_solicitud: 'interes_batnight_evento',
+                evento_referencia: 'Portugal - Grutas da Moeda',
+                origen: 'web_batnight_portugal'
+              }}
+            />
+          </div>
         </div>
       </section>
 
