@@ -1,31 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import RefugiosPage from '../../components/RefugiosPage'
-import MapaRefugios from '../../components/MapaRefugios'
 ---
 <BaseLayout
   title="Refugios para murciélagos | MUMA BAT COMPANY"
-  description="Infraestructura de conservación y control biológico de plagas con tecnología 3D y madera técnica."
+  description="Refugios para murciélagos en Málaga. Control biológico de plagas sin pesticidas: mosca del olivo, procesionaria, mosquito tigre. Fabricación artesanal e instalación por nuestro equipo."
   canonical="https://mumabatcompany.com/servicios/refugios"
 >
   <RefugiosPage client:load />
-  <div id="mapa-refugios-portal" class="hidden">
-    <MapaRefugios client:only="react" />
-  </div>
 </BaseLayout>
-
-<script>
-  // Mueve el mapa al slot cuando ambos están listos
-  function montarMapa() {
-    const slot = document.getElementById('mapa-refugios-slot')
-    const portal = document.getElementById('mapa-refugios-portal')
-    if (slot && portal && portal.children.length > 0) {
-      slot.innerHTML = ''
-      slot.appendChild(portal.children[0])
-      portal.remove()
-    } else {
-      setTimeout(montarMapa, 100)
-    }
-  }
-  document.addEventListener('DOMContentLoaded', () => setTimeout(montarMapa, 300))
-</script>

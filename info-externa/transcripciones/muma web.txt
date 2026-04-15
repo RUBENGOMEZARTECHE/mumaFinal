@@ -1,0 +1,101 @@
+(Transcribed by TurboScribe. Go Unlimited to remove this message.)
+
+Hola, ¿qué tal? Claro, esta es nuestra zona de trabajo. Actualmente tenemos estos 3 ordenadores. Aquí hay uno que normalmente está ocupado, o sea, Giancarlo está en otro ordenador. 
+
+Y toda esa fila de allí también la está ocupando. Entonces, Antonio te iba a enseñar. Antonio ya es Mercedes, de la Cámara de Comercio de Málaga.
+
+Y Antonio está de CESUR. Antonio está de Digitech. Y está haciendo un máster de, bueno, una formación de DAW. 
+
+Desarrollo de aplicaciones web, sí señor. Y se está marcando junto con otros dos compañeros una pedazo web nueva, que es Moog Apps Company. Él es Santiago. 
+
+Hola, ¿qué tal? Ella es Mercedes. Santiago está haciendo un máster de desarrollo de videojuegos. Y viene de la edad Turing. 
+
+De un máster que se da aquí, el máster. Tiene una sala para el tema del máster. Entonces quería que lo había avisado que venías tú para que te enseñaran un poco. 
+
+Estuviera formalito. Formalito, efectivamente. Entonces te van a enseñar así un poquillo por encima de lo que están haciendo con Moog Apps Company, que es la evolución de la computadora. 
+
+Y además te agradezco mucho que vengas porque casi no puedo contar con una opinión. Porque uno muchas veces se mete y es bueno escuchar opiniones. Bueno, lo que estamos construyendo… Esta web tiene un tinte un poquito más comercial que otra web que tiene Antonio, murcielagosmalaga.com, que es un poquito más divulgativa. 
+
+Bueno, aquí en la página home algunos títulos y demás podemos mejorarlo todavía. Ahora mismo lo que queremos es crear la arquitectura, escoger bien los colores. Hemos escogido, bueno, un poco el oscuro, el negro, en algunos sitios blanco, el verde y este morado como un color terciario.
+
+SEÑOR PRESIDENTE DE LA ASAMBLEA DE EXTREMADURA Es una área especialista para que la gente se meta ahí a hacer servicios premium de los clientes que tenemos. Sí, incluso ahora mismo lo que hemos hecho, lo que hemos conseguido esta semana pasada en el área de especialistas, pues ya hemos hecho una conexión con el Bakken, con una base de datos que un compañero está creando. Entonces, si me aguardan unos segundos… La idea es que… No es correcta… SEÑORA PRESIDENTA DE LA ASAMBLEA DE EXTREMADURA ¿Qué? SEÑORA PRESIDENTA DE LA ASAMBLEA DE EXTREMADURA Ahí el WhatsApp. 
+
+SEÑOR PRESIDENTE DE LA ASAMBLEA DE EXTREMADURA Ya lo han vinculado ellos. SEÑORA PRESIDENTA DE LA ASAMBLEA DE EXTREMADURA ¿Con el tuyo? SEÑOR PRESIDENTE DE LA ASAMBLEA DE EXTREMADURA Sí. Bueno, con el mío no sé, pero se va a cumplir antes de que se vayan vamos a tener un teléfono de empresa. 
+
+La idea empieza aquí. Bueno, van directos a lo mejor a hablar con el teléfono de empresa, pero sí, la idea es que el día de mañana tenga… Sí, porque además este WhatsApp solo se puede linkar con un WhatsApp Business. El WhatsApp normal no… Entonces, bueno, estamos un poco en eso.
+
+Dale para abajo. Aquí se ve poco, de hecho. Pierde potencia la imagen de atrás y se superponen las de esas… Sí.
+
+La letra no se lee mucho. ¿La letra no se lee mucho? No. Vale, pues eso lo vamos a mejorar. 
+
+Después tenemos para quién trabajamos, quiénes son nuestros targets. Museo, ayuntamientos, espacios naturales, agricultores y fincas, instituciones, administraciones. Mira, a ver, ahí se ve mejor, porque está abajo.
+
+Sí, no coge la imagen. De todos modos, la foto la vamos a cambiar, porque ellos están haciendo con una de estas fotos que yo les he dado y, pues, cuando yo termine voy a ir yo cambiando. Esta quiero aquí, esta foto. 
+
+¿Por qué? Porque va a haber muchas fotos. Exactamente. Interesantes.
+
+Los eventos, las barnais que Antonio hace y un poco estas son las próximas. La idea que queremos es que las barnais que estén en la base de datos, pues, automáticamente se importen, para que sea todo más dinámico. Esto es… Algunas marcas que refuerzan un poquito la credibilidad. 
+
+Más que marcas, Antonio, son entidades que nos financian científicamente el proyecto y económicamente. Entonces, más que empresas… La Cámara de Comercio, el SESCEMU, Eurobaz… Claro, estas son entidades que financian y patrocinan la empresa, pero los otros sí son organizaciones sin ánimo de lucro. Y aquí ya lo que estamos empezando a incluir, pues, un poco… Sí, aquí viene a la parte de la realidad virtual, que es un servicio que está desarrollando Antonio. 
+
+Sí, algunos textos sí está claro que los tenemos que cambiar por otros mejores. Sí, un poco como está aquí. Ese luego tiene que ir sin fondo, que se vea bien. 
+
+Son detalles y ya lo están montando, ¿me entiendes? Los detalles ya después se van a ver. Bueno, sí, sí, sí. De nuevo, a quien va dirigido el servicio realidad virtual. 
+
+Esto te lleva directamente a un formulario, en el cual el usuario introduce sus datos y, al guardarlo, lo guardamos en la base de datos, para tener información de las personas que solicitan distintos servicios. Eso podría ir a la parte comercial, donde se le da respuesta, porque cuando un cliente deja un formulario constante ponemos respuesta en cuarenta y ocho horas para darle un poquito de feedback. Esta parte es la que yo veo un poquito más osa, digamos. 
+
+En el formulario ¿pueden señalar de qué quieren la información o lo tienen que entribir? O sea, ¿tenéis como un desplegable en el que están las opciones? Sí, intentamos contar con la información más valiosa y que le dé menos trabas al usuario. En este caso, el nombre y las básicas nombres, teléfono de contacto, el correo… Sí, pero lo digo, por ejemplo, de los servicios que vosotros tenéis. Por ejemplo, contratar una Van Nuy o comprar refugio o lo que sea.
+
+Yo, por ejemplo, en el formulario que se apunta la gente a la Van Nuy, yo sé por dónde va Mercedes, en el formulario que tú has rellenado para irte a Guaro. En ese formulario hay una temática que le pregunta al que se inscribe que qué temática de la Van Nuy le interesa más, paseo con detectores, rutas guiadas… Claro, dar las opciones tuyas a esa persona porque la gente es muy guaga para escribir. Sí.
+
+Entonces, dárselo todo hecho para que señalen directamente… Que te interesa el refugio, realidad virtual y se le trata de una manera o de otra, depende de lo que quieras. Exactamente, sí. Porque aquí te puede escribir yo quiero, ahí te lo va a poner, pero a lo mejor le interesa todo y escribándola por ahí… Y en la página queda claro cuáles son todos los servicios para que luego el que quiera pedir información… Pues, mira, subiendo aquí un poco… Es que esta página solo tiene tres servicios claves. 
+
+Claro. Realidad virtual, Van Nuy, refugio y formación. Vale, vale.
+
+Entonces, están todos arriba. Entonces, en la página ya te está diciendo lo que vende, pero… Claro. Vale, vale. 
+
+Esto es la parte, digamos, centrándonos en todo lo que es realidad virtual. Aquí hay servicios que los compañeros están desarrollando, Movable 360, el museo virtual, que ya existe y lo podemos linkar. Y estos también son servicios que se están construyendo por eso, por el momento, pero sí.
+
+¿Me subo una mejilla? Sí. ¿Estos logos? Aquí. ¿Estos logos si tienen fondo negro, se ven bien? Sí. 
+
+¿Faltan logos? Porque aquí repite el biopar. Esta es la de fomentación, no sé qué ha pasado, pero… Bueno, este todavía no lo tenemos firmado. Lo hemos puesto porque estamos en prácticas y nada. 
+
+Hasta que no lo firmemos no va a aparecer en la web, pero de momento… La decisión que hemos tomado es porque antes había un formulario más grande y ahora creemos que vamos a poner distintos formularios, dependiendo del servicio. Por ejemplo, en Van Nuy, bueno, refugio, perdón. Aquí otros servicios, que ahora entraremos. 
+
+Y la idea es aquí poner otro formulario. No, no, pero que si tiene un formulario y el formulario tiene un desplegable de las opciones, ya lo tiene. ¿Entiendes? O sea, yo no sé la mecánica interna, pero sé cómo funcionamos. 
+
+Por ejemplo, nosotros, cuando tenemos que seleccionar los cursos, etcétera, etcétera, hacemos eso. Le damos ya las opciones a los usuarios y tienen que escribir lo menos posible. Primero, porque no quieren y, segundo, porque cuanto menos escriban, menos se equivocan. 
+
+O sea, digo, a la hora de poner los teléfonos, luego te encuentras que te faltan dos números, una letra, no sé cuánto… Entonces, si le das todas las opciones ya no tienes que hacer cincuenta formularios para los cincuenta servicios. Los cincuenta servicios en un desplegable ya ellos señalan que luego quieren varios, pues ya que luego te lo digan cuando contactéis con ellos, pero… Eso me parece muy buena idea. Y vosotros tenéis un formulario, digamos, para todos en una pestaña, digamos… Nosotros lo que pasa es que tenemos, como tenemos cursos de distintas familias profesionales, ahora ya lo hemos dividido porque ya tenemos un catálogo grande, pero sí que le damos las distintas opciones para que lo señalen, para que no nos lleve directamente el nombre del título. 
+
+Tú imagínate que nosotros, con los títulos que tenemos a lo largo de los cursos, tuvieran que escribir ellos el curso que quieren y se lo inventarían todos. Entonces, claro… Sí, pero eso lo tenemos que implementar, porque al final es de qué tipo de información quieres que te demos información. Claro, es de qué tipo de servicios.
+
+Y los refugios. Refugios, realidad virtual, BACNAE o formación. Exactamente. 
+
+Ya está. Sí. Aquí, por ejemplo, otro servicio que ya le dije yo a Álvaro… Va, Antonieta. 
+
+Estas son imágenes de BAC Bienvino. Podemos usar imágenes que aparecen en la página web, no son propiedad nuestra. Claro, o las creamos nosotros con ella, aunque para eso le he dado Gemini a todos los procesos.
+
+Pero, fíjate, tú aquí, por ejemplo, el refugio se va a ir montando… Tengo otro que es mejor, es una calculadora según la hectárea de cultivos. Tengo diez hectáreas, pues ahorras esto poniendo quince refugios. Esta parte la he metido caña esta tarde. 
+
+Y, además, me viene muy bien que…, porque la parte de la calculadora, lo otro día hablamos, es una parte muy importante. Entonces, además de esto ponerlo un poquito más llamativo, he puesto unos datos estándar, 70 % menos gasto en pesticidas. Pero, bueno, yo supongo que esto podría, no sería un 70, tendría que ser… Eso en un momento dado, para cuando lo podamos mirar más tranquilamente, porque es más profesional en eso y lo sabe los datos mucho mejor que yo.
+
+Yo le estoy dejando que avancen, que lo monten todo, para yo ya después entrar muy bien con él y seguir allá. Sí, ya sacándole los flecos. Claro. 
+
+Exacto. Fotos, palabras que no… Sí. Por ejemplo, Muma, Muma Vascompañía, hay que poner la U y la A en minúsculas, porque viene de Murciélago, Málaga, pero bueno, ya veremos cosas, detallitos. 
+
+Antonio, es que tengo prisa, un poco de prisa. Nada, hombre, claro. Que está de puta madre explicado, tío. 
+
+No sé si hay alguna parte que tú dirías… Formación, por ejemplo, ella hace el tema de curso de formación. Por formación se le va a abrir consultorio de formación. Está de formación en conservación de Murciélago y aquí se van a poner los cursos. 
+
+Consultoría de bioacústica. Aquí es un curso de iniciación a la bioacústica. Curso de iniciación al censo de Murciélago. 
+
+Claro, esta gente se ha marcado aquí, lo he dejado que se estaba en curso jurídico ambiental. No sé de dónde coño habéis sacado eso, pero bueno. La cosa es que, bueno, agricultura y control biológico, esto sí. 
+
+Ahí la gente va a poder seleccionar un curso y solicita más información, te lleva al envío de solicitud técnica. Pero la formación va a ser algo clave dentro de lo que hagamos aquí. Ve aquí el link de las cosas. 
+
+Sí, que ya está liqueado. Facebook falta. Luego, cuando pueda. 
+
+Y ya por último, ya os dejo la parte de voluntarios, que además se le han puesto algunas de las fotos. Los textos que no se ven. Pues nada, y ahí seguimos, como vamos a ir poniéndolos a lo largo de la semana.
+
+(Transcribed by TurboScribe. Go Unlimited to remove this message.)

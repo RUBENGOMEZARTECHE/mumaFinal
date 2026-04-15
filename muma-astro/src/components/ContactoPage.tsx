@@ -134,11 +134,11 @@ export default function ContactoPage() {
             <div className="flex flex-col gap-2">
               <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Motivo</label>
               <select name="motivo" required value={form.motivo} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-xl p-4 text-sm focus:border-marca-principal outline-none appearance-none transition-all">
-                <option value="">Seleccione motivo</option>
-                <option value="Consultoría">Consultoría Técnica</option>
-                <option value="Refugios">Adquisición de Refugios</option>
-                <option value="VR">Experiencia VR</option>
-                <option value="BatNight">Organizar Bat Night</option>
+                <option value="">Seleccione un servicio</option>
+                <option value="Refugios">Refugios para murciélagos</option>
+                <option value="Realidad Virtual">Realidad Virtual / Museo VR</option>
+                <option value="Bat Night">Organizar Bat Night</option>
+                <option value="Formación">Consultoría y Formación</option>
               </select>
             </div>
             <div className="flex flex-col gap-2 md:col-span-2">

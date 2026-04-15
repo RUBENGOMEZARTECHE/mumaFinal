@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
 } from "lucide-react";
+import { supabase } from "../lib/supabase";
 
 // --- COMPONENTES INTERNOS (BLOQUES) ---
 
@@ -150,24 +151,24 @@ const Diferenciacion = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              
               transition={{ delay: i * 0.1 }}
-              className="group relative p-10 rounded-[2rem] overflow-hidden border border-white/10 hover:border-purple-500 transition-all duration-500"
+              className="group relative rounded-[2rem] overflow-hidden border border-white/10 hover:border-purple-500 transition-all duration-500 flex flex-col justify-end min-h-[480px]"
             >
               <div className="absolute inset-0 z-0">
                 <img
                   src={item.bg}
                   alt={item.title}
-                  className="w-full h-full object-cover opacity-90 group-hover:scale-110 transition-all duration-700"
+                  className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-[#050505]/10 to-transparent" />
+                {/* Gradiente más agresivo: cubre 70% de la tarjeta desde abajo */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10" />
               </div>
 
-              <div className="relative z-10 flex flex-col h-full">
-                <h3 className="text-2xl font-bold text-white mb-5">
+              <div className="relative z-10 p-8 flex flex-col">
+                <h3 className="text-2xl font-bold text-white mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
                   {item.title}
                 </h3>
-                <p className="text-zinc-300 leading-relaxed font-light text-lg mb-6 flex-1">
+                <p className="text-zinc-200 leading-relaxed font-medium text-[15px] mb-6" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                   {item.desc}
                 </p>
                 <a
@@ -255,18 +256,18 @@ const Segmentacion = () => {
               >
                 {/* Imagen de fondo */}
                 <div className="absolute inset-0 z-0">
-                  <img src={p.img} alt={p.tipo} className="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-                  <div className="absolute inset-0 bg-fondo-superficie/20" />
+                  <img src={p.img} alt={p.tipo} className="w-full h-full object-cover opacity-80 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20" />
                 </div>
 
                 <div className="relative z-10 flex flex-col h-full">
-                  <span className="text-[10px] font-bold tracking-widest text-marca-principal/70 uppercase mb-4">
+                  <span className="text-[10px] font-bold tracking-widest text-[#1fe1a7] uppercase mb-4" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                     {p.etiqueta}
                   </span>
-                  <h3 className="text-xl font-bold text-texto-titulo mb-3 group-hover:text-marca-principal transition-colors">
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#1fe1a7] transition-colors" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
                     {p.tipo}
                   </h3>
-                  <p className="text-texto-secundario text-sm leading-relaxed flex-1 mb-6">
+                  <p className="text-white/80 text-sm leading-relaxed flex-1 mb-6" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                     {p.desc}
                   </p>
                   <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-marca-principal text-texto-sobre-accion text-sm font-bold rounded-xl self-start group-hover:bg-marca-principal-hover transition-colors duration-200">
@@ -347,11 +348,43 @@ const Servicios = () => {
 };
 
 const ProximosEventos = () => {
-  const eventos = [
-    { dia: "24", mes: "ABR", lugar: "Guaro",    provincia: "Málaga", img: "/images/Proyecto-Batnight-Guaro.webp" },
+  const eventosEstaticos = [
+    { dia: "24", mes: "ABR", lugar: "Guaro", provincia: "Málaga", img: "/images/Proyecto-Batnight-Guaro.webp" },
     { dia: "22", mes: "MAY", lugar: "Almargen", provincia: "Málaga", img: "/images/Bat-Nigt-Malaga2.webp" },
-    { dia: "5",  mes: "JUN", lugar: "Pizarra",  provincia: "Málaga", img: "/images/Bat-Nigt-Malaga3.webp" },
+    { dia: "5", mes: "JUN", lugar: "Pizarra", provincia: "Málaga", img: "/images/Bat-Nigt-Malaga3.webp" },
   ];
+
+  const [eventos, setEventos] = useState(eventosEstaticos);
+
+  useEffect(() => {
+    supabase
+      .from('eventos_batnight')
+      .select('id, nombre, fecha_evento, municipio')
+      .eq('publicado', true)
+      .limit(3)
+      .then(({ data, error }) => {
+        if (!error && data && data.length > 0) {
+          // Mapeamos a la estructura requerida usando las imágenes estáticas ciclo a ciclo
+          const mapped = data.map((d, index) => {
+            const date = new Date(d.fecha_evento);
+            const diaFormateado = isNaN(date.getTime()) ? "??" : date.getDate().toString();
+            // Truco rápido para sacar el mes corto en es-ES (abr, may, jun)
+            const mesFormateado = isNaN(date.getTime()) 
+                ? "MES" 
+                : date.toLocaleString('es-ES', { month: 'short' }).toUpperCase();
+            
+            return {
+              dia: diaFormateado,
+              mes: mesFormateado.replace('.', ''),
+              lugar: d.municipio || d.nombre,
+              provincia: d.municipio ? d.nombre : "España",
+              img: eventosEstaticos[index % eventosEstaticos.length].img,
+            };
+          });
+          setEventos(mapped);
+        }
+      });
+  }, []);
 
   return (
     <section className="py-24 bg-[#050505] px-6 border-t border-white/5">
@@ -476,13 +509,13 @@ const Vision = () => (
       </div>
       <div className="flex-1 grid grid-cols-2 gap-4">
         {[
-          { img: "/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp", alt: "Proyecto ST3ER",       invert: false },
-          { img: "/images/Logo_SECEMU.webp",   alt: "SECEMU",                                             invert: false },
-          { img: "/images/EUROBATS_logo.webp", alt: "EUROBATS",                                           invert: false },
-          { img: "/images/europa.webp",        alt: "Unión Europea — FEDER",                              invert: true  },
+          { img: "/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp", alt: "Proyecto ST3ER" },
+          { img: "/images/Logo_SECEMU.webp", alt: "SECEMU" },
+          { img: "/images/EUROBATS_logo.webp", alt: "EUROBATS" },
+          { img: "/images/europa.webp", alt: "Unión Europea — FEDER" },
         ].map((item, i) => (
-          <div key={i} className="p-6 rounded-2xl bg-white border border-white/10 shadow-md flex items-center justify-center" style={{ minHeight: 110 }}>
-            <img src={item.img} alt={item.alt} className="max-h-14 max-w-full object-contain" style={{ filter: item.invert ? 'invert(1)' : 'none' }} />
+          <div key={i} className="p-6 rounded-2xl bg-acento-tecnologico-hover border border-white/10 shadow-md flex items-center justify-center" style={{ minHeight: 110 }}>
+            <img src={item.img} alt={item.alt} className="max-h-14 max-w-full object-contain" />
           </div>
         ))}
       </div>
@@ -522,16 +555,19 @@ const Captacion = () => {
   const [estado, setEstado] = useState("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setEstado("enviando");
+    e.preventDefault();
+    setEstado("enviando");
 
-    const res = await fetch("https://formspree.io/f/TU_ID", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    const { error } = await supabase.from('consultas_web').insert([{
+      email,
+      nombre_contacto: email,
+      tipo_solicitud: 'batcave_waitlist',
+      origen: 'web_inicio',
+      acepta_rgpd: true,
+      estado: 'nuevo',
+    }]);
 
-    setEstado(res.ok ? "ok" : "error");
+    setEstado(error ? "error" : "ok");
   };
 
   return (
@@ -554,7 +590,7 @@ const Captacion = () => {
           Sé el primero en saber <br />
           cuándo está disponible.
         </h2>
-        <p className="text-gray-400 mb-10 max-w-md mx-auto">
+        <p className="text-white/70 mb-10 max-w-md mx-auto">
           Más de 700 personas ya la han probado en eventos. Cuando abramos acceso directo, avisamos primero a esta lista.
         </p>
 
@@ -586,7 +622,7 @@ const Captacion = () => {
           <p className="text-red-400 text-sm mt-3">Algo ha fallado. Inténtalo de nuevo.</p>
         )}
 
-        <p className="text-gray-600 text-xs mt-6">Sin spam. Solo novedades de la Batcave Experience.</p>
+        <p className="text-white/50 text-xs mt-6">Sin spam. Solo novedades de la Batcave Experience.</p>
       </div>
     </section>
   );

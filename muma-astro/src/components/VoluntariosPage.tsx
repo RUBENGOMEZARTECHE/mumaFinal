@@ -6,6 +6,7 @@ import {
   Radio, Headset, BookOpen, MapPin,
   Heart, ArrowRight, Send,
 } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 
 const varianteSeccion = {
   oculto: { opacity: 0, y: 24 },
@@ -29,7 +30,7 @@ const porQueUnirte = [
     Icono: Microscope,
     titulo: 'Investigación científica',
     descripcion: 'Participa en la recogida de datos de campo, monitorización de colonias y proyectos de ciencia ciudadana junto a biólogos especializados en quirópteros.',
-    img: '/images/ciencia.webp',
+    img: '/images/colonia_murcielago01.webp',
   },
   {
     Icono: Megaphone,
@@ -75,20 +76,34 @@ const requisitos = [
 
 export default function VoluntariosPage() {
   const [form, setForm] = useState({ nombre: '', email: '', mensaje: '' })
+  const [estado, setEstado] = useState('idle')
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  setForm({ 
-    ...form, 
-    [e.target.name]: e.target.value 
+  setForm({
+    ...form,
+    [e.target.name]: e.target.value
   });
 };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-    const asunto = encodeURIComponent(`Solicitud de voluntariado — ${form.nombre}`)
-    const cuerpo = encodeURIComponent(
-      `Hola, me gustaría unirme como voluntario/a en MUMA.\n\nNombre: ${form.nombre}\nEmail: ${form.email}\n\n${form.mensaje}`
-    )
-    window.location.href = `mailto:info@murcielagosmalaga.com?subject=${asunto}&body=${cuerpo}`
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setEstado('enviando');
+
+    const { error } = await supabase.from('consultas_web').insert([{
+      nombre_contacto: form.nombre,
+      email: form.email,
+      mensaje: form.mensaje,
+      tipo_solicitud: 'voluntariado',
+      origen: 'web_voluntarios',
+      acepta_rgpd: true,
+      estado: 'nuevo',
+    }]);
+
+    if (error) {
+      setEstado('error');
+    } else {
+      setEstado('ok');
+      setForm({ nombre: '', email: '', mensaje: '' });
+    }
   }
 
   return (
@@ -100,13 +115,13 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
           {/* Imagen de fondo */}
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/images/Bat-Nigt-Malaga2.webp')" }}
+            style={{ backgroundImage: "url('/images/fondovoluntario.webp')" }}
             aria-hidden="true"
           />
           {/* Overlay oscuro */}
           <div
             className="absolute inset-0"
-            style={{ background: 'linear-gradient(to bottom, rgba(11,17,23,0.72) 0%, rgba(11,17,23,0.55) 50%, rgba(11,17,23,0.80) 100%)' }}
+            style={{ background: 'linear-gradient(to bottom, rgba(11,17,23,0.65) 0%, rgba(11,17,23,0.55) 50%, rgba(11,17,23,0.80) 100%)' }}
             aria-hidden="true"
           />
           <div className="relative z-10 max-w-3xl mx-auto">
@@ -172,8 +187,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
                     </div>
                   )}
                   <div className="p-6 flex flex-col grow">
-                    <item.Icono size={28} className="text-marca-principal mb-4" aria-hidden="true" />
-                    <h3 className="text-base font-bold text-texto-titulo mb-3 leading-snug">{item.titulo}</h3>
+                    <h3 className="text-base font-bold text-marca-principal mb-3 leading-snug">{item.titulo}</h3>
                     <p className="text-sm text-texto-secundario leading-relaxed grow">{item.descripcion}</p>
                   </div>
                 </motion.article>
@@ -203,12 +217,9 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
                       <img src={item.img} alt={item.titulo} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                     </div>
                   )}
-                  <div className="p-7 flex gap-5 items-start">
-                    <div className="shrink-0 w-11 h-11 rounded-xl bg-marca-principal/10 flex items-center justify-center">
-                      <item.Icono size={22} className="text-marca-principal" aria-hidden="true" />
-                    </div>
+                  <div className="p-7">
                     <div>
-                      <h3 className="text-base font-bold text-texto-titulo mb-2 leading-snug">{item.titulo}</h3>
+                      <h3 className="text-base font-bold text-marca-principal mb-2 leading-snug">{item.titulo}</h3>
                       <p className="text-sm text-texto-secundario leading-relaxed">{item.descripcion}</p>
                     </div>
                   </div>
@@ -253,12 +264,17 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
               <p className="text-texto-secundario leading-relaxed">Cuéntanos quién eres y qué te motiva a unirte. Te responderemos en menos de 48 horas.</p>
             </motion.div>
 
-            <motion.form
-              initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion}
-              onSubmit={handleSubmit}
-              className="bg-fondo-superficie rounded-2xl p-8 border border-white/5 space-y-5"
-              aria-label="Formulario de solicitud de voluntariado"
-            >
+            {estado === 'ok' ? (
+              <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="inline-flex w-full items-center justify-center gap-3 px-8 py-6 bg-marca-principal/10 border border-marca-principal/30 rounded-2xl text-marca-principal font-bold text-center">
+                ✓ Hemos recibido tu solicitud. Te contactaremos en breve.
+              </motion.div>
+            ) : (
+              <motion.form
+                initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion}
+                onSubmit={handleSubmit}
+                className="bg-fondo-superficie rounded-2xl p-8 border border-white/5 space-y-5"
+                aria-label="Formulario de solicitud de voluntariado"
+              >
               <div>
                 <label htmlFor="nombre" className="block text-xs font-semibold text-texto-secundario uppercase tracking-wider mb-2">
                   Nombre
@@ -309,17 +325,20 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElemen
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 cursor-pointer"
+                disabled={estado === 'enviando'}
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send size={15} aria-hidden="true" />
-                Enviar solicitud
+                {estado === 'enviando' ? 'Enviando...' : 'Enviar solicitud'}
               </button>
 
-              <p className="text-xs text-texto-secundario/50 text-center leading-relaxed">
-                Se abrirá tu cliente de correo para enviar el mensaje a{' '}
-                <span className="text-marca-principal/70">info@murcielagosmalaga.com</span>
-              </p>
+              {estado === 'error' && (
+                <p className="text-xs text-red-400/80 text-center leading-relaxed bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
+                  Hubo un problema enviando tu solicitud. Por favor, intenta de nuevo.
+                </p>
+              )}
             </motion.form>
+            )}
           </div>
         </section>
 

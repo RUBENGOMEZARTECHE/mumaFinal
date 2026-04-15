@@ -2,22 +2,36 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { createClient } from "@supabase/supabase-js";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL as string;
 const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const customIcon = L.divIcon({
-  className: "custom-muma-pin",
-  html: `<div style="background-color: #1fe1a7; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 12px #1fe1a7;"></div>`,
-  iconSize: [14, 14],
-  iconAnchor: [7, 7],
+  className: 'custom-chincheta',
+  html: `<svg viewBox="0 0 384 512" style="width:28px; height:40px; filter: drop-shadow(0px 4px 4px rgba(0,0,0,0.5));">
+    <path fill="#1fe1a7" stroke="#ffffff" stroke-width="15" d="M172.3 501.7C27 291 0 269.4 0 192 0 86 86 0 192 0s192 86 192 192c0 77.4-27 99-172.3 309.7-9.5 13.8-29.9 13.8-39.4 0z"/>
+    <circle cx="192" cy="192" r="70" fill="#ffffff" />
+  </svg>`,
+  iconSize: [28, 40],
+  iconAnchor: [14, 40],
+  popupAnchor: [0, -40]
 });
 
 export default function MapaRefugios() {
   const [refugios, setRefugios] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Inyectar CSS de Leaflet dinámicamente si no está ya
+    if (!document.querySelector('#leaflet-css')) {
+      const link = document.createElement('link')
+      link.id = 'leaflet-css'
+      link.rel = 'stylesheet'
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'
+      document.head.appendChild(link)
+    }
+  }, [])
 
   useEffect(() => {
     async function traerRefugios() {
@@ -49,11 +63,11 @@ export default function MapaRefugios() {
     <MapContainer
       center={[36.7213, -4.4214]}
       zoom={10}
-      style={{ height: "100%", width: "100%", background: "#050505" }}
+      style={{ height: "100%", width: "100%", background: "#e5e5e5" }}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        attribution="MUMA SL"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+        attribution='Tiles &copy; Esri'
       />
       {refugios.map((r) => (
         <Marker

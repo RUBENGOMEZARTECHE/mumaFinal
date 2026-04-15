@@ -92,7 +92,6 @@ const datosMurcielagos = [
 const alianzasImagenes = [
   { nombre: 'Junta de Andalucía',              img: '/images/junta-andalucia.webp',         url: 'https://www.juntadeandalucia.es' },
   { nombre: 'Málaga TechPark',                  img: '/images/malaga-tech-park.webp',         url: 'https://www.ptp.es' },
-  { nombre: 'Fundación BioParc',                img: '/images/fundacion biopark.webp',        url: 'https://www.bioparcfuengirola.es' },
   { nombre: 'Plaza Mayor Málaga',               img: '/images/plaza-mayor.webp',              url: 'https://www.plazamayor.es' },
   { nombre: 'Centro Europeo de Empresas',       img: '/images/centro-europeo-empresas.webp',  url: 'https://www.ceei.es' },
   { nombre: 'Polo de Contenido Digital',        img: '/images/polo-contenido-digital.webp',   url: '#' },
@@ -642,7 +641,7 @@ export default function NosotrosPage() {
                   key={i}
                   initial="oculto" whileInView="visible" viewport={{ once: true }}
                   variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } }}
-                  className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300"
+                  className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300"
                 >
                   {/* Imagen del aval */}
                   <div className="flex items-center justify-center px-8 py-6">
@@ -686,7 +685,7 @@ export default function NosotrosPage() {
               className="grid grid-cols-1 sm:grid-cols-2 gap-6"
             >
               {/* Antonio Moret */}
-              <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300">
+              <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300">
                 <img
                   src="/images/antonio-moret.webp"
                   alt="Antonio Moret, CEO de MUMA BAT COMPANY"
@@ -705,7 +704,7 @@ export default function NosotrosPage() {
               </div>
 
               {/* Laura Smit */}
-              <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300">
+              <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300">
                 <img
                   src="/images/laura.webp"
                   alt="Laura Smit, Manager de MUMA BAT COMPANY"
@@ -745,7 +744,7 @@ export default function NosotrosPage() {
                       key={i}
                       initial="oculto" whileInView="visible" viewport={{ once: true }}
                       variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } }}
-                      className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300 flex gap-5 items-start"
+                      className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-marca-principal/20 transition-colors duration-300 flex gap-5 items-start"
                     >
                       <div className="shrink-0 min-w-[70px]">
                         <p className="text-2xl font-bold text-marca-principal leading-none">{dato.cifra}</p>
@@ -831,7 +830,7 @@ export default function NosotrosPage() {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block rounded-2xl overflow-hidden border border-white/5 hover:border-purple-400 transition-colors duration-300 shrink-0"
+                    className="block rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/30 transition-colors duration-300 shrink-0"
                     style={{ width: '300px', height: '200px' }}
                     title={item.nombre}
                   >
@@ -874,7 +873,7 @@ export default function NosotrosPage() {
                 </a>
                 <a
                   href="/servicios/realidad-virtual"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold border border-white/15 text-texto-principal hover:border-purple-400 hover:text-marca-principal transition-colors duration-200 no-underline"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold border border-white/15 text-texto-principal hover:border-marca-principal/50 hover:text-marca-principal transition-colors duration-200 no-underline"
                 >
                   Ver servicios
                   <ArrowRight size={15} aria-hidden="true" />

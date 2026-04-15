@@ -1,0 +1,21 @@
+---
+// -------------------------------------------------------------------
+// /login — Página de inicio de sesión
+// -------------------------------------------------------------------
+// Esta página carga LoginForm.tsx que se conecta con la Edge Function
+// de Supabase para verificar email+contraseña contra la tabla "usuarios"
+// (la misma que usan los de DAM en su app móvil).
+//
+// Usamos client:load porque el formulario no necesita localStorage
+// en el render inicial — solo al hacer submit.
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+import LoginForm from '../components/LoginForm'
+---
+<BaseLayout
+  title="Acceso | MUMA BAT COMPANY"
+  description="Acceso al área privada de MUMA BAT COMPANY"
+  canonical="https://mumabatcompany.com/login"
+>
+  <LoginForm client:load />
+</BaseLayout>

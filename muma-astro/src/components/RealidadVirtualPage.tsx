@@ -22,16 +22,15 @@ import { supabase } from '../lib/supabase'
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const PILARES = [
-  { titulo: 'Accesible para todos', desc: 'Una experiencia inmersiva accesible para todos los públicos, que permite explorar cuevas reales sin desplazamientos ni riesgos, desde colegios hasta ferias científicas o eventos culturales.', img: '/images/dentro-cueva.webp' },
-  { titulo: 'Tecnología y conservación', desc: 'Unimos escaneo 3D, realidad virtual y conservación ambiental para mostrar entornos naturales con alto valor ecológico, sin impactarlos ni alterar su biodiversidad.', img: '/images/fotos_batnight/plaza1.webp' },
-  { titulo: 'Conexión y emoción', desc: 'Fomentamos la conexión con la naturaleza a través de la tecnología, con contenidos científicos, narrativas educativas y vivencias emocionales que despiertan interés por la protección de los ecosistemas subterráneos.', img: '/images/antonio-moret.webp', posicion: '50% 20%' },
-  { titulo: 'Herramienta divulgativa', desc: 'Diseñado para espacios de divulgación, educación y turismo responsable. MuMa VR lleva el conocimiento a cualquier lugar: congresos, museos, empresas, centros educativos o campañas públicas.', img: '/images/Proyecto_palazaMayor.webp' },
+  { titulo: 'Accesible e Inmersiva', desc: 'Una experiencia accesible para todos los públicos que permite explorar cuevas reales sin desplazamientos ni riesgos, desde colegios hasta ferias científicas.', img: '/images/dentro-cueva.webp' },
+  { titulo: 'Escaneo 3D y Conservación', desc: 'Unimos escaneo 3D, realidad virtual y conservación ambiental para mostrar entornos naturales con alto valor ecológico, sin impactarlos ni alterar la biodiversidad.', img: '/images/VR-Malaga1920.png' },
+  { titulo: 'Conexión y Emoción', desc: 'Fomentamos la conexión con la naturaleza a través de tecnología, con narrativas orientadas a despertar interés por la protección del ecosistema subterráneo.', img: '/images/antonio-moret.webp', posicion: '50% 20%' },
+  { titulo: 'Herramienta de Divulgación', desc: 'Diseñado para espacios de divulgación y turismo responsable. MuMa VR lleva el conocimiento a congresos, museos, empresas, AMPAs o campañas públicas.', img: '/images/Proyecto_palazaMayor.webp' },
 ]
 
 // Acento visual por módulo — muy sutil, diferencia sin romper coherencia
 const MODULOS = [
   {
-
     titulo: 'MuMa Bats 360',
     descripcion: 'Vídeos inmersivos en 360° grabados en entornos reales de murciélagos. Accesibles desde navegador o gafas VR, sin alterar los hábitats documentados.',
     acento: 'rgba(139,156,244,0.08)',
@@ -51,13 +50,6 @@ const MODULOS = [
     acento: 'rgba(139,156,244,0.08)',
     proximamente: true,
   },
-  {
-    titulo: 'Virtual Museum',
-    descripcion: 'Explora el mundo de los murciélagos desde cualquier lugar. Nuestro museo digital en Spatial.io rompe barreras geográficas: accesibilidad global, divulgación científica y simulación de vuelos en VR y AR sin riesgo para los animales.',
-    acento: 'rgba(139,156,244,0.06)',
-    proximamente: false,
-    href: 'https://murcielagosmalaga.com/museo-virtual/',
-  },
 ]
 
 const SPECS = [
@@ -76,7 +68,7 @@ const EVENTOS = [
     fecha: 'Julio 2025',
     asistentes: '200–300',
     destacado: 'Zona VR, exposición sobre murciélagos, talleres infantiles y charlas divulgativas.',
-    img: '/images/plaza1.webp',
+    img: '/images/plaza-6.webp',
   },
   {
     lugar: 'Cueva de Nerja',
@@ -105,22 +97,21 @@ const EVENTOS = [
 ]
 
 const CLIENTES = [
-  { tipo: 'Centros de Visitantes y Centros Comerciales', desc: 'Espacios de alta afluencia que buscan experiencias innovadoras para enriquecer la visita y conectar al público con la naturaleza.', img: '/images/museos.webp' },
-  { tipo: 'Administraciones, Instituciones Públicas, Museos de Ciencia Natural', desc: 'Ayuntamientos, diputaciones y organismos que impulsan la divulgación ambiental y la educación ciudadana.', img: '/images/ayuntamientos.webp' },
-  { tipo: 'Campos de Golf, Hoteles y Campings', desc: 'Espacios de ocio que quieren ofrecer una actividad diferenciadora, sostenible y con impacto positivo en su entorno.', img: '/images/campo-golf.jpg' },
-  { tipo: 'Espacios naturales abiertos', desc: 'Parques naturales y reservas que necesitan acercar su biodiversidad al público sin alterar el frágil equilibrio del ecosistema.', img: '/images/cuevas-nerja.webp' },
-  { tipo: 'Centros educativos y AMPAs', desc: 'Colegios, institutos y asociaciones de madres y padres que buscan educación ambiental activa y emocionalmente significativa.', img: '/images/educacion-ambiental.webp' },
-  { tipo: 'ONGs y asociaciones de protección de la naturaleza', desc: 'Entidades que trabajan por la conservación de los ecosistemas y necesitan herramientas de sensibilización innovadoras.', img: '/images/rerfugios-tintados.webp' },
+  { tipo: 'Centros Comerciales y de Visitantes', desc: 'Espacios de alta afluencia que buscan experiencias únicas para conectar al público con ecosistemas reales sin alejarlos de la ciudad.', img: '/images/museos.webp' },
+  { tipo: 'Instituciones y Museos', desc: 'Administraciones públicas y museos de ciencia natural orientados a la divulgación inmersiva y la concienciación.', img: '/images/ayuntamientos.webp' },
+  { tipo: 'Lujo, Golf y Campings', desc: 'Campos de Golf, Hoteles y Campings que añaden un valor Premium en educación ambiental y modernización 3D.', img: '/images/campo-golf.jpg' },
+  { tipo: 'Espacios Naturales Abiertos', desc: 'Parques naturales que necesitan mostrar hábitats frágiles sin incrementar la presión humana.', img: '/images/cuevas-nerja.webp' },
+  { tipo: 'Centros Educativos y AMPAs', desc: 'Inyectar conocimiento directo en colegios e institutos aportando tecnología y ciencia de forma muy atractiva.', img: '/images/educacion-ambiental.webp' },
+  { tipo: 'ONGs y Asociaciones', desc: 'Entidades orientadas a la protección de la naturaleza con voluntad de hacer activismo respaldado tecnológicamente.', img: '/images/rerfugios-tintados.webp' },
 ]
 
 const ALIANZAS = [
-  { nombre: 'Junta de Andalucía', logo: '/images/junta-andalucia.webp' },
-  { nombre: 'Fundación Cueva de Nerja', logo: '/images/cueva de nerja.webp' },
-  { nombre: 'Málaga TechPark', logo: '/images/malaga-tech-park.webp' },
+  { nombre: 'Fundación Cueva de Nerja', logo: '/images/cueva-nerja/logo-cueva-de-nerja-150x150.jpg' },
+  { nombre: 'ST3ER', logo: '/images/st3er.webp' },
   { nombre: 'BIC Euronova', logo: '/images/centro-europeo-empresas.webp' },
-  { nombre: 'Polo de Contenidos Digitales', logo: '/images/polo-contenido-digital.webp' },
-  { nombre: 'Plaza Mayor', logo: '/images/plaza-mayor.webp' },
-  { nombre: 'Red de Emprendedores', logo: '/images/red-emprendedores.webp' },
+  { nombre: 'Málaga TechPark', logo: '/images/malaga-tech-park.webp' },
+  { nombre: 'Cámara de Comercio Málaga', logo: '/images/Camara-malaga-150x150.webp' },
+  { nombre: 'La Brújula XR', logo: '/images/polo-contenido-digital.webp' },
 ]
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -312,7 +303,7 @@ export default function RealidadVirtualPage() {
         <div className="absolute inset-0 w-full h-full">
   <img
     src="/images/fondovirtual.webp"
-    alt="Realidad Virtual Málaga"
+    alt="Realidad Virtual en Cuevas de Málaga para educación ambiental y museos - MuMa Bat Company"
     aria-hidden="true"
     className="w-full h-full object-cover opacity-30" style={{ objectPosition: '50% 20%' }}
     loading="eager"
@@ -375,10 +366,11 @@ export default function RealidadVirtualPage() {
             transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
             className="text-lg sm:text-xl text-texto-secundario/90 leading-relaxed max-w-2xl mx-auto mb-10 font-medium"
           >
-            MuMa VR transforma la exploración de cuevas en una{' '}
-            <span className="text-white font-medium">experiencia inmersiva, educativa</span>{' '}y sin impacto ambiental. Exploramos cuevas inaccesibles o protegidas a través de la realidad virtual para{' '}
-            <span className="text-white font-medium">acercar la biodiversidad subterránea</span>{' '}
-            a cualquier espacio: aulas, museos, ferias, congresos o empresas.
+            MuMa VR transforma la innovación tecnológica en una{' '}
+            <span className="text-white font-medium">experiencia de educación ambiental inmersiva</span>{' '}
+            y sin impacto ecológico. Con el proyecto <span className="text-white">MuMa Bat Cave Experience VR</span>{' '}
+            unimos realidad virtual 3D, ciencia y conservación para acercar la biodiversidad
+            subterránea a museos, colegios, congresos o AMPAs en toda España.
           </motion.p>
 
           <motion.div
@@ -413,9 +405,11 @@ export default function RealidadVirtualPage() {
           style={{
             background: 'linear-gradient(to bottom, transparent 0%, #0b1117 100%)',
           }}
-        {/* Decoración visual en la parte inferior simulando tecnología */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
-        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[40%] max-w-md h-[30px] rounded-full blur-2xl bg-purple-400/20"></div>
+        >
+          {/* Decoración visual en la parte inferior simulando tecnología */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] max-w-3xl h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"></div>
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[40%] max-w-md h-[30px] rounded-full blur-2xl bg-purple-400/20"></div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
@@ -441,7 +435,7 @@ export default function RealidadVirtualPage() {
               className="font-bold leading-[1.1] tracking-tight text-texto-titulo"
               style={{ fontSize: 'clamp(1.9rem, 3.2vw, 2.75rem)' }}
             >
-              MuMa VR² Cave Experience
+              MuMa Bat Cave Experience VR
             </h2>
           </motion.div>
 
@@ -459,103 +453,86 @@ export default function RealidadVirtualPage() {
               >
                 Lleva una{' '}
                 <span className="text-marca-principal">cueva de murciélagos</span>
-                {' '}a tu espacio.
+                {' '}a tu colegio, museo o evento corporativo.
               </p>
               <p className="text-texto-secundario leading-relaxed mb-4">
-                Con el proyecto MuMa Bat Cave Experience VR unimos realidad virtual, ciencia y conservación para abrir una nueva forma de explorar el mundo subterráneo. Escaneamos entornos naturales de alto valor ecológico para crear experiencias inmersivas que permiten recorrer estos espacios sin poner en riesgo su frágil equilibrio.
+                Con el proyecto <strong className="text-white">MuMa Bat Cave Experience VR</strong> unimos realidad virtual, ciencia y conservación para abrir una nueva forma de explorar el mundo subterráneo. Escaneamos cuevas de alto valor ecológico —como la <strong className="text-white">Cueva de Nerja</strong>— para crear experiencias inmersivas sin poner en riesgo su frágil equilibrio.
               </p>
-              <p className="text-texto-secundario leading-relaxed mb-8">
-                Los visitantes pueden «entrar» en cuevas remotas, inaccesibles o protegidas, aprender sobre su biodiversidad y comprender su importancia ecológica sin causar impacto ambiental. Sin pisar la cueva. Sin alterar nada. Con el rigor de quien lleva años documentando ese mundo de primera mano.
+              <p className="text-texto-secundario leading-relaxed mb-6">
+                Los visitantes pueden «entrar» en cuevas remotas, inaccesibles o protegidas, aprender sobre su biodiversidad y comprender su importancia ecológica. Ya sea en un museo, un colegio o una feria, respondemos en menos de 48 horas con una propuesta a medida. Sin pisar la cueva. Sin alterar nada.
               </p>
 
-              {/* Citas de posicionamiento */}
-              <blockquote className="border-l-2 border-marca-principal pl-5 mb-8">
-                <p className="text-texto-principal italic leading-relaxed text-sm">
+              {/* Cita de posicionamiento elevada visualmente */}
+              <blockquote className="border-l-[3px] border-marca-principal pl-6 my-8 py-4 bg-gradient-to-r from-marca-principal/10 to-transparent rounded-r-2xl">
+                <p className="text-texto-principal italic leading-relaxed text-base sm:text-lg font-medium">
                   "Llevamos la cueva a las personas, no las personas a la cueva."
                 </p>
-                <cite className="text-xs text-texto-secundario/60 not-italic mt-1 block">
+                <cite className="text-[10px] text-marca-principal font-bold tracking-widest uppercase not-italic mt-2 block">
                   MUMA BAT COMPANY
                 </cite>
               </blockquote>
 
-              {/* Avales — logos de respaldo */}
-              <div className="mb-8">
-                <p className="text-[10px] font-bold tracking-[0.2em] text-texto-secundario/50 uppercase mb-3">Avalado por</p>
-                <div className="flex flex-wrap items-center gap-4">
-                  <div className="bg-white rounded-lg px-4 py-2 flex items-center justify-center">
-                    <img src="/images/Logo_SECEMU.webp" alt="SECEMU" className="h-7 w-auto object-contain" />
+              {/* Avales — logos de respaldo garantizados uno al lado del otro */}
+              <div className="mb-10">
+                <p className="text-[10px] font-bold tracking-[0.2em] text-texto-secundario/50 uppercase mb-4">Avalado por</p>
+                <div className="flex flex-row items-center gap-3 overflow-hidden">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-center border border-white/10 shadow-sm shrink-0">
+                    <img src="/images/Logo_SECEMU.webp" alt="SECEMU" className="h-6 w-auto object-contain opacity-90" />
                   </div>
-                  <div className="bg-white rounded-lg px-4 py-2 flex items-center justify-center">
-                    <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" className="h-7 w-auto object-contain" />
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-center border border-white/10 shadow-sm shrink-0">
+                    <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" className="h-6 w-auto object-contain opacity-90" />
                   </div>
-                  <div className=" rounded-lg px-4 py-2 flex items-center justify-center">
-                    <img src="/images/europa.webp" alt="Unión Europea FEDER" className="h-7 w-auto object-contain" />
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-center border border-white/10 shadow-sm shrink-1 xl:shrink-0 max-w-full">
+                    <img src="/images/europa.webp" alt="Unión Europea FEDER" className="h-6 w-auto object-contain opacity-90" />
                   </div>
                 </div>
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-4 w-full">
                 <a
                   href="#demo"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-all duration-300 shadow-[0_0_20px_rgba(192,132,252,0.2)] hover:shadow-[0_0_30px_rgba(192,132,252,0.4)] no-underline w-full sm:w-auto text-center"
                 >
                   Pedir demostración en tu espacio
                 </a>
                 <a
                   href="mailto:info@murcielagosmalaga.com"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-marca-principal hover:opacity-80 transition-all duration-200 no-underline"
-                  style={{ border: '1px solid rgba(192,132,252,0.6)' }}
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/90 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 backdrop-blur-sm no-underline w-full sm:w-auto text-center"
                 >
-                  Escribir al equipo <ArrowRight size={15} aria-hidden="true" />
+                  Escribir al equipo <ArrowRight size={15} aria-hidden="true" className="opacity-70" />
                 </a>
               </div>
             </motion.div>
 
-            {/* ── Stack de imágenes ── */}
-            <div className="flex flex-col gap-3 lg:gap-4">
-              {/* Imagen principal */}
+            {/* ── Reproductor de Vídeo MuMa VR ── */}
+            <div className="flex flex-col gap-3 lg:gap-4 w-full relative h-fit sticky top-32">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
-                className="relative rounded-2xl overflow-hidden aspect-[16/9] bg-fondo-superficie border border-white/5"
+                className="relative rounded-2xl overflow-hidden aspect-[16/9] bg-black border border-white/10 shadow-[0_30px_60px_rgba(31,225,167,0.15)] group"
               >
-                <img
-                  src="/images/chica-realidad-virtual.webp"
-                  alt="Persona experimentando MuMa VR² Cave Experience con gafas de realidad virtual"
-                  className="w-full h-full object-cover object-center"
-                  loading="eager"
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{ background: 'linear-gradient(to top, rgba(11,17,23,0.4) 0%, transparent 50%)' }}
-                  aria-hidden="true"
+                {/* Etiqueta visual */}
+                <div className="absolute top-4 left-4 z-20 bg-black/50 backdrop-blur-md border border-white/10 text-white text-[10px] uppercase font-bold tracking-widest px-3 py-1.5 rounded-full flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                  Experiencia VR 360
+                </div>
+                
+                <video
+                  src="/videos/MuMaBAT-VR.mp4"
+                  controls
+                  playsInline
+                  title="Vídeo Demostrativo MuMa Bat Cave Experience VR - Educación Ambiental"
+                  aria-label="Reproductor de vídeo demostrativo de Realidad Virtual para explorar cuevas de murciélagos"
+                  poster="/images/chica-realidad-virtual.webp"
+                  className="w-full h-full object-cover object-center relative z-10"
                 />
               </motion.div>
-
-              {/* Imagen secundaria de apoyo */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.14 }}
-                className="relative rounded-xl overflow-hidden aspect-[16/8] bg-fondo-superficie border border-white/5"
-              >
-                <img
-                  src="/images/niña-feliz-realidad-virtual.webp"
-                  alt="Murciélagos Málaga — experiencia de realidad virtual en entorno natural"
-                  className="w-full h-full object-cover object-center"
-                  loading="lazy"
-                  style={{ filter: 'brightness(1.15) contrast(1.05) saturate(1.1)' }}
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{ background: 'linear-gradient(to top, rgba(11,17,23,0.15) 0%, transparent 60%)' }}
-                  aria-hidden="true"
-                />
-              </motion.div>
+              <p className="text-center text-texto-secundario text-xs mt-2 italic">
+                *Activa el sonido para disfrutar de la experiencia inmersiva de bioacústica.
+              </p>
             </div>
           </div>
 
@@ -780,7 +757,7 @@ export default function RealidadVirtualPage() {
               ¿A quién va dirigido?
             </h2>
             <p className="text-texto-secundario leading-relaxed max-w-xl mx-auto">
-              MuMa VR² Cave Experience se adapta a cualquier espacio que quiera acercar la naturaleza a su público de forma responsable.
+              MuMa Bat Cave Experience VR se adapta a cualquier espacio, como actividades extraescolares o museos, que quieran acercar la biodiversidad subterránea a su público de forma responsable mediante tecnología inmersiva.
             </p>
           </motion.div>
 
@@ -799,7 +776,7 @@ export default function RealidadVirtualPage() {
                 <div className="relative h-36 overflow-hidden">
                   <img
                     src={img}
-                    alt={tipo}
+                    alt={`Educación ambiental VR para ${tipo} - Murciélagos Málaga`}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-fondo-superficie/80 to-transparent" />
@@ -899,7 +876,7 @@ export default function RealidadVirtualPage() {
               className="text-2xl sm:text-3xl font-bold text-texto-titulo mb-5 leading-snug"
             >
               La experiencia presencial es el centro.{' '}
-              <span className="text-texto-titulo">Estos cuatro módulos la amplían.</span>
+              <span className="text-texto-titulo">Estos módulos digitales la amplían.</span>
             </h2>
             <p className="text-texto-secundario leading-relaxed max-w-xl mx-auto">
               Contenido interactivo, educativo y gamificado que extiende
@@ -907,8 +884,8 @@ export default function RealidadVirtualPage() {
             </p>
           </motion.div>
 
-          {/* Grid 2×2 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Grid 3 módulos */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {MODULOS.map((modulo, i) => (
               <CardModulo key={modulo.titulo} {...modulo} index={i} />
             ))}
@@ -918,7 +895,77 @@ export default function RealidadVirtualPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          3b. EVENTOS REALIZADOS
+          3b. MUSEO VIRTUAL — Hero clickeable con preview de la web
+          ══════════════════════════════════════════════════════════════════ */}
+      <section className="relative py-16 px-6 bg-fondo-base border-t border-white/5" aria-labelledby="museo-virtual-titulo">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial="oculto" whileInView="visible" viewport={{ once: true }}
+            variants={fadeUp}
+            className="mb-10 text-center"
+          >
+            <p className="text-[10px] font-bold tracking-[0.25em] text-marca-principal uppercase mb-3">
+              Ya disponible · Acceso libre
+            </p>
+            <h2
+              id="museo-virtual-titulo"
+              className="text-2xl sm:text-3xl font-bold text-texto-titulo mb-3 leading-snug"
+            >
+              Museo Virtual de Murciélagos
+            </h2>
+            <p className="text-texto-secundario leading-relaxed max-w-xl mx-auto">
+              Explora nuestro museo digital en Spatial.io: modelos 3D de especies, hábitats y bioacústica sin barreras geográficas.
+            </p>
+          </motion.div>
+
+          <motion.a
+            href="https://murcielagosmalaga.com/museo-virtual/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65 }}
+            className="group block rounded-2xl overflow-hidden border border-purple-400/40 hover:border-purple-400 transition-all duration-300 shadow-[0_0_40px_rgba(192,132,252,0.12)] hover:shadow-[0_0_60px_rgba(192,132,252,0.3)] no-underline"
+            aria-label="Ir al Museo Virtual de Murciélagos Málaga"
+          >
+            {/* Barra de navegador simulada */}
+            <div className="flex items-center gap-2 px-4 py-3 bg-[#1a2535] border-b border-white/10">
+              <span className="w-3 h-3 rounded-full bg-red-500/70" aria-hidden="true"></span>
+              <span className="w-3 h-3 rounded-full bg-yellow-400/70" aria-hidden="true"></span>
+              <span className="w-3 h-3 rounded-full bg-green-400/70" aria-hidden="true"></span>
+              <div className="flex-1 ml-2 bg-white/5 rounded-md px-3 py-1.5 flex items-center gap-2">
+                <span className="text-[11px] text-white/50 font-mono truncate">murcielagosmalaga.com/museo-virtual/</span>
+                <ArrowRight size={12} className="text-marca-principal ml-auto shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+              </div>
+            </div>
+
+            {/* Screenshot con overlay y CTA flotante */}
+            <div className="relative aspect-[16/8] overflow-hidden">
+              <img
+                src="/images/cueva-nerja.webp"
+                alt="Cueva de Nerja - Museo Virtual de Murciélagos Málaga"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+              <div
+                className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-20"
+                style={{ background: 'linear-gradient(to top, rgba(11,17,23,0.80) 0%, rgba(11,17,23,0.30) 55%, rgba(11,17,23,0.10) 100%)' }}
+                aria-hidden="true"
+              />
+              <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                <div className="bg-marca-principal/90 backdrop-blur-sm text-white font-bold text-sm px-7 py-3.5 rounded-xl flex items-center gap-3 shadow-[0_8px_30px_rgba(192,132,252,0.5)] group-hover:scale-110 group-hover:shadow-[0_8px_50px_rgba(192,132,252,0.75)] transition-all duration-300">
+                  <ArrowRight size={18} />
+                  Explorar el Museo Virtual
+                </div>
+              </div>
+            </div>
+          </motion.a>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          3c. EVENTOS REALIZADOS
           ══════════════════════════════════════════════════════════════════ */}
       <section
         className="bg-fondo-base py-20 px-6 border-t border-white/5"
@@ -1016,13 +1063,13 @@ export default function RealidadVirtualPage() {
               {
                 titulo: 'MuMa VR — Cuevas 3D',
                 desc: 'Con MuMa VR ofrecemos una experiencia inmersiva en cuevas 3D, combinando tecnología y patrimonio para explorar el mundo subterráneo como nunca antes.',
-                img: '/images/chica-realidad-virtual.webp',
+                img: '/images/VR-Malaga1920.png',
                 href: '#demo',
               },
               {
                 titulo: 'Bat Night en Málaga',
                 desc: 'Bat Night es una iniciativa de divulgación y conservación que acerca al público al fascinante mundo de los murciélagos.',
-                img: '/images/fotos_batnight/plaza1.webp',
+                img: '/images/Bat-Nigt-Malaga-1.webp',
                 href: '/bat-night',
               },
               {
