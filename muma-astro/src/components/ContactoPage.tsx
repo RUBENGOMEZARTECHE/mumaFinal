@@ -9,7 +9,6 @@ const varianteSeccion = {
 
 const metodos = [
   { Icono: Mail,          titulo: 'Email',      valor: 'info@murcielagosmalaga.com', href: 'mailto:info@murcielagosmalaga.com',  etiqueta: 'Escríbenos' },
-  { Icono: Phone,         titulo: 'Teléfono',   valor: '+34 664 213 450',            href: 'tel:+34664213450',                   etiqueta: 'Llamar'     },
   { Icono: MessageCircle, titulo: 'WhatsApp',   valor: '+34 664 213 450',            href: 'https://wa.me/34664213450',          etiqueta: 'Abrir chat' },
   { Icono: MapPin,        titulo: 'Ubicación',  valor: 'Polo Digital de Málaga',     href: null,                                 etiqueta: null         },
 ]
@@ -27,7 +26,7 @@ export default function ContactoPage() {
       </motion.section>
 
       {/* Métodos Rápidos */}
-      <section className="max-w-5xl mx-auto px-6 pb-20 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="max-w-3xl mx-auto px-6 pb-20 grid grid-cols-1 md:grid-cols-3 gap-4">
         {metodos.map(({ Icono, titulo, valor, href, etiqueta }) => (
           <div key={titulo} className="bg-white/5 border border-white/10 rounded-[2rem] p-6 hover:bg-white/[0.08] transition-all">
             <Icono className="text-marca-principal mb-4" size={24} />
@@ -36,6 +35,23 @@ export default function ContactoPage() {
             {href && <a href={href} className="text-marca-principal text-xs font-bold hover:underline">{etiqueta} →</a>}
           </div>
         ))}
+      </section>
+
+      {/* Banner Calendly */}
+      <section className="max-w-5xl mx-auto px-6 pb-16">
+        <div className="bg-fondo-superficie rounded-2xl border border-white/5 hover:border-purple-400 transition-colors duration-300 p-10 text-center">
+          <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Agenda una llamada</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-texto-titulo mb-4">¿Prefieres hablar directamente?</h2>
+          <p className="text-texto-secundario max-w-lg mx-auto mb-8">Reserva una reunión de 30 minutos con el equipo de Muma Bat Company y cuéntanos tu proyecto sin compromiso.</p>
+          <a
+            href="https://calendly.com/amoret-sbn/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
+          >
+            Reservar reunión de 30 minutos →
+          </a>
+        </div>
       </section>
 
       {/* Formulario Unificado */}

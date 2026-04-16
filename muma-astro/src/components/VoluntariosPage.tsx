@@ -43,7 +43,7 @@ const actividades = [
     Icono: MapPin,
     titulo: 'Monitorización de refugios',
     descripcion: 'Visitas periódicas a refugios instalados para registrar ocupación, especies y estado de las colonias. Datos reales que alimentan nuestra investigación.',
-    img: '/images/monitorizacion-refugios-voluntarios.webp',
+    img: '/images/monorefugios.webp',
   },
   {
     Icono: Headset,
@@ -55,13 +55,13 @@ const actividades = [
     Icono: Radio,
     titulo: 'Detección de ultrasonidos',
     descripcion: 'Uso de detectores acústicos durante salidas nocturnas para identificar especies de murciélagos por su ecolocalización. Formación incluida.',
-    img: '/images/deteccion-ultrasonidos-voluntariado.webp',
+    img: '/images/ultrasonidos.webp',
   },
   {
     Icono: BookOpen,
     titulo: 'Talleres educativos',
     descripcion: 'Colaboración en la impartición de talleres en colegios, institutos y centros cívicos. Transmite el valor ecológico de los murciélagos a nuevas generaciones.',
-    img: '/images/educacion-ambiental.webp',
+    img: '/images/tallerrefugios.webp',
   },
 ]
 

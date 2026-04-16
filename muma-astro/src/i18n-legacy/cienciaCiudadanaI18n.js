@@ -154,6 +154,7 @@ export const cienciaCiudadanaI18n = {
     ],
   },
 
+  
   de: {
     // Meta
     metaTitle: 'Bürgerwissenschaft — MUMA BAT COMPANY | Schütze Fledermäuse in Málaga',

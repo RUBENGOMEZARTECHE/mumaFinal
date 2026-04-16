@@ -319,7 +319,7 @@ export default function NosotrosPage() {
       <main>
 
         {/* ── SECCIÓN 1: HERO DE MARCA ── */}
-        <section className="relative bg-fondo-base pt-40 pb-0 px-6 overflow-hidden">
+        <section className="relative bg-fondo-base pt-64 pb-0 px-6 overflow-hidden">
 
           <div
             className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
