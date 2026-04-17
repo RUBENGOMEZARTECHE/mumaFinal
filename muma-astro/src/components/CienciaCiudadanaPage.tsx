@@ -9,6 +9,16 @@ export default function CienciaCiudadanaPage() {
 
         {/* ── HERO ── */}
         <section className="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-6 pt-28 pb-20 bg-fondo-base overflow-hidden">
+          <div className="absolute inset-0 w-full h-full">
+            <img
+              src="/images/fondociudadano.webp"
+              alt="Ciencia ciudadana fondo"
+              aria-hidden="true"
+              className="w-full h-full object-cover opacity-30"
+              loading="eager"
+            />
+          </div>
+          <div className="absolute inset-0 bg-fondo-base/60" aria-hidden="true" />
 
           {/* Halo de luz difusa centrado en el hero */}
           <div
@@ -72,11 +82,7 @@ export default function CienciaCiudadanaPage() {
                 de los refugios instalados.
               </p>
 
-              {/* Párrafo 4: llamada a la acción en tono accesible */}
-              <p>
-                No necesitas ser biólogo. No necesitas equipamiento especial. Solo necesitas querer formar parte de algo
-                que importa de verdad.
-              </p>
+
             </motion.div>
 
             {/* CTA — primario a mailto */}
@@ -125,75 +131,39 @@ export default function CienciaCiudadanaPage() {
             </p>
 
             {/* Bloques de participación — texto largo sin tarjetas */}
-            <div className="space-y-16"> {/* separación vertical entre bloques */}
+            <div className="space-y-16">
 
-              {/* Bloque 1: detector de ultrasonidos */}
-              <div>
-                {/* Número decorativo que marca el orden del bloque */}
-                <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">
-                  01
-                </p>
-                {/* Título del bloque */}
-                <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">
-                  Instala un detector de ultrasonidos
-                </h3>
-                {/* Párrafo desarrollado del bloque */}
-                <p className="text-texto-secundario text-base sm:text-lg leading-relaxed">
-                  Los murciélagos se comunican y cazan mediante ultrasonidos, frecuencias de sonido que el oído humano
-                  no puede percibir. Los detectores de ultrasonidos convierten esas señales en sonidos audibles o en
-                  grabaciones digitales que pueden analizarse para identificar especies. Instalar uno en tu jardín,
-                  terraza o balcón es una de las formas más directas de contribuir a la ciencia. Cada grabación que
-                  realizas puede revelar qué especies frecuentan tu zona, con qué intensidad, en qué horarios y cómo
-                  cambia su actividad a lo largo del año. MUMA te orienta sobre qué detector usar, cómo configurarlo
-                  y cómo enviarnos los datos para que formen parte de la base de datos provincial de quirópteros.
-                </p>
+              {/* Bloque 01 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">01</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">Instala un detector de ultrasonidos</h3>
+                  <p className="text-texto-secundario text-base leading-relaxed">Los murciélagos cazan mediante ultrasonidos, frecuencias que el oído humano no puede percibir. Instalar un detector en tu jardín o terraza genera grabaciones reales que revelan qué especies frecuentan tu zona y cómo cambia su actividad a lo largo del año. MUMA te orienta sobre qué detector usar y cómo enviarnos los datos.</p>
+                </div>
+                <img src="/images/ciencia1.webp" alt="Detector de ultrasonidos para murciélagos" className="w-full h-72 object-cover rounded-2xl" />
               </div>
 
-              {/* Bloque 2: reportar avistamientos */}
-              <div>
-                {/* Número decorativo que marca el orden del bloque */}
-                <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">
-                  02
-                </p>
-                {/* Título del bloque */}
-                <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">
-                  Reporta avistamientos en tu zona
-                </h3>
-                {/* Párrafo desarrollado del bloque */}
-                <p className="text-texto-secundario text-base sm:text-lg leading-relaxed">
-                  Si has visto murciélagos volando cerca de tu casa, en el alero de un edificio, en una cueva cercana
-                  o en cualquier espacio natural, ese avistamiento tiene valor científico. Muchas colonias de murciélagos
-                  pasan desapercibidas durante años porque nadie las documenta. Tu observación, combinada con una foto,
-                  una fecha y una ubicación aproximada, nos permite construir un mapa real de distribución de especies
-                  en la provincia de Málaga. Este tipo de datos es especialmente valioso en zonas rurales, agrícolas y
-                  periurbanas donde la presencia científica es escasa. No necesitas identificar la especie, con que nos
-                  cuentes lo que viste ya estás contribuyendo.
-                </p>
+              {/* Bloque 02 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <img src="/images/ciencia2.webp" alt="Avistamiento de murciélagos" className="w-full h-72 object-cover rounded-2xl order-last md:order-first" />
+                <div>
+                  <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">02</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">Reporta avistamientos en tu zona</h3>
+                  <p className="text-texto-secundario text-base leading-relaxed">Si has visto murciélagos en el alero de un edificio, en una cueva o en cualquier espacio natural, ese avistamiento tiene valor científico. Con una foto, una fecha y una ubicación aproximada nos ayudas a construir el mapa real de distribución de especies en Málaga. No necesitas identificar la especie.</p>
+                </div>
               </div>
 
-              {/* Bloque 3: salidas nocturnas de monitorización */}
-              <div>
-                {/* Número decorativo que marca el orden del bloque */}
-                <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">
-                  03
-                </p>
-                {/* Título del bloque */}
-                <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">
-                  Participa en salidas nocturnas de monitorización
-                </h3>
-                {/* Párrafo desarrollado del bloque */}
-                <p className="text-texto-secundario text-base sm:text-lg leading-relaxed">
-                  Varias veces al año MUMA organiza salidas nocturnas de campo en espacios naturales de la Costa del
-                  Sol y la provincia de Málaga. Durante estas salidas, los participantes aprenden a manejar detectores
-                  de ultrasonidos, a identificar especies por su eco-localización, a registrar datos de forma sistemática
-                  y a entender el comportamiento nocturno de los murciélagos en su hábitat natural. Son actividades
-                  abiertas a cualquier persona, sin requisitos previos, diseñadas para que la experiencia de campo sea
-                  accesible, rigurosa y memorable. Si quieres recibir información sobre las próximas salidas, escríbenos
-                  y te añadimos a la lista.
-                </p>
+              {/* Bloque 03 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">03</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">Participa en salidas nocturnas de monitorización</h3>
+                  <p className="text-texto-secundario text-base leading-relaxed">Varias veces al año organizamos salidas nocturnas en espacios naturales de la Costa del Sol. Los participantes aprenden a manejar detectores de ultrasonidos, identificar especies y registrar datos de campo. Son actividades abiertas a cualquier persona, sin requisitos previos.</p>
+                </div>
+                <img src="/images/ciencia3.webp" alt="Salida nocturna de monitorización de murciélagos" className="w-full h-72 object-cover rounded-2xl" />
               </div>
 
-            </div> {/* fin bloques de participación */}
+            </div>
           </div> {/* fin contenedor centrado */}
         </section>
 
@@ -206,74 +176,22 @@ export default function CienciaCiudadanaPage() {
               ¿Por qué importa tu participación?
             </h2>
 
-            {/* Texto introductorio largo que plantea el problema de escala */}
-            <p className="text-texto-secundario text-base sm:text-lg leading-relaxed mb-16">
-              Los científicos no pueden estar en todos los sitios a la vez. La provincia de Málaga tiene más de 7.000
-              kilómetros cuadrados de territorio, con ecosistemas que van desde la costa hasta la alta montaña, pasando
-              por dehesas, olivares, viñedos, cuevas y zonas urbanas. Monitorizar las poblaciones de murciélagos en toda
-              esa extensión con un equipo científico reducido es imposible. La ciencia ciudadana resuelve ese problema
-              multiplicando los ojos, los oídos y los detectores sobre el territorio.
-            </p>
+            <p className="text-texto-secundario text-base leading-relaxed mb-10">Tus observaciones tienen un impacto científico real. Así es como contribuyen a la conservación.</p>
 
-            {/* Bloques temáticos — texto largo sin tarjetas */}
-            <div className="space-y-16"> {/* separación vertical generosa entre bloques */}
-
-              {/* Bloque 1: mapas de distribución */}
-              <div>
-                {/* Título del bloque destacado en negrita */}
-                <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">
-                  Mapas de distribución de especies
-                </h3>
-                {/* Párrafo explicativo sobre el valor de los datos georreferenciados */}
-                <p className="text-texto-secundario text-base sm:text-lg leading-relaxed">
-                  Cada avistamiento reportado, cada grabación de ultrasonidos y cada colonia documentada se convierte en
-                  un punto en el mapa. Con suficientes puntos, los investigadores pueden trazar la distribución real de
-                  cada especie en la provincia, identificar zonas de alta densidad, detectar corredores de vuelo entre
-                  espacios naturales y descubrir áreas que nunca habían sido estudiadas. Estos mapas son herramientas
-                  fundamentales para la planificación de refugios, para los estudios de impacto ambiental y para las
-                  políticas de conservación de la Junta de Andalucía y la Diputación Provincial de Málaga. Sin los datos
-                  que aporta la ciudadanía, esos mapas tendrían enormes lagunas.
-                </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300">
+                <h3 className="text-base font-bold text-texto-titulo mb-3">Mapas de distribución de especies</h3>
+                <p className="text-sm text-texto-secundario leading-relaxed">Cada avistamiento se convierte en un punto en el mapa. Con suficientes datos podemos trazar la distribución real de cada especie en la provincia y planificar mejor los refugios y las políticas de conservación.</p>
               </div>
-
-              {/* Bloque 2: seguimiento longitudinal de poblaciones */}
-              <div>
-                {/* Título del bloque sobre continuidad temporal */}
-                <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">
-                  Seguimiento de poblaciones a lo largo del tiempo
-                </h3>
-                {/* Párrafo explicativo sobre el valor de las series temporales */}
-                <p className="text-texto-secundario text-base sm:text-lg leading-relaxed">
-                  Saber que hay murciélagos en una zona es solo el primer paso. Lo verdaderamente valioso es saber si
-                  hay más o menos que el año pasado, si la colonia está creciendo o reduciéndose, si los refugios
-                  instalados están siendo ocupados y si las medidas de conservación están funcionando. Ese seguimiento
-                  longitudinal solo es posible cuando hay personas que repiten las observaciones año tras año en los
-                  mismos lugares. Los voluntarios de ciencia ciudadana son los únicos que pueden proporcionar ese tipo
-                  de continuidad. Su constancia convierte datos puntuales en series temporales, y las series temporales
-                  son las que permiten detectar tendencias, anticipar problemas y evaluar el impacto real de las
-                  intervenciones.
-                </p>
+              <div className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300">
+                <h3 className="text-base font-bold text-texto-titulo mb-3">Seguimiento de poblaciones</h3>
+                <p className="text-sm text-texto-secundario leading-relaxed">Saber si hay más o menos murciélagos que el año pasado solo es posible con observaciones repetidas en el tiempo. Los voluntarios son los únicos que pueden proporcionar esa continuidad año tras año.</p>
               </div>
-
-              {/* Bloque 3: descubrimiento de nuevas colonias */}
-              <div>
-                {/* Título del bloque sobre hallazgos ciudadanos */}
-                <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">
-                  Detección de nuevas colonias
-                </h3>
-                {/* Párrafo explicativo sobre el valor de los avisos ciudadanos */}
-                <p className="text-texto-secundario text-base sm:text-lg leading-relaxed">
-                  Algunas de las colonias de murciélagos más importantes de la provincia de Málaga han sido descubiertas
-                  gracias a avisos de ciudadanos. Un vecino que nota movimiento en el tejado de una iglesia, un agricultor
-                  que encuentra una colonia en el almacén de su finca, un excursionista que escucha ultrasonidos en una
-                  cueva desconocida. Estos hallazgos son extraordinariamente valiosos porque permiten proteger colonias
-                  antes de que sean destruidas por obras, reformas o desconocimiento. Cada nueva colonia detectada es una
-                  oportunidad para actuar a tiempo, instalar refugios alternativos si es necesario y garantizar la
-                  supervivencia de ese grupo de animales durante las próximas décadas.
-                </p>
+              <div className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300">
+                <h3 className="text-base font-bold text-texto-titulo mb-3">Detección de nuevas colonias</h3>
+                <p className="text-sm text-texto-secundario leading-relaxed">Algunas de las colonias más importantes de Málaga han sido descubiertas gracias a avisos de ciudadanos. Cada nueva colonia detectada es una oportunidad para actuar antes de que sea destruida por obras o desconocimiento.</p>
               </div>
-
-            </div> {/* fin bloques temáticos */}
+            </div>
           </div> {/* fin contenedor centrado */}
         </section>
 
@@ -296,6 +214,10 @@ export default function CienciaCiudadanaPage() {
 
               {/* ── TARJETA 1: Red de refugios Costa del Sol ── */}
               <div className="flex flex-col bg-white/5 border border-white/10 rounded-2xl p-6"> {/* fondo semitransparente oscuro con borde sutil */}
+
+                <div className="relative h-40 overflow-hidden rounded-xl mb-4">
+                  <img src="/images/activo1.webp" alt="Red de refugios Costa del Sol" className="w-full h-full object-cover" />
+                </div>
 
                 {/* Cabecera de la tarjeta: etiqueta de estado + título */}
                 <div className="flex items-center gap-3 mb-3"> {/* alineación horizontal de badge y título */}
@@ -328,6 +250,10 @@ export default function CienciaCiudadanaPage() {
               {/* ── TARJETA 2: Monitorización Laguna de Fuente de Piedra ── */}
               <div className="flex flex-col bg-white/5 border border-white/10 rounded-2xl p-6"> {/* mismo estilo que tarjeta 1 */}
 
+                <div className="relative h-40 overflow-hidden rounded-xl mb-4">
+                  <img src="/images/activo2.webp" alt="Monitorización Laguna de Fuente de Piedra" className="w-full h-full object-cover" />
+                </div>
+
                 {/* Cabecera con etiqueta de estado */}
                 <div className="flex items-center gap-3 mb-3">
                   {/* Etiqueta "Activo" en verde */}
@@ -359,6 +285,10 @@ export default function CienciaCiudadanaPage() {
               {/* ── TARJETA 3: Atlas de colonias urbanas Málaga ── */}
               <div className="flex flex-col bg-white/5 border border-white/10 rounded-2xl p-6"> {/* mismo estilo que tarjetas anteriores */}
 
+                <div className="relative h-40 overflow-hidden rounded-xl mb-4">
+                  <img src="/images/activo3.webp" alt="Atlas de colonias urbanas Málaga" className="w-full h-full object-cover" />
+                </div>
+
                 {/* Cabecera con etiqueta de estado */}
                 <div className="flex items-center gap-3 mb-3">
                   {/* Etiqueta "Activo" en verde */}
@@ -389,6 +319,10 @@ export default function CienciaCiudadanaPage() {
 
               {/* ── TARJETA 4: Seguimiento post-Bat Night Cueva de Nerja ── */}
               <div className="flex flex-col bg-white/5 border border-white/10 rounded-2xl p-6"> {/* mismo estilo que tarjetas anteriores */}
+
+                <div className="relative h-40 overflow-hidden rounded-xl mb-4">
+                  <img src="/images/activo4.webp" alt="Seguimiento post-Bat Night Cueva de Nerja" className="w-full h-full object-cover" />
+                </div>
 
                 {/* Cabecera con etiqueta de estado */}
                 <div className="flex items-center gap-3 mb-3">

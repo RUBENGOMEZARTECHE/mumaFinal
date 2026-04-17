@@ -102,6 +102,16 @@ export default function BatNightPage() {
 
       {/* ── HERO ── */}
       <section className="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-6 pt-28 pb-20 bg-fondo-base overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src="/images/herobat.webp"
+            alt="Bat Night fondo"
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-50"
+            loading="eager"
+          />
+        </div>
+        <div className="absolute inset-0 bg-fondo-base/60" aria-hidden="true" />
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse, rgba(31,225,167,0.09) 0%, transparent 65%)' }}
@@ -321,6 +331,12 @@ export default function BatNightPage() {
             initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion}
             className="relative rounded-2xl border border-marca-principal/20 bg-fondo-superficie px-8 py-10 text-center overflow-hidden"
           >
+            <img
+              src="/images/3dbats.webp"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover opacity-20 rounded-2xl"
+            />
             <div
               className="absolute inset-0 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(31,225,167,0.06) 0%, transparent 70%)' }}
