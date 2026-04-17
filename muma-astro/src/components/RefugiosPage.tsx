@@ -1,27 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import FormularioMuma from "./formularioContacto";
 
-function MapaDinamico() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [MapaComp, setMapaComp] = useState<React.ComponentType | null>(null)
-
-  useEffect(() => {
-    import("./MapaRefugios").then((m) => setMapaComp(() => m.default))
-  }, [])
-
-  return (
-    <div ref={containerRef} className="w-full h-full">
-      {MapaComp ? <MapaComp /> : (
-        <div className="h-full w-full bg-fondo-superficie flex items-center justify-center text-texto-secundario text-xs uppercase tracking-widest animate-pulse">
-          Sincronizando 162 refugios...
-        </div>
-      )}
-    </div>
-  )
-}
-
+const MapaRefugios = lazy(() => import("./MapaRefugios"));
 const varianteSeccion: Variants = {
   oculto: { opacity: 0, y: 24 },
   visible: {
@@ -73,20 +55,10 @@ export default function RefugiosPage() {
   const anterior = () =>
     setIndiceActivo((prev) => (prev - 1 + modelos.length) % modelos.length);
 
-  // Lógica de coste / ahorro
   const costePesticidaPorHa = 250;
   const porcentajeAhorro = 0.7;
   const ahorroDinero = hectareas * costePesticidaPorHa * porcentajeAhorro;
   const refugiosNecesarios = Math.ceil(hectareas * 1.5);
-
-  // Lógica científica basada en datos reales
-  const INSECTOS_POR_MURCIELAGO_POR_NOCHE = 1200;
-  const MURCIELAGOS_POR_HECTAREA = 3;
-  const KG_PESTICIDA_EQUIVALENTE_POR_MURCIELAGO = 0.0007;
-
-  const murcielagosActivos = Math.round(hectareas * MURCIELAGOS_POR_HECTAREA);
-  const insectosPorNoche = (murcielagosActivos * INSECTOS_POR_MURCIELAGO_POR_NOCHE).toLocaleString('es-ES');
-  const pesticidaEvitado = (murcielagosActivos * KG_PESTICIDA_EQUIVALENTE_POR_MURCIELAGO * 365).toFixed(1);
 
   return (
     <main className="min-h-screen bg-fondo-base pt-20">
@@ -169,7 +141,7 @@ export default function RefugiosPage() {
           </p>
           <div className="flex gap-3 shrink-0">
             <a
-              href="#contacto"
+              href="mailto:info@murcielagosmalaga.com?subject=Solicitud%20presupuesto%20refugios%20MUMA"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
             >
               Pedir presupuesto gratis
@@ -222,7 +194,7 @@ export default function RefugiosPage() {
             >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
                 <img
-                  src="/images/batbnb/mosquitos.webp"
+                  src="/images/batbnb/mosquito.webp"
                   alt="Reduce mosquitos y plagas"
                   className="w-full h-full object-cover"
                 />
@@ -269,7 +241,7 @@ export default function RefugiosPage() {
             >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
                 <img
-                  src="/images/batbnb/bat.webp"
+                  src="/images/batbnb/bat1.webp"
                   alt="Aprende a amar al murciélago"
                   className="w-full h-full object-cover"
                 />
@@ -285,59 +257,117 @@ export default function RefugiosPage() {
             </motion.div>
           </div>
           <motion.div
-                        initial="oculto"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={varianteSeccion}
-                        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-                      >
-                        {/* MUMA */}
-                        <div className="rounded-3xl border border-marca-principal/20 overflow-hidden bg-marca-principal/5 shadow-2xl">
-                          <div className="relative aspect-video overflow-hidden">
-                            <img
-                              src="/images/refugios/Refugio murciélagos - Render realista_1.webp"
-                              alt="Refugio MUMA de calidad"
-                              className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
-                            <span className="absolute bottom-4 left-4 bg-marca-principal text-black text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
-                              Estándar MUMA
-                            </span>
-                          </div>
-                          <div className="p-8">
-                            <ul className="space-y-3 text-texto-principal text-sm">
-                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Aislamiento térmico total  sin rendijas ni filtraciones.</span></li>
-                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Sin clavos ni siliconas tóxicas que dañen al animal.</span></li>
-                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Madera técnica certificada: no se dobla ni se agrieta al sol.</span></li>
-                              <li className="flex gap-3"><Check size={16} className="text-marca-principal shrink-0 mt-0.5" /><span>Georeferenciados, numerados y con seguimiento científico.</span></li>
-                            </ul>
-                          </div>
-                        </div>
-          
-                        {/* Caja comercial mala */}
-                        <div className="rounded-3xl border border-red-500/20 overflow-hidden bg-red-500/5 shadow-2xl">
-                          <div className="relative aspect-video overflow-hidden">
-                            <img
-                              src="/images/batbnb/mala-caja.png"
-                              alt="Caja comercial de baja calidad"
-                              className="w-full h-full object-cover"
-                              style={{ objectPosition: '50% 50%', transform: 'scale(0.75)', filter: 'grayscale(50%) contrast(1.05)' }}
-                            />
-                            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
-                            <span className="absolute bottom-4 left-4 bg-red-500 text-white text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
-                              Caja Comercial
-                            </span>
-                          </div>
-                          <div className="p-8">
-                            <ul className="space-y-3 text-texto-secundario text-sm opacity-80">
-                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Rendijas que filtran aire y humedad  el animal las abandona.</span></li>
-                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Clavos y siliconas que dañan las membranas del murciélago.</span></li>
-                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Madera de baja calidad que se deforma en 1-2 veranos.</span></li>
-                              <li className="flex gap-3"><span className="text-red-400 shrink-0 mt-0.5">✕</span><span>Sin ventilación ni superficies de agarre interior.</span></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </motion.div>
+            initial="oculto"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={varianteSeccion}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          >
+            {/* MUMA */}
+            <div className="rounded-3xl border border-marca-principal/20 overflow-hidden bg-marca-principal/5 shadow-2xl">
+              <div className="relative aspect-video overflow-hidden">
+                <img
+                  src="/images/refugios/Refugio murciélagos - Render realista_1.webp"
+                  alt="Refugio MUMA de calidad"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 bg-marca-principal text-black text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
+                  Estándar MUMA
+                </span>
+              </div>
+              <div className="p-8">
+                <ul className="space-y-3 text-texto-principal text-sm">
+                  <li className="flex gap-3">
+                    <Check
+                      size={16}
+                      className="text-marca-principal shrink-0 mt-0.5"
+                    />
+                    <span>
+                      Aislamiento térmico total sin rendijas ni filtraciones.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <Check
+                      size={16}
+                      className="text-marca-principal shrink-0 mt-0.5"
+                    />
+                    <span>
+                      Sin clavos ni siliconas tóxicas que dañen al animal.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <Check
+                      size={16}
+                      className="text-marca-principal shrink-0 mt-0.5"
+                    />
+                    <span>
+                      Madera técnica certificada: no se dobla ni se agrieta al
+                      sol.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <Check
+                      size={16}
+                      className="text-marca-principal shrink-0 mt-0.5"
+                    />
+                    <span>
+                      Georeferenciados, numerados y con seguimiento científico.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Caja comercial mala */}
+            <div className="rounded-3xl border border-red-500/20 overflow-hidden bg-red-500/5 shadow-2xl">
+              <div className="relative aspect-video overflow-hidden">
+                <img
+                  src="/images/batbnb/mala-caja.png"
+                  alt="Caja comercial de baja calidad"
+                  className="w-full h-full object-cover"
+                  style={{
+                    objectPosition: "50% 50%",
+                    transform: "scale(0.75)",
+                    filter: "grayscale(50%) contrast(1.05)",
+                  }}
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 bg-red-500 text-white text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
+                  Caja Comercial
+                </span>
+              </div>
+              <div className="p-8">
+                <ul className="space-y-3 text-texto-secundario text-sm opacity-80">
+                  <li className="flex gap-3">
+                    <span className="text-red-400 shrink-0 mt-0.5">✕</span>
+                    <span>
+                      Rendijas que filtran aire y humedad el animal las
+                      abandona.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-red-400 shrink-0 mt-0.5">✕</span>
+                    <span>
+                      Clavos y siliconas que dañan las membranas del murciélago.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-red-400 shrink-0 mt-0.5">✕</span>
+                    <span>
+                      Madera de baja calidad que se deforma en 1-2 veranos.
+                    </span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-red-400 shrink-0 mt-0.5">✕</span>
+                    <span>
+                      Sin ventilación ni superficies de agarre interior.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -615,60 +645,41 @@ export default function RefugiosPage() {
               viewport={{ once: true }}
               variants={varianteSeccion}
             >
-              <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
-                Control biológico de plagas
-              </p>
-              <h2 className="text-4xl md:text-6xl font-black text-texto-titulo mb-4 leading-tight">
-                Ahorra miles de €<br />
-                <span className="text-marca-principal">en pesticidas</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-6 text-balance">
+                Ahorra miles de Euros en pesticidas
               </h2>
-              <p className="text-texto-secundario text-lg mb-10 leading-relaxed max-w-md">
-                Un murciélago elimina hasta <span className="text-texto-titulo font-semibold">1.200 insectos por hora</span>. Instala una colonia activa y deja de pagar tratamientos químicos recurrentes.
+              <p className="text-texto-secundario text-lg mb-8 leading-relaxed">
+                Sustituye tratamientos químicos recurrentes por una colonia
+                activa de quirópteros.
               </p>
-
-              {/* Plagas como badges */}
-              <div className="mb-8">
-                <p className="text-xs font-bold text-texto-secundario uppercase tracking-widest mb-4">Plagas que controla</p>
-                <div className="flex flex-wrap gap-2">
-                  {["Mosca del Olivo", "Polilla del Racimo", "Procesionaria", "Mosquito Tigre"].map((plaga) => (
-                    <span
-                      key={plaga}
-                      className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-marca-principal/30 bg-marca-principal/10 text-marca-principal"
-                    >
-                      {plaga}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Stat destacado */}
-              <div className="flex items-center gap-4 p-5 bg-fondo-superficie rounded-2xl border border-white/5">
-                <div className="text-4xl font-black text-texto-titulo">70%</div>
-                <div>
-                  <p className="text-texto-titulo font-semibold text-sm">menos gasto en pesticidas</p>
-                  <p className="text-texto-secundario text-xs mt-0.5">media en fincas agrícolas con refugios activos</p>
-                </div>
+              <div className="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5">
+                <h4 className="text-texto-titulo font-bold mb-4 flex items-center gap-2">
+                  Plagas controladas:
+                </h4>
+                <ul className="grid grid-cols-2 gap-2 text-xs text-texto-secundario uppercase tracking-widest font-bold">
+                  <li>• Mosca del Olivo</li>
+                  <li>• Polilla del Racimo</li>
+                  <li>• Procesionaria</li>
+                  <li>• Mosquito Tigre</li>
+                </ul>
               </div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              className="bg-fondo-superficie rounded-3xl border border-purple-400/40 shadow-[0_0_60px_rgba(192,132,252,0.08)] overflow-hidden"
+              className="bg-fondo-superficie p-8 rounded-3xl border border-marca-principal/20 shadow-2xl"
             >
-              {/* Cabecera */}
-              <div className="px-8 pt-8 pb-4">
-                <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-1">Calculadora de ahorro</p>
-                <p className="text-texto-secundario text-sm">Mueve el slider y ve cuánto ahorras al año</p>
-              </div>
-
-              {/* Slider */}
-              <div className="px-8 py-6 border-t border-white/5">
-                <div className="flex justify-between mb-3 items-end">
-                  <label className="text-xs font-bold text-texto-secundario uppercase tracking-widest">
-                    Superficie de cultivo
+              <h3 className="text-xl font-bold text-texto-titulo mb-8 flex items-center gap-3">
+                {" "}
+                Calculadora de Ahorro
+              </h3>
+              <div className="mb-8">
+                <div className="flex justify-between mb-4 items-end">
+                  <label className="text-sm font-bold text-texto-secundario uppercase tracking-widest">
+                    Superficie
                   </label>
-                  <span className="text-marca-principal font-mono text-3xl font-black">
-                    {hectareas} <span className="text-lg">Ha</span>
+                  <span className="text-marca-principal font-mono text-2xl font-bold">
+                    {hectareas} Ha
                   </span>
                 </div>
                 <input
@@ -679,153 +690,27 @@ export default function RefugiosPage() {
                   onChange={(e) => setHectareas(parseInt(e.target.value))}
                   className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-marca-principal"
                 />
-                <div className="flex justify-between text-xs text-texto-secundario/50 mt-1">
-                  <span>1 Ha</span><span>100 Ha</span>
-                </div>
               </div>
-
-              {/* Resultado principal — el ahorro grande */}
-              <div className="mx-8 mb-4 p-6 bg-gradient-to-br from-marca-principal/15 to-marca-principal/5 rounded-2xl border border-marca-principal/25 text-center">
-                <p className="text-xs font-bold text-marca-principal uppercase tracking-widest mb-2">Ahorro estimado al año</p>
-                <p className="text-6xl font-black text-marca-principal leading-none mb-1">
-                  {ahorroDinero.toLocaleString()} €
-                </p>
-                <p className="text-xs text-texto-secundario">frente a tratamientos químicos convencionales</p>
-              </div>
-
-              {/* Stats secundarios */}
-              <div className="grid grid-cols-2 gap-3 px-8 pb-4">
-                <div className="p-4 bg-black/20 rounded-2xl text-center">
-                  <p className="text-2xl font-black text-texto-titulo">{refugiosNecesarios}</p>
-                  <p className="text-xs text-texto-secundario uppercase tracking-wider mt-1">Refugios necesarios</p>
+              <div className="space-y-4">
+                <div className="flex justify-between p-5 bg-black/20 rounded-2xl">
+                  <span className="text-xs text-texto-secundario uppercase font-bold tracking-widest">
+                    Ahorro anual
+                  </span>
+                  <span className="text-xl font-bold text-marca-principal">
+                    ~ {ahorroDinero.toLocaleString()} €
+                  </span>
                 </div>
-                <div className="p-4 bg-black/20 rounded-2xl text-center">
-                  <p className="text-2xl font-black text-texto-titulo">0 €</p>
-                  <p className="text-xs text-texto-secundario uppercase tracking-wider mt-1">Coste operativo</p>
+                <div className="flex justify-between p-5 bg-marca-principal/10 rounded-2xl border border-marca-principal/20">
+                  <span className="text-xs text-texto-secundario uppercase font-bold tracking-widest">
+                    Refugios MUMA
+                  </span>
+                  <span className="text-xl font-bold text-marca-principal">
+                    {refugiosNecesarios}
+                  </span>
                 </div>
-              </div>
-
-              {/* Stats científicos (migrados) */}
-              <div className="grid grid-cols-2 gap-3 px-8 pb-8">
-                <div className="p-4 bg-marca-principal/5 rounded-2xl text-center border border-marca-principal/10">
-                  <p className="text-xl font-black text-white">{insectosPorNoche}</p>
-                  <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mt-1">Insectos eliminados / noche</p>
-                </div>
-                <div className="p-4 bg-marca-principal/5 rounded-2xl text-center border border-marca-principal/10">
-                  <p className="text-xl font-black text-white">{pesticidaEvitado} kg</p>
-                  <p className="text-[10px] sm:text-xs text-texto-secundario uppercase tracking-wider mt-1">Tóxicos evitados / año</p>
-                </div>
-              </div>
-
-              {/* CTA dentro de la calculadora */}
-              <div className="px-8 pb-8 -mt-2">
-                <a
-                  href="mailto:info@murcielagosmalaga.com?subject=Consulta%20refugios%20MUMA%20-%20{hectareas}%20hectareas"
-                  className="block w-full text-center py-4 bg-marca-principal text-black font-bold rounded-xl hover:bg-marca-principal-hover transition-all duration-200 no-underline text-sm"
-                >
-                  Quiero ahorrar {ahorroDinero.toLocaleString()} € al año →
-                </a>
               </div>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* ── SECCIÓN: CÓMO LO HACEMOS ── */}
-      <section className="py-24 px-6 bg-fondo-secundario border-t border-white/5">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial="oculto"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={varianteSeccion}
-            className="text-center mb-16"
-          >
-            <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
-              Lo hacemos nosotros
-            </p>
-            <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
-              Tú decides. MUMA lo instala.
-            </h2>
-            <p className="text-texto-secundario text-lg max-w-2xl mx-auto">
-              No necesitas saber nada de murciélagos. Nos encargamos de todo: desde elegir la ubicación ideal hasta el seguimiento de la colonia.
-            </p>
-          </motion.div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {/* Línea vertical */}
-            <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-marca-principal/60 via-marca-principal/20 to-transparent hidden md:block" />
-
-            <div className="space-y-10">
-              {[
-                {
-                  paso: "01",
-                  titulo: "Consulta gratuita",
-                  desc: "Cuéntanos tu situación: tipo de cultivo, superficie, plagas habituales. En 24h te decimos cuántos refugios necesitas y dónde colocarlos.",
-                  detalle: "Sin compromiso · Por email o WhatsApp",
-                },
-                {
-                  paso: "02",
-                  titulo: "Fabricación y envío",
-                  desc: "Fabricamos tu refugio a medida con madera técnica seleccionada. Llega listo para instalar, con instrucciones y soporte directo.",
-                  detalle: "Plazo: 7-14 días · Envío a toda España",
-                },
-                {
-                  paso: "03",
-                  titulo: "Instalación por nuestro equipo",
-                  desc: "Nuestros técnicos se desplazan a tu finca o espacio urbano. Colocamos el refugio en la orientación y altura óptimas para atraer a la primera colonia.",
-                  detalle: "Servicio incluido en zonas de Málaga · Resto bajo presupuesto",
-                },
-                {
-                  paso: "04",
-                  titulo: "Primera colonia activa",
-                  desc: "En 1-3 temporadas el refugio está colonizado. A partir de ahí, los murciélagos trabajan solos. Nosotros hacemos el seguimiento si lo necesitas.",
-                  detalle: "Seguimiento opcional · Datos reales de ocupación",
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={item.paso}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex gap-8 items-start"
-                >
-                  {/* Número */}
-                  <div className="shrink-0 w-16 h-16 rounded-2xl bg-marca-principal/10 border border-marca-principal/30 flex items-center justify-center z-10">
-                    <span className="text-marca-principal font-bold text-lg">{item.paso}</span>
-                  </div>
-                  {/* Contenido */}
-                  <div className="pt-1">
-                    <h3 className="text-texto-titulo font-bold text-lg mb-1">{item.titulo}</h3>
-                    <p className="text-texto-secundario text-sm leading-relaxed mb-2">{item.desc}</p>
-                    <span className="text-xs text-marca-principal/70 font-medium">{item.detalle}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA final */}
-          <motion.div
-            initial="oculto"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={varianteSeccion}
-            className="mt-16 text-center"
-          >
-            <p className="text-texto-secundario text-sm mb-6">
-              La temporada óptima de colonización es <span className="text-texto-titulo font-semibold">marzo–mayo</span>. Cuanto antes instales, antes trabajan.
-            </p>
-            <a
-              href="mailto:info@murcielagosmalaga.com?subject=Quiero%20instalar%20un%20refugio%20MUMA"
-              className="inline-flex items-center gap-3 px-10 py-5 bg-marca-principal text-black font-bold rounded-2xl hover:bg-marca-principal-hover hover:scale-105 transition-all shadow-[0_0_40px_rgba(31,225,167,0.25)] no-underline text-base"
-            >
-              Quiero que MUMA lo instale
-            </a>
-            <p className="text-xs text-texto-secundario mt-4">Consulta inicial gratuita · Sin compromiso</p>
-          </motion.div>
         </div>
       </section>
 
@@ -912,6 +797,31 @@ export default function RefugiosPage() {
         </div>
       </section>
 
+      {/* Mapa */}
+      <div className="relative w-full h-[600px] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl shadow-purple-500/10">
+        {/* BLOQUE DE SEGURIDAD PARA window is not defined */}
+        {typeof window !== "undefined" && (
+          <Suspense
+            fallback={
+              <div className="w-full h-full bg-[#050505] flex items-center justify-center">
+                <span className="text-zinc-500 animate-pulse text-sm uppercase tracking-widest">
+                  Iniciando sistema de mapeo...
+                </span>
+              </div>
+            }
+          >
+            <MapaRefugios />
+          </Suspense>
+        )}
+
+        <div className="absolute bottom-6 left-6 z-[1000] bg-black/80 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-xs text-white pointer-events-none">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-3 h-3 bg-[#6a31eb] rounded-full animate-pulse"></span>
+            <span>Refugios Activos</span>
+          </div>
+          <p className="text-zinc-500">Datos actualizados por TEAM_MUMA_02</p>
+        </div>
+      </div>
       {/* ── SECCIÓN 6: FAQ ── */}
       <section className="py-24 px-6 bg-fondo-secundario border-t border-white/5">
         <div className="max-w-4xl mx-auto">
@@ -1010,7 +920,7 @@ export default function RefugiosPage() {
               className="h-8 grayscale"
             />
             <img
-              src="/images/Logo_SECEMU.webp"
+              src="/images/Logo_SECEMU_blanco.webp"
               alt="SECEMU"
               className="h-8 grayscale"
             />
@@ -1028,74 +938,56 @@ export default function RefugiosPage() {
         </div>
       </section>
 
-      {/* ── MAPA DE REFUGIOS ── */}
-      <section className="py-24 px-6 bg-fondo-base border-t border-white/5">
-        <motion.div
-          initial="oculto"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={varianteSeccion}
-          className="max-w-6xl mx-auto"
-        >
-          <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
-            Red activa
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
-            Refugios instalados en tiempo real.
-          </h2>
-          <p className="text-texto-secundario mb-10 max-w-xl">
-            Cada punto es un refugio MUMA activo. Los datos se sincronizan directamente desde nuestra base de datos de campo.
-          </p>
-          <div className="w-full h-[520px] rounded-2xl overflow-hidden border border-purple-400/20 shadow-[0_0_40px_rgba(192,132,252,0.06)]">
-            <MapaDinamico />
-          </div>
-          <div className="flex items-center gap-3 mt-4">
-            <div className="w-3 h-3 rounded-full bg-marca-principal shadow-[0_0_8px_#1fe1a7]" />
-            <p className="text-xs text-texto-secundario">Cada punto es un refugio MUMA activo — datos en tiempo real desde nuestra base de campo</p>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── SECCIÓN 7: CONTACTO ── */}
-      <section id="contacto" className="bg-fondo-base py-24 px-6 border-t border-white/5">
+      {/* ── CTA / CONTACTO (CON NUESTRO COMPONENTE CENTRALIZADO) ── */}
+      <section id="contacto" className="bg-fondo-secundario py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
+         <motion.div
             initial="oculto"
             whileInView="visible"
             viewport={{ once: true }}
             variants={varianteSeccion}
             className="text-center mb-12"
           >
-            <p className="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
-              Sin compromiso · Respuesta en 24h
+            <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">
+              Conservación Activa
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
-              Cuéntanos tu finca o espacio.
+            <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-5">
+              Red de Refugios MUMA
             </h2>
-            <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed mb-6">
-              Te calculamos cuántos refugios necesitas, qué plagas controlarían y cuánto ahorrarías en pesticidas este año.
+            <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed mb-10">
+              La pérdida de hábitat es la mayor amenaza para nuestros murciélagos. Si gestionas una finca agrícola, un parque público o una propiedad privada, puedes ser clave para la biodiversidad. Instalamos nuestras cajas refugio y nos encargamos del estudio de viabilidad y monitorización ecológica.
             </p>
           </motion.div>
 
+          {/* ¡MAGIA! AQUI LLAMAMOS AL FORMULARIO Y LE PASAMOS LOS DATOS DE BAT NIGHT */}
           <div className="max-w-2xl mx-auto">
             <FormularioMuma
               tablaBD="solicitudes_refugios"
-              asuntoCorreo="[Web Refugios] Solicitud de propuesta"
-              textoBoton="SOLICITAR ESTUDIO DE VIABILIDAD"
-              selectName="tipo_espacio"
-              selectLabel="¿Qué tipo de espacio gestionas?"
+              asuntoCorreo="[Web Bat Night] Solicitud de propuesta"
+              textoBoton="SOLICITAR REFUGIO"
+              selectName="tipo_evento"
+              selectLabel="Formato de interés"
               opcionesSelect={[
-                { valor: 'finca_agricola', texto: 'Finca agrícola / Cultivo' },
-                { valor: 'parque_publico', texto: 'Parque o jardín público' },
-                { valor: 'espacio_privado', texto: 'Propiedad privada / Jardín' },
-                { valor: 'campo_golf', texto: 'Campo de Golf / Resort' },
-                { valor: 'otro', texto: 'Otro' },
+                { valor: "estandar", texto: "Bat Night estándar" },
+                { valor: "con_vr", texto: "Bat Night con VR" },
+                {
+                  valor: "espacios_culturales",
+                  texto: "En espacios culturales / urbanos",
+                },
+                { valor: "ciclo", texto: "Ciclo anual de Bat Nights" },
               ]}
-              mostrarOrganizacion={true}
-              mostrarParticipantes={false}
-              mostrarFecha={false}
             />
           </div>
+
+          <p className="mt-12 text-sm text-texto-secundario/60">
+            ¿Buscas otro servicio?{" "}
+            <a
+              href="/#servicios"
+              className="text-marca-principal hover:opacity-80 transition-opacity duration-200 no-underline"
+            >
+              Ver todos los servicios
+            </a>
+          </p>
         </div>
       </section>
     </main>
