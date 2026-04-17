@@ -1,0 +1,516 @@
+---
+// Página de Refugios — versión Astro
+// Antes: 1104 líneas en un componente React con client:load → todo el HTML vacío en SSR
+// Ahora: HTML estático en servidor + 4 islands React solo donde hay interactividad
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import CarruselModelos from '../../components/islands/CarruselModelos'
+import CalculadoraRefugios from '../../components/islands/CalculadoraRefugios'
+import MapaDinamicoIsland from '../../components/islands/MapaDinamicoIsland'
+import FormularioMuma from '../../components/formularioContacto'
+---
+
+<BaseLayout
+  title="Refugios para murciélagos | MUMA BAT COMPANY"
+  description="Refugios para murciélagos en Málaga. Control biológico de plagas sin pesticidas: mosca del olivo, procesionaria, mosquito tigre. Fabricación artesanal e instalación por nuestro equipo."
+  canonical="https://mumabatcompany.com/servicios/refugios"
+>
+  <main class="min-h-screen bg-fondo-base pt-20">
+
+    {/* ── HERO ── */}
+    <section class="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-black border-b border-white/5">
+      <div class="absolute inset-0 z-0 bg-[#050505]">
+        <video
+          autoplay loop muted playsinline
+          class="w-full h-full object-cover opacity-60 mix-blend-screen"
+        >
+          <source src="/videos/refugio-rv.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-fondo-base via-[#050505]/50 to-[#050505]/20 z-10"></div>
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px] z-20 pointer-events-none"></div>
+      </div>
+
+      <div class="relative z-30 max-w-4xl mx-auto px-6 text-center">
+        <span class="inline-block px-4 py-1.5 mb-6 rounded-full border border-marca-principal/30 bg-marca-principal/10 text-marca-principal text-[10px] font-bold uppercase tracking-[0.3em]">
+          Control Biológico Natural
+        </span>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
+          Protege el entorno. <br />
+          <span class="text-marca-principal">Rescata la fauna.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+          Los murciélagos consumen miles de insectos nocturnos reemplazando
+          pesticidas sintéticos. Ofréceles un hogar con diseño de madera
+          técnica prémium.
+        </p>
+        <a
+          href="#catalogo-modelos"
+          class="inline-flex items-center gap-2 px-8 py-5 bg-marca-principal text-black font-bold rounded-2xl hover:bg-marca-principal-hover hover:scale-105 transition-all shadow-[0_0_30px_rgba(31,225,167,0.3)] no-underline"
+        >
+          Explorar Catálogo de Refugios
+        </a>
+      </div>
+    </section>
+
+    {/* ── BANNER CTA ── */}
+    <div class="bg-fondo-secundario border-b border-white/5 px-6 py-5">
+      <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-texto-secundario">
+          <span class="text-texto-titulo font-semibold">¿Cuánto te cuesta el pesticida este año?</span>{" "}
+          Un refugio MUMA es una inversión única que trabaja 365 días sin coste operativo.
+        </p>
+        <div class="flex gap-3 shrink-0">
+          <a
+            href="#contacto"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
+          >
+            Pedir presupuesto gratis
+          </a>
+          <a
+            href="https://wa.me/34664213450"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold border border-white/15 text-texto-principal hover:bg-fondo-superficie transition-all duration-200 no-underline"
+          >
+            WhatsApp directo
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {/* ── SECCIÓN 1: DEFINICIÓN TÉCNICA ── */}
+    <section id="definicion" class="py-24 px-6 border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-16 max-w-4xl">
+          <p class="text-xs font-bold uppercase tracking-widest text-marca-principal mb-4">
+            Control biológico de plagas
+          </p>
+          <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo mb-6 leading-tight">
+            Tu finca está pagando pesticidas <br />
+            <span class="text-marca-principal">que la naturaleza haría gratis.</span>
+          </h2>
+          <p class="text-texto-secundario text-lg leading-relaxed">
+            Un solo murciélago elimina hasta 1.200 insectos por hora. Un refugio MUMA instala
+            una colonia activa en tu finca, viñedo o espacio urbano sin químicos, sin mantenimiento
+            y con respaldo científico de un proyecto europeo de investigación.
+          </p>
+        </div>
+
+        {/* 3 PILARES */}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-24 px-4 text-center">
+          {[
+            { img: '/images/batbnb/mosquitos.webp', alt: 'Reduce mosquitos y plagas', titulo: 'Reduce Mosquitos y Plagas', texto: 'Un solo murciélago puede comer miles de insectos en una noche, convirtiéndolos en el sustituto perfecto de los pesticidas tóxicos. Ayudan a mantener tu jardín seguro para tu familia.' },
+            { img: '/images/batbnb/habitat.webp', alt: 'Hábitat seguro para murciélagos', titulo: 'Provee un Hábitat Seguro', texto: 'Los murciélagos están amenazados en todo el mundo y necesitan ayuda. Nuestros refugios ofrecen un hogar perfecto y térmicamente estable para que críen a sus crías a salvo de depredadores.' },
+            { img: '/images/batbnb/bat.webp', alt: 'Aprende a amar al murciélago', titulo: 'Aprende a amar a este animal', texto: 'La idea de que son monstruos sedientos de sangre es un mito. Son tímidos, duermen de día y cazan de noche. Trátalos con respeto y serán los mejores vecinos de tu ecosistema.' },
+          ].map((pilar) => (
+            <div class="flex flex-col items-center">
+              <div class="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
+                <img src={pilar.img} alt={pilar.alt} class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <h3 class="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">{pilar.titulo}</h3>
+              <p class="text-gray-400 text-sm leading-relaxed max-w-xs">{pilar.texto}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* COMPARATIVA MUMA vs Caja comercial */}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="rounded-3xl border border-marca-principal/20 overflow-hidden bg-marca-principal/5 shadow-2xl">
+            <div class="relative aspect-video overflow-hidden">
+              <img
+                src="/images/refugios/Refugio murciélagos - Render realista_1.webp"
+                alt="Refugio MUMA de calidad"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 bg-marca-principal text-black text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
+                Estándar MUMA
+              </span>
+            </div>
+            <div class="p-8">
+              <ul class="space-y-3 text-texto-principal text-sm">
+                <li class="flex gap-3">
+                  <svg class="text-marca-principal shrink-0 mt-0.5 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  <span>Aislamiento térmico total sin rendijas ni filtraciones.</span>
+                </li>
+                <li class="flex gap-3">
+                  <svg class="text-marca-principal shrink-0 mt-0.5 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  <span>Sin clavos ni siliconas tóxicas que dañen al animal.</span>
+                </li>
+                <li class="flex gap-3">
+                  <svg class="text-marca-principal shrink-0 mt-0.5 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  <span>Madera técnica certificada: no se dobla ni se agrieta al sol.</span>
+                </li>
+                <li class="flex gap-3">
+                  <svg class="text-marca-principal shrink-0 mt-0.5 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  <span>Georeferenciados, numerados y con seguimiento científico.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-red-500/20 overflow-hidden bg-red-500/5 shadow-2xl">
+            <div class="relative aspect-video overflow-hidden">
+              <img
+                src="/images/batbnb/mala-caja.png"
+                alt="Caja comercial de baja calidad"
+                class="w-full h-full object-cover"
+                style="object-position: 50% 50%; transform: scale(0.75); filter: grayscale(50%) contrast(1.05)"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <span class="absolute bottom-4 left-4 bg-red-500 text-white text-xs font-black px-3 py-1.5 rounded-full tracking-widest uppercase">
+                Caja Comercial
+              </span>
+            </div>
+            <div class="p-8">
+              <ul class="space-y-3 text-texto-secundario text-sm opacity-80">
+                <li class="flex gap-3"><span class="text-red-400 shrink-0 mt-0.5">✕</span><span>Rendijas que filtran aire y humedad — el animal las abandona.</span></li>
+                <li class="flex gap-3"><span class="text-red-400 shrink-0 mt-0.5">✕</span><span>Clavos y siliconas que dañan las membranas del murciélago.</span></li>
+                <li class="flex gap-3"><span class="text-red-400 shrink-0 mt-0.5">✕</span><span>Madera de baja calidad que se deforma en 1-2 veranos.</span></li>
+                <li class="flex gap-3"><span class="text-red-400 shrink-0 mt-0.5">✕</span><span>Sin ventilación ni superficies de agarre interior.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── CÓMO FUNCIONA + VÍDEO ── */}
+    <section class="py-24 px-6 bg-white text-black overflow-hidden relative">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+        <div class="flex-1 order-2 md:order-1">
+          <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tighter uppercase text-center md:text-left">
+            Cómo Funciona
+          </h2>
+          <p class="text-xl text-gray-600 mb-12 text-center md:text-left font-light leading-relaxed">
+            Las unidades pueden colocarse en una pared exterior de una casa, muro alto de finca o
+            un poste en tu patio. Cuando los murciélagos locales salgan de la hibernación,
+            encontrarán tu refugio MUMA y lo llamarán hogar en poco tiempo.
+          </p>
+          <div class="space-y-12">
+            {[
+              { num: '1', titulo: 'Simulación Térmica', texto: 'Los espacios interiores imitan su hábitat natural (grietas) mediante madera técnica certificada. La estructura captura el calor del sol directo haciéndola appealing para las hembras lactantes.' },
+              { num: '2', titulo: 'Agarre Interior Perfecto', texto: 'Entran por un drop de 2 centímetros bajo la plataforma. El interior cuenta con ranurados CNC de precisión que permite que los murciélagos se agarren, escalen y cuelguen con total comodidad y seguridad.' },
+              { num: '3', titulo: 'Inercia Nocturna', texto: 'Por la noche, cuando están listos para salir a cenar, usan el espacio bajo el refugio en caída libre para ganar momento e iniciar el vuelo de caza de plagas en tu parcela.' },
+            ].map((paso) => (
+              <div class="flex gap-6">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-marca-principal flex items-center justify-center font-bold text-white shadow-lg">{paso.num}</div>
+                <div>
+                  <h3 class="font-bold text-xl uppercase tracking-widest text-[#2c2b29] mb-2">{paso.titulo}</h3>
+                  <p class="text-gray-600 leading-relaxed text-sm">{paso.texto}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="flex-1 order-1 md:order-2 w-full">
+          <div class="relative rounded-[2rem] overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.15)] bg-black/5 aspect-[4/5] border border-gray-100 p-2">
+            <video
+              src="/videos/Refugio - v.Final - Vista explotada_3.mp4"
+              autoplay muted loop playsinline
+              class="w-full h-full object-cover rounded-[1.5rem]"
+            ></video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── CATÁLOGO: ISLAND REACT ── */}
+    <section id="catalogo-modelos" class="py-24 px-6 bg-fondo-secundario overflow-hidden">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
+            Catálogo MUMA
+          </p>
+          <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo">
+            Modelos exclusivos
+          </h2>
+        </div>
+        {/* Island: solo el carrusel interactivo */}
+        <CarruselModelos client:visible />
+      </div>
+    </section>
+
+    {/* ── VALOR DE MERCADO ── */}
+    <section class="py-24 px-6 bg-fondo-base">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo mb-6">
+            Más allá del ahorro: <span class="text-marca-principal">Valor de Mercado</span>
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { img: '/images/agricultura-control-biologico_resultado.webp', titulo: 'Acceso a Mercados Premium', texto: 'Facilita certificaciones ecológicas y de "Residuo Cero", permitiendo vender cosechas a precios superiores.' },
+            { img: '/images/campo-golf.jpg', titulo: 'Menos Horas de Maquinaria', texto: 'Reduce pases de tractor, ahorrando combustible y evitando la compactación excesiva del suelo.' },
+            { img: '/images/colonia_murcielago01.webp', titulo: 'Prevención Ininterrumpida', texto: 'Vigilancia biológica 24/7 que actúa antes de que las plagas depositen sus larvas en el fruto.' },
+          ].map((card) => (
+            <div
+              class="group relative overflow-hidden rounded-3xl"
+              style="border: 2px solid transparent; background-image: linear-gradient(#0f0f1a,#0f0f1a),linear-gradient(to bottom right,#8b5cf6,transparent); background-origin: border-box; background-clip: padding-box,border-box;"
+            >
+              <div class="relative overflow-hidden rounded-3xl h-full">
+                <img
+                  src={card.img}
+                  alt={card.titulo}
+                  class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"
+                  loading="lazy"
+                />
+                <div class="relative p-8 bg-gradient-to-t from-black/80 via-black/50 to-black/20">
+                  <h4 class="text-xl font-bold text-texto-titulo mb-3">{card.titulo}</h4>
+                  <p class="text-sm text-texto-secundario leading-relaxed">{card.texto}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── CALCULADORA: ISLAND REACT ── */}
+    <section id="agricultura" class="py-24 px-6 bg-fondo-secundario border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Columna izquierda: texto estático en Astro */}
+          <div>
+            <p class="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
+              Control biológico de plagas
+            </p>
+            <h2 class="text-4xl md:text-6xl font-black text-texto-titulo mb-4 leading-tight">
+              Ahorra miles de €<br />
+              <span class="text-marca-principal">en pesticidas</span>
+            </h2>
+            <p class="text-texto-secundario text-lg mb-10 leading-relaxed max-w-md">
+              Un murciélago elimina hasta <span class="text-texto-titulo font-semibold">1.200 insectos por hora</span>.
+              Instala una colonia activa y deja de pagar tratamientos químicos recurrentes.
+            </p>
+            <div class="mb-8">
+              <p class="text-xs font-bold text-texto-secundario uppercase tracking-widest mb-4">Plagas que controla</p>
+              <div class="flex flex-wrap gap-2">
+                {['Mosca del Olivo', 'Polilla del Racimo', 'Procesionaria', 'Mosquito Tigre'].map((plaga) => (
+                  <span class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider border border-marca-principal/30 bg-marca-principal/10 text-marca-principal">
+                    {plaga}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-5 bg-fondo-superficie rounded-2xl border border-white/5">
+              <div class="text-4xl font-black text-texto-titulo">70%</div>
+              <div>
+                <p class="text-texto-titulo font-semibold text-sm">menos gasto en pesticidas</p>
+                <p class="text-texto-secundario text-xs mt-0.5">media en fincas agrícolas con refugios activos</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Columna derecha: Island React con el slider */}
+          <CalculadoraRefugios client:visible />
+        </div>
+      </div>
+    </section>
+
+    {/* ── CÓMO LO HACEMOS: TIMELINE ESTÁTICO ── */}
+    <section class="py-24 px-6 bg-fondo-secundario border-t border-white/5">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">Lo hacemos nosotros</p>
+          <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">Tú decides. MUMA lo instala.</h2>
+          <p class="text-texto-secundario text-lg max-w-2xl mx-auto">
+            No necesitas saber nada de murciélagos. Nos encargamos de todo: desde elegir la
+            ubicación ideal hasta el seguimiento de la colonia.
+          </p>
+        </div>
+
+        <div class="relative">
+          <div class="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-marca-principal/60 via-marca-principal/20 to-transparent hidden md:block"></div>
+          <div class="space-y-10">
+            {[
+              { paso: '01', titulo: 'Consulta gratuita', desc: 'Cuéntanos tu situación: tipo de cultivo, superficie, plagas habituales. En 24h te decimos cuántos refugios necesitas y dónde colocarlos.', detalle: 'Sin compromiso · Por email o WhatsApp' },
+              { paso: '02', titulo: 'Fabricación y envío', desc: 'Fabricamos tu refugio a medida con madera técnica seleccionada. Llega listo para instalar, con instrucciones y soporte directo.', detalle: 'Plazo: 7-14 días · Envío a toda España' },
+              { paso: '03', titulo: 'Instalación por nuestro equipo', desc: 'Nuestros técnicos se desplazan a tu finca o espacio urbano. Colocamos el refugio en la orientación y altura óptimas para atraer a la primera colonia.', detalle: 'Servicio incluido en zonas de Málaga · Resto bajo presupuesto' },
+              { paso: '04', titulo: 'Primera colonia activa', desc: 'En 1-3 temporadas el refugio está colonizado. A partir de ahí, los murciélagos trabajan solos. Nosotros hacemos el seguimiento si lo necesitas.', detalle: 'Seguimiento opcional · Datos reales de ocupación' },
+            ].map((item) => (
+              <div class="flex gap-8 items-start">
+                <div class="shrink-0 w-16 h-16 rounded-2xl bg-marca-principal/10 border border-marca-principal/30 flex items-center justify-center z-10">
+                  <span class="text-marca-principal font-bold text-lg">{item.paso}</span>
+                </div>
+                <div class="pt-1">
+                  <h3 class="text-texto-titulo font-bold text-lg mb-1">{item.titulo}</h3>
+                  <p class="text-texto-secundario text-sm leading-relaxed mb-2">{item.desc}</p>
+                  <span class="text-xs text-marca-principal/70 font-medium">{item.detalle}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="mt-16 text-center">
+          <p class="text-texto-secundario text-sm mb-6">
+            La temporada óptima de colonización es <span class="text-texto-titulo font-semibold">marzo–mayo</span>.
+            Cuanto antes instales, antes trabajan.
+          </p>
+          <a
+            href="#contacto"
+            class="inline-flex items-center gap-3 px-10 py-5 bg-marca-principal text-black font-bold rounded-2xl hover:bg-marca-principal-hover hover:scale-105 transition-all shadow-[0_0_40px_rgba(31,225,167,0.25)] no-underline text-base"
+          >
+            Quiero que MUMA lo instale
+          </a>
+          <p class="text-xs text-texto-secundario mt-4">Consulta inicial gratuita · Sin compromiso</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ── IMPACTO URBANO ── */}
+    <section class="py-24 px-6 bg-fondo-base border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
+            Rendimiento Bio-Sostenible
+          </p>
+          <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo">
+            Impacto y Productividad Urbana
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { num: '+1.200', label: 'Insectos / Hora', texto: 'Control biológico de mosquitos tigre sin químicos ni consumo energético.' },
+            { num: '0€', label: 'Coste Operativo', texto: 'Elimina la dependencia de contratos de fumigación recurrentes y tóxicos.' },
+            { num: '100%', label: 'Bio-Seguridad', texto: 'Entornos públicos libres de biocidas. Protección natural para zonas infantiles.' },
+          ].map((stat) => (
+            <div class="p-8 bg-gradient-to-br from-violet-500/10 to-transparent rounded-3xl border border-white/5 flex flex-col items-center text-center group hover:border-violet-400/50 transition-all">
+              <h4 class="text-4xl font-extrabold text-texto-titulo mb-2">{stat.num}</h4>
+              <p class="text-xs font-bold text-marca-principal uppercase tracking-widest mb-4">{stat.label}</p>
+              <p class="text-sm text-texto-secundario leading-relaxed">{stat.texto}</p>
+            </div>
+          ))}
+        </div>
+        <p class="text-center text-[10px] text-texto-secundario/40 mt-12 uppercase tracking-[0.2em]">
+          * Datos basados en estudios de{" "}
+          <a href="https://secemu.org/" target="_blank" rel="noreferrer" class="underline hover:text-marca-principal transition-colors">SECEMU</a>
+          {" "}y{" "}
+          <a href="https://www.batcon.org/" target="_blank" rel="noreferrer" class="underline hover:text-marca-principal transition-colors">BCI</a>.
+        </p>
+      </div>
+    </section>
+
+    {/* ── FAQ ── */}
+    <section class="py-24 px-6 bg-fondo-secundario border-t border-white/5">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-texto-titulo mb-4">Preguntas Frecuentes</h2>
+          <p class="text-texto-secundario italic">Respuestas técnicas para una implementación segura y efectiva.</p>
+        </div>
+        <div class="space-y-4">
+          {[
+            { q: '¿Existe riesgo sanitario para las personas?', a: 'Ninguno. Los murciélagos urbanos huyen del contacto humano. Nuestros refugios garantizan la higiene en entornos públicos.' },
+            { q: '¿Cuánto tarda en colonizarse un refugio?', a: 'Suele ocurrir entre los 3 y 12 meses, dependiendo de la época y el entorno biológico del parque o finca.' },
+            { q: '¿Requieren limpieza los refugios MUMA?', a: 'No. El diseño incluye una ranura de caída libre que permite que el guano caiga de forma natural al suelo, evitando acumulaciones.' },
+          ].map((item) => (
+            <div class="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5">
+              <h4 class="text-texto-titulo font-bold mb-2">{item.q}</h4>
+              <p class="text-sm text-texto-secundario leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── CREDIBILIDAD ── */}
+    <section class="py-16 px-6 bg-fondo-secundario border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-10">
+          <p class="text-xs font-bold uppercase tracking-widest text-marca-principal mb-3">Respaldo científico</p>
+          <h2 class="text-2xl md:text-3xl font-bold text-texto-titulo">No somos una tienda. Somos investigadores.</h2>
+          <p class="text-texto-secundario mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
+            MUMA nació de la investigación de campo, no del marketing. Nuestros refugios están
+            diseñados con datos reales de colonización obtenidos en proyectos europeos en España,
+            Portugal y Eslovenia.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { num: '+1.000', label: 'personas con experiencia directa en 2025' },
+            { num: '3', label: 'países del proyecto europeo de investigación' },
+            { num: '10+', label: 'años de estudio de colonias de murciélagos' },
+            { num: '0€', label: 'coste operativo tras la instalación' },
+          ].map((item) => (
+            <div class="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5 text-center">
+              <p class="text-3xl font-extrabold text-texto-titulo mb-1">{item.num}</p>
+              <p class="text-xs text-texto-secundario leading-snug">{item.label}</p>
+            </div>
+          ))}
+        </div>
+        <div class="flex flex-wrap justify-center items-center gap-8 mt-12 opacity-50">
+          <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" class="h-8 grayscale" loading="lazy" />
+          <img src="/images/Logo_SECEMU.webp" alt="SECEMU" class="h-8 grayscale" loading="lazy" />
+          <img src="/images/europa.webp" alt="Proyecto Europeo" class="h-8 grayscale" loading="lazy" />
+          <img src="/images/junta-andalucia.webp" alt="Junta de Andalucía" class="h-8 grayscale" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    {/* ── MAPA: ISLAND REACT ── */}
+    <section class="py-24 px-6 bg-fondo-base border-t border-white/5">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">Red activa</p>
+        <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
+          Refugios instalados en tiempo real.
+        </h2>
+        <p class="text-texto-secundario mb-10 max-w-xl">
+          Cada punto es un refugio MUMA activo. Los datos se sincronizan directamente desde
+          nuestra base de datos de campo.
+        </p>
+        <div class="w-full h-[520px] rounded-2xl overflow-hidden border border-purple-400/20 shadow-[0_0_40px_rgba(192,132,252,0.06)]">
+          <MapaDinamicoIsland client:visible />
+        </div>
+        <div class="flex items-center gap-3 mt-4">
+          <div class="w-3 h-3 rounded-full bg-marca-principal shadow-[0_0_8px_#1fe1a7]"></div>
+          <p class="text-xs text-texto-secundario">
+            Cada punto es un refugio MUMA activo — datos en tiempo real desde nuestra base de campo
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* ── FORMULARIO: ISLAND REACT ── */}
+    <section id="contacto" class="bg-fondo-base py-24 px-6 border-t border-white/5">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="text-center mb-12">
+          <p class="text-xs font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">
+            Sin compromiso · Respuesta en 24h
+          </p>
+          <h2 class="text-3xl md:text-5xl font-bold text-texto-titulo mb-4">
+            Cuéntanos tu finca o espacio.
+          </h2>
+          <p class="text-texto-secundario max-w-xl mx-auto leading-relaxed mb-6">
+            Te calculamos cuántos refugios necesitas, qué plagas controlarían y cuánto ahorrarías
+            en pesticidas este año.
+          </p>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <FormularioMuma
+            client:visible
+            tablaBD="solicitudes_refugios"
+            asuntoCorreo="[Web Refugios] Solicitud de propuesta"
+            textoBoton="SOLICITAR ESTUDIO DE VIABILIDAD"
+            selectName="tipo_espacio"
+            selectLabel="¿Qué tipo de espacio gestionas?"
+            opcionesSelect={[
+              { valor: 'finca_agricola', texto: 'Finca agrícola / Cultivo' },
+              { valor: 'parque_publico', texto: 'Parque o jardín público' },
+              { valor: 'espacio_privado', texto: 'Propiedad privada / Jardín' },
+              { valor: 'campo_golf', texto: 'Campo de Golf / Resort' },
+              { valor: 'otro', texto: 'Otro' },
+            ]}
+            mostrarOrganizacion={true}
+            mostrarParticipantes={false}
+            mostrarFecha={false}
+          />
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
