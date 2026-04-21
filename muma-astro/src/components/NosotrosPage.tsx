@@ -319,78 +319,92 @@ export default function NosotrosPage() {
       <main>
 
         {/* ── SECCIÓN 1: HERO DE MARCA ── */}
-        <section className="relative bg-fondo-base pt-64 pb-0 px-6 overflow-hidden">
+  <section className="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-6 pt-28 pb-25 bg-fondo-base overflow-hidden">
+      
+      {/* ── CAPAS DE FONDO (ESTÉTICA IDÉNTICA) ── */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Imagen de fondo con la colonia, opacidad 50% como en el ejemplo */}
+        <img
+          src="/images/colonia_murcielago01.webp" 
+          alt="Trabajo de campo real de MUMA SL"
+          aria-hidden="true"
+          className="w-full h-full object-cover opacity-50 object-center"
+          loading="eager"
+        />
+      </div>
+      {/* Overlay oscuro para legibilidad */}
+      <div className="absolute inset-0 bg-fondo-base/60" aria-hidden="true" />
+      
+      {/* Halos de luz radiales (Misma posición y color) */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(31,225,167,0.09) 0%, transparent 65%)' }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(31,225,167,0.05) 0%, transparent 70%)' }}
+        aria-hidden="true"
+      />
 
-          <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse, rgba(31,225,167,0.07) 0%, transparent 65%)' }}
-            aria-hidden="true"
-          />
+      {/* ── CONTENIDO PRINCIPAL (Z-INDEX 10) ── */}
+      <div className="relative z-10 max-w-4xl mx-auto">
+        
+        {/* Badge superior estilizado */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-marca-principal/30 bg-marca-principal/5 mb-7">
+          <span className="text-xs font-semibold tracking-widest text-marca-principal uppercase">
+            Polo Digital de Málaga · Desde 2018
+          </span>
+        </div>
 
-          <div className="relative z-10 max-w-4xl mx-auto text-center pb-16">
+        {/* Título principal con salto de línea corporativo */}
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-texto-titulo mb-5">
+          Empezamos protegiendo murciélagos.<br />
+          <span className="text-marca-principal">Hoy convertimos ese conocimiento en servicios reales.</span>
+        </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-              className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-5"
-            >
-              Polo Digital de Málaga · Desde 2018
-            </motion.p>
+        {/* Tagline corporativo (Mismo estilo que la cita del ejemplo) */}
+        <p className="text-sm font-semibold tracking-wide text-marca-principal/70 uppercase mb-5">
+          Consultoría Ambiental · Ciencia Aplicada a la Biodiversidad
+        </p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-texto-titulo mb-6"
-            >
-              Empezamos protegiendo murciélagos.<br />
-              <span className="text-marca-principal">Hoy convertimos ese conocimiento en servicios reales.</span>
-            </motion.h1>
+        {/* Descripción larga corporativa */}
+        <p className="text-lg sm:text-xl text-white max-w-2xl mx-auto leading-relaxed mb-12">
+          MUMA nace de la cooperación y la escucha activa del territorio. Somos una empresa especializada que trabaja con instituciones, administraciones y empresas que requieren rigor científico, datos reales y soluciones técnicas para la gestión de la biodiversidad.
+        </p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg sm:text-xl text-texto-secundario leading-relaxed max-w-2xl mx-auto mb-10"
-            >
-              Todo lo que hacemos parte de la misma idea: no imponemos soluciones a la naturaleza, aprendemos de ella para colaborar con ella. MUMA nace de la cooperación y la escucha del campo, de las colonias, del territorio. No somos divulgadores ni una ONG. Somos una empresa especializada que trabaja con instituciones, administraciones y empresas que necesitan soluciones con base científica real.
-            </motion.p>
-
-            {/* Stats de credibilidad rápida */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}
-              className="flex flex-wrap justify-center gap-8"
-            >
-              {[
-                { numero: 'ST3ER', label: 'Proyecto europeo UE' },
-                { numero: '+700', label: 'personas en experiencia VR' },
-                { numero: 'Único', label: 'archivo bioacústico ibérico' },
-              ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <p className="text-xl font-bold text-marca-principal">{stat.numero}</p>
-                  <p className="text-xs text-texto-secundario mt-1 tracking-wide">{stat.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Imagen de colonia — ancho completo, pegada al borde inferior del hero */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
-            className="relative max-w-5xl mx-auto rounded-t-3xl overflow-hidden"
-            style={{ height: '420px' }}
-          >
-            <img
-              src="/images/colonia_murcielago01.webp"
-              alt="Colonia de murciélagos en cueva natural — trabajo de campo de MUMA"
-              className="w-full h-full object-cover object-center"
-            />
-            {/* Overlay degradado que conecta la imagen con la siguiente sección */}
-            <div className="absolute inset-0 bg-gradient-to-t from-fondo-secundario via-transparent to-transparent" />
-            {/* Etiqueta flotante */}
-            <div className="absolute bottom-5 left-6 bg-fondo-base/80 backdrop-blur-sm border border-marca-principal/20 rounded-xl px-4 py-2">
-              <p className="text-xs font-semibold text-marca-principal uppercase tracking-widest">Trabajo de campo real</p>
-              <p className="text-xs text-texto-secundario mt-0.5">Seguimiento de colonias · Proyecto ST3ER</p>
+        {/* ── REJILLA DE STATS (ESTÉTICA IDÉNTICA AL SEGUNDO HERO) ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5 mb-12">
+          {[
+            { valor: 'ST3ER', etiqueta: 'Proyecto\nEuropeo UE' },
+            { valor: '+700',  etiqueta: 'personas en\nexperiencia VR' },
+            { valor: 'Único',  etiqueta: 'archivo\nbioacústico ibérico' },
+            { valor: '+25',   etiqueta: 'colonias\ninstaladas' }, // Un stat extra para rellenar las 4 columnas
+          ].map(({ valor, etiqueta }, i) => (
+            <div key={i} className="bg-fondo-base px-5 py-6 flex flex-col items-center gap-2">
+              <span className="text-3xl font-bold text-texto-titulo leading-none">{valor}</span>
+              <span className="text-xs text-white leading-snug text-center whitespace-pre-line uppercase tracking-wider">{etiqueta}</span>
             </div>
-          </motion.div>
+          ))}
+        </div>
 
-        </section>
-
+        {/* ── BOTONES DE ACCIÓN (ESTÉTICA IDÉNTICA) ── */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="/servicios"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-black hover:bg-opacity-90 transition-colors duration-200 no-underline"
+          >
+            Conocer nuestros servicios
+          </a>
+          <a
+            href="/contacto"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-sm font-semibold border border-white/15 text-texto-principal hover:bg-fondo-superficie hover:border-white/25 transition-all duration-200 no-underline"
+          >
+            Contactar para proyectos <ArrowRight size={15} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
         {/* ── SECCIÓN 2: HISTORIA DE ORIGEN — el arco narrativo que pidió Francisco ── */}
         <section className="bg-fondo-secundario py-20 px-6">
           <div className="max-w-6xl mx-auto">
@@ -409,7 +423,7 @@ export default function NosotrosPage() {
                   </p>
                 </blockquote>
 
-                <div className="space-y-5 text-texto-secundario leading-relaxed text-base">
+                <div className="space-y-5 text-white leading-relaxed text-base">
                   <p>
                     Todo empezó en campo: construyendo refugios artesanales, estudiando colonias, midiendo ultrasonidos. Pero rápido nos dimos cuenta de que el problema no era solo falta de hábitat era falta de conexión. La mayoría de las personas no saben lo que hacen los murciélagos ni por qué están desapareciendo.
                   </p>
@@ -446,7 +460,7 @@ export default function NosotrosPage() {
             <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-14">
               <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Cómo trabajamos</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">Tres pilares. Un mismo criterio.</h2>
-              <p className="text-texto-secundario max-w-xl mx-auto">No elegimos uno de los tres. Los tres están presentes en cada proyecto que hacemos.</p>
+              <p className="text-white max-w-xl mx-auto">No elegimos uno de los tres. Los tres están presentes en cada proyecto que hacemos.</p>
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -470,7 +484,7 @@ export default function NosotrosPage() {
                   {/* Contenido */}
                   <div className="p-7">
                     <h3 className="text-lg font-bold text-texto-titulo mb-3 leading-snug">{titulo}</h3>
-                    <p className="text-sm text-texto-secundario leading-relaxed">{texto}</p>
+                    <p className="text-sm text-white leading-relaxed">{texto}</p>
                   </div>
                 </motion.div>
               ))}
@@ -507,7 +521,7 @@ export default function NosotrosPage() {
                   Batcave Experience.<br />
                   <span className="text-marca-principal">No es un prototipo. Está funcionando.</span>
                 </h2>
-                <div className="space-y-4 text-texto-secundario leading-relaxed text-base mb-8">
+                <div className="space-y-4 text-white leading-relaxed text-base mb-8">
                   <p>
                     La Batcave Experience es la experiencia de realidad virtual inmersiva de MUMA: una cueva real digitalizada en 3D, con murciélagos, ultrasonidos y datos de campo reales. La lleva el visitante sin pisar el hábitat.
                   </p>
@@ -536,7 +550,7 @@ export default function NosotrosPage() {
             <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-14">
               <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Clientes</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">¿Trabajamos con tu organización?</h2>
-              <p className="text-texto-secundario max-w-xl mx-auto">
+              <p className="text-white max-w-xl mx-auto">
                 Nuestros servicios están diseñados para perfiles muy concretos. Si te reconoces en alguno de estos, probablemente podemos ayudarte.
               </p>
             </motion.div>
@@ -602,8 +616,8 @@ export default function NosotrosPage() {
                   {/* Texto */}
                   <div className="p-6 flex flex-col gap-3 flex-1">
                     <h3 className="text-base font-bold text-texto-titulo leading-snug">{perfil.tipo}</h3>
-                    <p className="text-sm text-texto-secundario leading-relaxed">{perfil.descripcion}</p>
-                    <p className="text-xs text-texto-secundario/50 mt-auto pt-3 border-t border-white/5">{perfil.ejemplo}</p>
+                    <p className="text-sm text-white leading-relaxed">{perfil.descripcion}</p>
+                    <p className="text-xs text-white/50 mt-auto pt-3 border-t border-white/5">{perfil.ejemplo}</p>
                   </div>
                 </motion.div>
               ))}
@@ -630,7 +644,7 @@ export default function NosotrosPage() {
             <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-14">
               <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Avales y credenciales</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">Base real</h2>
-              <p className="text-texto-secundario max-w-xl mx-auto">
+              <p className="text-white max-w-xl mx-auto">
                 El proyecto europeo, las asociaciones científicas y los programas institucionales no son decoración. Son la base desde la que se toman decisiones.
               </p>
             </motion.div>
@@ -663,7 +677,7 @@ export default function NosotrosPage() {
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-texto-titulo mb-2 leading-snug">{cred.nombre}</h3>
-                      <p className="text-sm text-texto-secundario leading-relaxed">{cred.descripcion}</p>
+                      <p className="text-sm text-white leading-relaxed">{cred.descripcion}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -694,10 +708,10 @@ export default function NosotrosPage() {
                 <div className="p-7">
                   <p className="text-xs font-semibold text-marca-principal uppercase tracking-wider mb-1">Fundador · Investigador de quirópteros</p>
                   <h3 className="text-lg font-bold text-texto-titulo mb-3">Antonio Moret</h3>
-                  <p className="text-sm text-texto-secundario leading-relaxed mb-4">
+                  <p className="text-sm text-white leading-relaxed mb-4">
                     Más de una década estudiando colonias de murciélagos sobre el terreno. Coinvestigador del proyecto europeo ST3ER en España, Portugal y Eslovenia. Responsable del único archivo bioacústico colaborativo de quirópteros ibéricos generado por una empresa privada en España.
                   </p>
-                  <p className="text-sm text-texto-secundario leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     La visión de MUMA viene de ahí: no de la tecnología, sino del campo. La realidad virtual, los refugios, las Bat Nights todo parte de años de trabajo directo con el animal y su ecosistema.
                   </p>
                 </div>
@@ -713,7 +727,7 @@ export default function NosotrosPage() {
                 <div className="p-7">
                   <p className="text-xs font-semibold text-marca-principal uppercase tracking-wider mb-1">Manager · Coordinación</p>
                   <h3 className="text-lg font-bold text-texto-titulo mb-3">Laura Smit</h3>
-                  <p className="text-sm text-texto-secundario leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Gestión de proyectos sostenibles e investigación científica. Coordina las alianzas institucionales de MUMA y supervisa la ejecución de los programas de conservación, educación ambiental y relaciones con entidades públicas.
                   </p>
                 </div>
@@ -733,7 +747,7 @@ export default function NosotrosPage() {
                 <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="mb-10">
                   <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">La base científica de lo que hacemos</p>
                   <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-3">Por qué los murciélagos importan</h2>
-                  <p className="text-texto-secundario max-w-xl text-sm leading-relaxed">
+                  <p className="text-white max-w-xl text-sm leading-relaxed">
                     Cada cifra que usamos justifica un servicio. No divulgamos por divulgar.
                   </p>
                 </motion.div>
@@ -751,7 +765,7 @@ export default function NosotrosPage() {
                       </div>
                       <div>
                         <h3 className="text-sm font-bold text-texto-titulo mb-1">{dato.titulo}</h3>
-                        <p className="text-sm text-texto-secundario leading-relaxed">{dato.texto}</p>
+                        <p className="text-sm text-white leading-relaxed">{dato.texto}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -803,7 +817,7 @@ export default function NosotrosPage() {
             <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-12 max-w-4xl mx-auto">
               <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Red y visibilidad</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">Instituciones que respaldan a MUMA</h2>
-              <p className="text-texto-secundario max-w-xl mx-auto">
+              <p className="text-white max-w-xl mx-auto">
                 Trabajamos con entidades científicas, culturales e institucionales comprometidas con la conservación activa.
               </p>
             </motion.div>
@@ -861,7 +875,7 @@ export default function NosotrosPage() {
               <h2 className="text-2xl sm:text-3xl font-bold text-texto-titulo mb-4">
                 Si MUMA encaja con lo que buscas,<br />cuéntanos el proyecto.
               </h2>
-              <p className="text-texto-secundario leading-relaxed mb-10 max-w-lg mx-auto">
+              <p className="text-white leading-relaxed mb-10 max-w-lg mx-auto">
                 Hacemos una primera conversación sin coste para entender si podemos ayudarte. Si no somos la opción adecuada, te lo decimos.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">

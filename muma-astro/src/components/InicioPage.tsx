@@ -51,16 +51,12 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="max-w-3xl mx-auto text-lg md:text-xl text-gray-400 mb-12 leading-relaxed font-light"
+          className="max-w-3xl mx-auto text-lg md:text-xl text-white mb-12 leading-relaxed font-light"
         >
-          Trabajamos con{" "}
-          <span className="text-white font-medium">
+          Trabajamos con
             ayuntamientos, museos, centros educativos y administraciones
-          </span>{" "}
-          que quieren integrar los murciélagos como herramienta de{" "}
-          <span className="text-white font-medium">
+          que quieren integrar los murciélagos como herramienta de
             conservación, control de plagas, divulgación o experiencia inmersiva.
-          </span>
         </motion.p>
 
         {/* CTAs */}
@@ -139,7 +135,7 @@ const Diferenciacion = () => {
           </h2>
           <p className="text-4xl md:text-5xl font-bold text-white leading-[1.1] tracking-tight">
             No hacemos marketing ambiental. <br />
-            <span className="text-zinc-500">
+            <span className="text-white">
               Hacemos trabajo de campo.
             </span>
           </p>
@@ -169,7 +165,7 @@ const Diferenciacion = () => {
                 <h3 className="text-2xl font-bold text-white mb-4" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
                   {item.title}
                 </h3>
-                <p className="text-zinc-200 leading-relaxed font-medium text-[15px] mb-6" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
+                <p className="text-white leading-relaxed font-medium text-[15px] mb-6" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                   {item.desc}
                 </p>
                 <a
@@ -268,7 +264,7 @@ const Segmentacion = () => {
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#1fe1a7] transition-colors" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
                     {p.tipo}
                   </h3>
-                  <p className="text-white/80 text-sm leading-relaxed flex-1 mb-6" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
+                  <p className="text-white text-sm leading-relaxed flex-1 mb-6" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                     {p.desc}
                   </p>
                   <span className="inline-flex items-center gap-2 px-5 py-2.5 bg-marca-principal text-texto-sobre-accion text-sm font-bold rounded-xl self-start group-hover:bg-marca-principal-hover transition-colors duration-200">
@@ -336,7 +332,7 @@ const Servicios = () => {
                 <h4 className="text-xl font-bold text-white group-hover:text-marca-principal transition-colors mb-1">
                   {s.title}
                 </h4>
-                <p className="text-gray-300 text-sm leading-snug">
+                <p className="text-white text-sm leading-snug">
                   {s.desc}
                 </p>
               </div>
@@ -435,7 +431,7 @@ const ProximosEventos = () => {
               <div className="absolute bottom-0 left-0 right-0 z-10 p-7">
                 <p className="text-[#10b981] text-xs font-bold tracking-widest uppercase mb-2">Plazas limitadas</p>
                 <h3 className="text-white font-black text-3xl mb-1">{e.lugar}</h3>
-                <p className="text-gray-400 text-sm mb-6">{e.provincia}</p>
+                <p className="text-white text-sm mb-6">{e.provincia}</p>
                 <a
                   href="/contacto"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-marca-principal text-texto-sobre-accion text-sm font-bold rounded-xl hover:bg-marca-principal-hover hover:scale-105 active:scale-95 transition-all duration-200 no-underline group-hover:shadow-[0_0_20px_rgba(31,225,167,0.4)]"
@@ -454,10 +450,10 @@ const ProximosEventos = () => {
 
 
 const Credibilidad = () => (
-  <section className="bg-white py-14 border-y border-gray-100 overflow-hidden">
+  <section className="bg-white py-14 border-y border-white overflow-hidden">
 
     {/* Label */}
-    <p className="text-[10px] font-bold tracking-[0.3em] text-gray-400 uppercase text-center mb-10">
+    <p className="text-[10px] font-bold tracking-[0.3em] text-white uppercase text-center mb-10">
       Respaldados por instituciones científicas y europeas
     </p>
 
@@ -471,7 +467,7 @@ const Credibilidad = () => (
     </div>
 
     {/* 3 frases de credibilidad */}
-    <div className="max-w-5xl mx-auto px-6 mt-12 flex flex-col md:flex-row gap-8 text-center border-t border-gray-100 pt-10">
+    <div className="max-w-5xl mx-auto px-6 mt-12 flex flex-col md:flex-row gap-8 text-center border-t border-white pt-10">
       {[
         { titulo: "Archivo único", texto: "Único archivo bioacústico privado de quirópteros ibéricos. No existe equivalente generado por una empresa privada en España." },
         { titulo: "Proyecto europeo completado", texto: "ST3ER finalizado en 3 países  España, Portugal y Eslovenia. Producto comercial activo, no prototipo." },
@@ -479,7 +475,7 @@ const Credibilidad = () => (
       ].map((item, i) => (
         <div key={i} className="flex-1 px-4">
           <p className="text-[#10b981] text-xs font-bold tracking-widest uppercase mb-3">{item.titulo}</p>
-          <p className="text-gray-500 text-sm leading-relaxed">{item.texto}</p>
+          <p className="text-black text-sm leading-relaxed">{item.texto}</p>
         </div>
       ))}
     </div>
@@ -495,10 +491,10 @@ const Vision = () => (
           Un archivo que{" "}
           <span className="text-[#10b981]">no existe en ningún otro sitio.</span>
         </h2>
-        <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+        <p className="text-white text-lg mb-6 leading-relaxed">
           Durante años de trabajo de campo, MUMA ha construido el único archivo bioacústico privado de quirópteros ibéricos: grabaciones reales, mapas de distribución y datos de colonias en tres países europeos.
         </p>
-        <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+        <p className="text-white text-lg mb-8 leading-relaxed">
           Ese conocimiento es la base de cada servicio que ofrecemos. No somos un centro de interpretación somos el equipo que lo documentó.
         </p>
         <a
@@ -511,7 +507,7 @@ const Vision = () => (
       <div className="flex-1 grid grid-cols-2 gap-4">
         {[
           { img: "/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp", alt: "Proyecto ST3ER" },
-          { img: "/images/Logo_SECEMU.webp", alt: "SECEMU" },
+          { img: "/images/Logo_SECEMU_blanco.webp", alt: "SECEMU" },
           { img: "/images/EUROBATS_logo.webp", alt: "EUROBATS" },
           { img: "/images/europa.webp", alt: "Unión Europea — FEDER" },
         ].map((item, i) => (
@@ -530,7 +526,7 @@ const CTAFinal = () => (
       <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
         La Batcave Experience está lista. ¿Hablamos?
       </h2>
-      <p className="text-white/80 text-lg mb-10 max-w-xl mx-auto">
+      <p className="text-white text-lg mb-10 max-w-xl mx-auto">
         Sin obra, sin infraestructura. Montamos, operamos y recogemos. Tu espacio acoge la experiencia.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -572,7 +568,7 @@ const Captacion = () => {
           Sé el primero en saber <br />
           cuándo está disponible.
         </h2>
-        <p className="text-white/70 mb-10 max-w-md mx-auto">
+        <p className="text-white mb-10 max-w-md mx-auto">
           Más de 700 personas ya la han probado en eventos. Cuando abramos acceso directo, avisamos primero a esta lista.
         </p>
 
@@ -594,7 +590,7 @@ const Captacion = () => {
           }}
         />
 
-        <p className="text-white/50 text-xs mt-6">Sin spam. Solo novedades de la Batcave Experience.</p>
+        <p className="text-white text-xs mt-6">Sin spam. Solo novedades de la Batcave Experience.</p>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import FormularioMuma from "./formularioContacto";
 
 const MapaRefugios = lazy(() => import("./MapaRefugios"));
+
 const varianteSeccion: Variants = {
   oculto: { opacity: 0, y: 24 },
   visible: {
@@ -101,7 +102,7 @@ export default function RefugiosPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
+            className="text-lg md:text-xl text-white mb-10 max-w-2xl mx-auto leading-relaxed font-light"
           >
             Los murciélagos consumen miles de insectos nocturnos reemplazando
             pesticidas sintéticos. Ofréceles un hogar con diseño de madera
@@ -132,7 +133,7 @@ export default function RefugiosPage() {
       {/* ── BANNER CTA SUPERIOR ── */}
       <div className="bg-fondo-secundario border-b border-white/5 px-6 py-5">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-texto-secundario">
+          <p className="text-sm text-white">
             <span className="text-texto-titulo font-semibold">
               ¿Cuánto te cuesta el pesticida este año?
             </span>{" "}
@@ -177,7 +178,7 @@ export default function RefugiosPage() {
                 que la naturaleza haría gratis.
               </span>
             </h2>
-            <p className="text-texto-secundario text-lg leading-relaxed">
+            <p className="text-white text-lg leading-relaxed">
               Un solo murciélago elimina hasta 1.200 insectos por hora. Un
               refugio MUMA instala una colonia activa en tu finca, viñedo o
               espacio urbano sin químicos, sin mantenimiento y con respaldo
@@ -194,7 +195,7 @@ export default function RefugiosPage() {
             >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
                 <img
-                  src="/images/batbnb/mosquito.webp"
+                  src="/images/mosquito.webp"
                   alt="Reduce mosquitos y plagas"
                   className="w-full h-full object-cover"
                 />
@@ -202,7 +203,7 @@ export default function RefugiosPage() {
               <h3 className="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">
                 Reduce Mosquitos y Plagas
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-white text-sm leading-relaxed max-w-xs">
                 Un solo murciélago puede comer miles de insectos en una noche,
                 convirtiéndolos en el sustituto perfecto de los pesticidas
                 tóxicos. Ayudan a mantener tu jardín seguro para tu familia.
@@ -217,7 +218,7 @@ export default function RefugiosPage() {
             >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
                 <img
-                  src="/images/batbnb/habitat.webp"
+                  src="/images/habitat.webp"
                   alt="Hábitat seguro para murciélagos"
                   className="w-full h-full object-cover"
                 />
@@ -241,7 +242,7 @@ export default function RefugiosPage() {
             >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 shadow-[0_10px_30px_rgba(31,225,167,0.1)] border border-white/10">
                 <img
-                  src="/images/batbnb/bat1.webp"
+                  src="/images/bat1.webp"
                   alt="Aprende a amar al murciélago"
                   className="w-full h-full object-cover"
                 />
@@ -338,7 +339,7 @@ export default function RefugiosPage() {
                 </span>
               </div>
               <div className="p-8">
-                <ul className="space-y-3 text-texto-secundario text-sm opacity-80">
+                <ul className="space-y-3 text-white text-sm opacity-80">
                   <li className="flex gap-3">
                     <span className="text-red-400 shrink-0 mt-0.5">✕</span>
                     <span>
@@ -482,7 +483,7 @@ export default function RefugiosPage() {
                   <h3 className="text-4xl md:text-5xl font-extrabold text-texto-titulo mb-6 leading-tight">
                     {modelos[indiceActivo].titulo}
                   </h3>
-                  <p className="text-texto-secundario text-lg leading-relaxed mb-8">
+                  <p className="text-white text-lg leading-relaxed mb-8">
                     {modelos[indiceActivo].descripcion}
                   </p>
                   <div className="flex flex-wrap gap-4 mb-10">
@@ -565,7 +566,7 @@ export default function RefugiosPage() {
                   <h4 className="text-xl font-bold text-texto-titulo mb-3">
                     Acceso a Mercados Premium
                   </h4>
-                  <p className="text-sm text-texto-secundario leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Facilita certificaciones ecológicas y de "Residuo Cero",
                     permitiendo vender cosechas a precios superiores.
                   </p>
@@ -593,7 +594,7 @@ export default function RefugiosPage() {
                   <h4 className="text-xl font-bold text-texto-titulo mb-3">
                     Menos Horas de Maquinaria
                   </h4>
-                  <p className="text-sm text-texto-secundario leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Reduce pases de tractor, ahorrando combustible y evitando la
                     compactación excesiva del suelo.
                   </p>
@@ -621,7 +622,7 @@ export default function RefugiosPage() {
                   <h4 className="text-xl font-bold text-texto-titulo mb-3">
                     Prevención Ininterrumpida
                   </h4>
-                  <p className="text-sm text-texto-secundario leading-relaxed">
+                  <p className="text-sm text-white leading-relaxed">
                     Vigilancia biológica 24/7 que actúa antes de que las plagas
                     depositen sus larvas en el fruto.
                   </p>
@@ -648,7 +649,7 @@ export default function RefugiosPage() {
               <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-6 text-balance">
                 Ahorra miles de Euros en pesticidas
               </h2>
-              <p className="text-texto-secundario text-lg mb-8 leading-relaxed">
+              <p className="text-white text-lg mb-8 leading-relaxed">
                 Sustituye tratamientos químicos recurrentes por una colonia
                 activa de quirópteros.
               </p>
@@ -656,7 +657,7 @@ export default function RefugiosPage() {
                 <h4 className="text-texto-titulo font-bold mb-4 flex items-center gap-2">
                   Plagas controladas:
                 </h4>
-                <ul className="grid grid-cols-2 gap-2 text-xs text-texto-secundario uppercase tracking-widest font-bold">
+                <ul className="grid grid-cols-2 gap-2 text-xs text-white uppercase tracking-widest font-bold">
                   <li>• Mosca del Olivo</li>
                   <li>• Polilla del Racimo</li>
                   <li>• Procesionaria</li>
@@ -675,7 +676,7 @@ export default function RefugiosPage() {
               </h3>
               <div className="mb-8">
                 <div className="flex justify-between mb-4 items-end">
-                  <label className="text-sm font-bold text-texto-secundario uppercase tracking-widest">
+                  <label className="text-sm font-bold text-white uppercase tracking-widest">
                     Superficie
                   </label>
                   <span className="text-marca-principal font-mono text-2xl font-bold">
@@ -693,7 +694,7 @@ export default function RefugiosPage() {
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between p-5 bg-black/20 rounded-2xl">
-                  <span className="text-xs text-texto-secundario uppercase font-bold tracking-widest">
+                  <span className="text-xs text-white uppercase font-bold tracking-widest">
                     Ahorro anual
                   </span>
                   <span className="text-xl font-bold text-marca-principal">
@@ -701,7 +702,7 @@ export default function RefugiosPage() {
                   </span>
                 </div>
                 <div className="flex justify-between p-5 bg-marca-principal/10 rounded-2xl border border-marca-principal/20">
-                  <span className="text-xs text-texto-secundario uppercase font-bold tracking-widest">
+                  <span className="text-xs text-white uppercase font-bold tracking-widest">
                     Refugios MUMA
                   </span>
                   <span className="text-xl font-bold text-marca-principal">
@@ -739,7 +740,7 @@ export default function RefugiosPage() {
               <p className="text-xs font-bold text-marca-principal uppercase tracking-widest mb-4">
                 Insectos / Hora
               </p>
-              <p className="text-sm text-texto-secundario leading-relaxed">
+              <p className="text-sm text-white leading-relaxed">
                 Control biológico de mosquitos tigre sin químicos ni consumo
                 energético.
               </p>
@@ -751,7 +752,7 @@ export default function RefugiosPage() {
               <p className="text-xs font-bold text-marca-principal uppercase tracking-widest mb-4">
                 Coste Operativo
               </p>
-              <p className="text-sm text-texto-secundario leading-relaxed">
+              <p className="text-sm text-white leading-relaxed">
                 Elimina la dependencia de contratos de fumigación recurrentes y
                 tóxicos.
               </p>
@@ -763,7 +764,7 @@ export default function RefugiosPage() {
               <p className="text-xs font-bold text-marca-principal uppercase tracking-widest mb-4">
                 Bio-Seguridad
               </p>
-              <p className="text-sm text-texto-secundario leading-relaxed">
+              <p className="text-sm text-white leading-relaxed">
                 Entornos públicos libres de biocidas. Protección natural para
                 zonas infantiles.
               </p>
@@ -772,7 +773,7 @@ export default function RefugiosPage() {
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-center text-[10px] text-texto-secundario/40 mt-12 uppercase tracking-[0.2em]"
+            className="text-center text-[10px] text-white/40 mt-12 uppercase tracking-[0.2em]"
           >
             * Datos basados en estudios de{" "}
             <a
@@ -804,8 +805,8 @@ export default function RefugiosPage() {
           <Suspense
             fallback={
               <div className="w-full h-full bg-[#050505] flex items-center justify-center">
-                <span className="text-zinc-500 animate-pulse text-sm uppercase tracking-widest">
-                  Iniciando sistema de mapeo...
+                <span className="text-white animate-pulse text-sm uppercase tracking-widest">
+                  Iniciando sistema de mapeo..
                 </span>
               </div>
             }
@@ -819,7 +820,7 @@ export default function RefugiosPage() {
             <span className="w-3 h-3 bg-[#6a31eb] rounded-full animate-pulse"></span>
             <span>Refugios Activos</span>
           </div>
-          <p className="text-zinc-500">Datos actualizados por TEAM_MUMA_02</p>
+          <p className="text-white">Datos actualizados por TEAM_MUMA_02</p>
         </div>
       </div>
       {/* ── SECCIÓN 6: FAQ ── */}
@@ -835,7 +836,7 @@ export default function RefugiosPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-texto-titulo mb-4">
               Preguntas Frecuentes
             </h2>
-            <p className="text-texto-secundario italic">
+            <p className="text-white italic">
               Respuestas técnicas para una implementación segura y efectiva.
             </p>
           </motion.div>
@@ -859,7 +860,7 @@ export default function RefugiosPage() {
                 className="p-6 bg-gradient-to-br from-violet-500/10 to-transparent rounded-2xl border border-white/5"
               >
                 <h4 className="text-texto-titulo font-bold mb-2">{item.q}</h4>
-                <p className="text-sm text-texto-secundario leading-relaxed">
+                <p className="text-sm text-white leading-relaxed">
                   {item.a}
                 </p>
               </div>
@@ -878,7 +879,7 @@ export default function RefugiosPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-texto-titulo">
               No somos una tienda. Somos investigadores.
             </h2>
-            <p className="text-texto-secundario mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
+            <p className="text-white mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
               MUMA nació de la investigación de campo, no del marketing.
               Nuestros refugios están diseñados con datos reales de colonización
               obtenidos en proyectos europeos en España, Portugal y Eslovenia.
@@ -907,7 +908,7 @@ export default function RefugiosPage() {
                 <p className="text-3xl font-extrabold text-texto-titulo mb-1">
                   {item.num}
                 </p>
-                <p className="text-xs text-texto-secundario leading-snug">
+                <p className="text-xs text-white leading-snug">
                   {item.label}
                 </p>
               </div>
@@ -941,7 +942,7 @@ export default function RefugiosPage() {
       {/* ── CTA / CONTACTO (CON NUESTRO COMPONENTE CENTRALIZADO) ── */}
       <section id="contacto" className="bg-fondo-secundario py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-         <motion.div
+          <motion.div
             initial="oculto"
             whileInView="visible"
             viewport={{ once: true }}
@@ -954,8 +955,12 @@ export default function RefugiosPage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-5">
               Red de Refugios MUMA
             </h2>
-            <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed mb-10">
-              La pérdida de hábitat es la mayor amenaza para nuestros murciélagos. Si gestionas una finca agrícola, un parque público o una propiedad privada, puedes ser clave para la biodiversidad. Instalamos nuestras cajas refugio y nos encargamos del estudio de viabilidad y monitorización ecológica.
+            <p className="text-white max-w-xl mx-auto leading-relaxed mb-10">
+              La pérdida de hábitat es la mayor amenaza para nuestros
+              murciélagos. Si gestionas una finca agrícola, un parque público o
+              una propiedad privada, puedes ser clave para la biodiversidad.
+              Instalamos nuestras cajas refugio y nos encargamos del estudio de
+              viabilidad y monitorización ecológica.
             </p>
           </motion.div>
 
@@ -979,7 +984,7 @@ export default function RefugiosPage() {
             />
           </div>
 
-          <p className="mt-12 text-sm text-texto-secundario/60">
+          <p className="mt-12 text-sm text-white/60">
             ¿Buscas otro servicio?{" "}
             <a
               href="/#servicios"

@@ -368,7 +368,7 @@ export default function RealidadVirtualPage() {
                 {' '}a tu colegio, museo o evento corporativo.
               </p>
               <p className="text-texto-secundario leading-relaxed mb-4">
-                Con el proyecto <strong className="text-white">MuMa Bat Cave Experience VR</strong> unimos realidad virtual, ciencia y conservación para abrir una nueva forma de explorar el mundo subterráneo. Escaneamos cuevas de alto valor ecológico —como la <strong className="text-white">Cueva de Nerja</strong>— para crear experiencias inmersivas sin poner en riesgo su frágil equilibrio.
+                Con el proyecto <strong className="text-white">MuMa Bat Cave Experience VR</strong> unimos realidad virtual, ciencia y conservación para abrir una nueva forma de explorar el mundo subterráneo. Escaneamos cuevas de alto valor ecológico como la <strong className="text-white">Cueva de Nerja</strong>— para crear experiencias inmersivas sin poner en riesgo su frágil equilibrio.
               </p>
               <p className="text-texto-secundario leading-relaxed mb-6">
                 Los visitantes pueden «entrar» en cuevas remotas, inaccesibles o protegidas, aprender sobre su biodiversidad y comprender su importancia ecológica. Ya sea en un museo, un colegio o una feria, respondemos en menos de 48 horas con una propuesta a medida. Sin pisar la cueva. Sin alterar nada.
@@ -390,7 +390,7 @@ export default function RealidadVirtualPage() {
                 <p className="text-[10px] font-bold tracking-[0.2em] text-texto-secundario/50 uppercase mb-4">Avalado por</p>
                 <div className="flex flex-row items-center gap-3 overflow-hidden">
                   <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-center border border-white/10 shadow-sm shrink-0">
-                    <img src="/images/Logo_SECEMU.webp" alt="SECEMU" className="h-6 w-auto object-contain opacity-90" />
+                    <img src="/images/Logo_SECEMU_blanco.webp" alt="SECEMU" className="h-6 w-auto object-contain opacity-90" />
                   </div>
                   <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center justify-center border border-white/10 shadow-sm shrink-0">
                     <img src="/images/EUROBATS_logo.webp" alt="EUROBATS" className="h-6 w-auto object-contain opacity-90" />
