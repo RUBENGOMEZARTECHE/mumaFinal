@@ -57,7 +57,7 @@ export default function FormacionPage() {
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }} className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-texto-titulo mb-6">
             Consultoría ambiental y formación en conservación de murciélagos.
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-texto-secundario leading-relaxed max-w-2xl">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="text-lg text-white leading-relaxed max-w-2xl">
             No somos un centro de interpretación. Somos el equipo que lleva años en el territorio grabando colonias, instalando refugios y colaborando con instituciones científicas europeas. Ese conocimiento es lo que ofrecemos a administraciones, agricultores, museos y gestores de espacios naturales.
           </motion.p>
         </div>
@@ -73,7 +73,7 @@ export default function FormacionPage() {
                   {String(gi + 1).padStart(2, '0')} — {grupo.categoria}
                 </p>
                 <h2 className="text-2xl font-bold text-texto-titulo mb-2">{grupo.categoria}</h2>
-                <p className="text-sm text-texto-secundario max-w-xl">{grupo.desc}</p>
+                <p className="text-sm text-white max-w-xl">{grupo.desc}</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {grupo.servicios.map(({ titulo, desc, para, img }, i) => (
@@ -85,7 +85,7 @@ export default function FormacionPage() {
                     )}
                     <div className="p-7 flex flex-col flex-1">
                       <h3 className="text-base font-bold text-texto-titulo mb-3 leading-tight">{titulo}</h3>
-                      <p className="text-sm text-texto-secundario leading-relaxed mb-4 flex-1">{desc}</p>
+                      <p className="text-sm text-white leading-relaxed mb-4 flex-1">{desc}</p>
                       <p className="text-[10px] font-bold tracking-widest text-marca-principal/60 uppercase mb-5">{para}</p>
                       <a href="#inscripcion" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border border-marca-principal/40 text-marca-principal hover:bg-marca-principal hover:text-texto-sobre-accion hover:border-marca-principal transition-all duration-200 no-underline group self-start">
                         Solicitar información
@@ -107,7 +107,7 @@ export default function FormacionPage() {
             <div className="flex-1">
               <p className="text-xs font-bold tracking-[0.2em] text-marca-principal uppercase mb-3">Respaldo científico</p>
               <h3 className="text-2xl font-bold text-texto-titulo mb-4 leading-tight">Cada informe está firmado desde el campo, no desde un despacho.</h3>
-              <p className="text-texto-secundario text-sm leading-relaxed">Somos miembros activos de SECEMU, alineados con el marco EUROBATS y ex-investigadores del proyecto europeo ST3ER en España, Portugal y Eslovenia. Eso es lo que convierte nuestros informes en documentos con peso real ante administraciones e instituciones.</p>
+              <p className="text-white text-sm leading-relaxed">Somos miembros activos de SECEMU, alineados con el marco EUROBATS y ex-investigadores del proyecto europeo ST3ER en España, Portugal y Eslovenia. Eso es lo que convierte nuestros informes en documentos con peso real ante administraciones e instituciones.</p>
             </div>
             <div className="flex flex-wrap md:flex-col gap-4 shrink-0 items-center">
               {[
@@ -128,7 +128,7 @@ export default function FormacionPage() {
         <div className="max-w-6xl mx-auto">
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
             <h3 className="text-3xl font-bold text-texto-titulo mb-4">¿Tienes un proyecto concreto?</h3>
-            <p className="text-texto-secundario mb-8 max-w-lg mx-auto">Cuéntanos el contexto  territorio, especie, problema o normativa  y te decimos si podemos ayudarte y cómo.</p>
+            <p className="text-white mb-8 max-w-lg mx-auto">Cuéntanos el contexto  territorio, especie, problema o normativa  y te decimos si podemos ayudarte y cómo.</p>
             <a href="#inscripcion" className="inline-flex items-center gap-2 px-8 py-4 bg-marca-principal text-texto-sobre-accion font-bold rounded-xl hover:bg-marca-principal-hover transition-colors duration-200 no-underline">
               Hablar con el equipo <ArrowRight size={16} aria-hidden="true" />
             </a>
@@ -142,7 +142,7 @@ export default function FormacionPage() {
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-12">
             <p className="text-[10px] font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">Solicitud de consultoría y formación</p>
             <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-6">Inicia tu proyecto con MUMA</h2>
-            <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed">
+            <p className="text-white max-w-xl mx-auto leading-relaxed">
               Dinos en qué área necesitas apoyo técnico y un consultor de nuestro equipo se pondrá en contacto contigo para evaluar la viabilidad.
             </p>
           </motion.div>

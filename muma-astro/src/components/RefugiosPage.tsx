@@ -226,7 +226,7 @@ export default function RefugiosPage() {
               <h3 className="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">
                 Provee un Hábitat Seguro
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-white text-sm leading-relaxed max-w-xs">
                 Los murciélagos están amenazados en todo el mundo y necesitan
                 ayuda. Nuestros refugios ofrecen un hogar perfecto y
                 térmicamente estable para que críen a sus crías a salvo de
@@ -250,7 +250,7 @@ export default function RefugiosPage() {
               <h3 className="text-marca-principal font-bold text-xs tracking-[0.2em] uppercase mb-4">
                 Aprende a amar a este animal
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-white text-sm leading-relaxed max-w-xs">
                 La idea de que son monstruos sedientos de sangre es un mito. Son
                 tímidos, duermen de día y cazan de noche. Trátalos con respeto y
                 serán los mejores vecinos de tu ecosistema.

@@ -103,7 +103,7 @@ export default function VoluntariosPage() {
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-texto-secundario max-w-2xl mx-auto leading-relaxed mb-10"
+            className="text-lg sm:text-xl text-white max-w-2xl mx-auto leading-relaxed mb-10"
           >
             Protege la biodiversidad de Málaga desde el terreno. Con MUMA puedes participar activamente en la conservación de murciélagos, la investigación científica y la divulgación ambiental en la Costa del Sol.
           </motion.p>
@@ -134,7 +134,7 @@ export default function VoluntariosPage() {
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-14">
             <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Razones para sumarte</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">¿Por qué ser voluntario en MUMA?</h2>
-            <p className="text-texto-secundario max-w-xl mx-auto">Más que ayudar, aprenderás, vivirás la ciencia en primera persona y formarás parte de un proyecto con impacto real en la biodiversidad malagueña.</p>
+            <p className="text-white max-w-xl mx-auto">Más que ayudar, aprenderás, vivirás la ciencia en primera persona y formarás parte de un proyecto con impacto real en la biodiversidad malagueña.</p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {porQueUnirte.map((item, i) => (
@@ -151,7 +151,7 @@ export default function VoluntariosPage() {
                 )}
                 <div className="p-6 flex flex-col grow">
                   <h3 className="text-base font-bold text-marca-principal mb-3 leading-snug">{item.titulo}</h3>
-                  <p className="text-sm text-texto-secundario leading-relaxed grow">{item.descripcion}</p>
+                  <p className="text-sm text-white leading-relaxed grow">{item.descripcion}</p>
                 </div>
               </motion.article>
             ))}
@@ -165,7 +165,7 @@ export default function VoluntariosPage() {
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-14">
             <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">En el día a día</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">¿Qué hacen los voluntarios?</h2>
-            <p className="text-texto-secundario max-w-xl mx-auto">Actividades concretas, variadas y con impacto directo en la conservación de los murciélagos en Málaga.</p>
+            <p className="text-white max-w-xl mx-auto">Actividades concretas, variadas y con impacto directo en la conservación de los murciélagos en Málaga.</p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {actividades.map((item, i) => (
@@ -183,7 +183,7 @@ export default function VoluntariosPage() {
                 <div className="p-7">
                   <div>
                     <h3 className="text-base font-bold text-marca-principal mb-2 leading-snug">{item.titulo}</h3>
-                    <p className="text-sm text-texto-secundario leading-relaxed">{item.descripcion}</p>
+                    <p className="text-sm text-white leading-relaxed">{item.descripcion}</p>
                   </div>
                 </div>
               </motion.div>
@@ -198,7 +198,7 @@ export default function VoluntariosPage() {
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-12">
             <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Abierto a todos</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">Requisitos</h2>
-            <p className="text-texto-secundario max-w-xl mx-auto">No necesitas experiencia previa ni formación específica. Solo ganas de aprender y cuidar el entorno natural.</p>
+            <p className="text-white max-w-xl mx-auto">No necesitas experiencia previa ni formación específica. Solo ganas de aprender y cuidar el entorno natural.</p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {requisitos.map((req, i) => (
@@ -211,7 +211,7 @@ export default function VoluntariosPage() {
                 <span className="shrink-0 w-5 h-5 mt-0.5 rounded-full bg-marca-principal/15 flex items-center justify-center">
                   <span className="w-2 h-2 rounded-full bg-marca-principal block" aria-hidden="true" />
                 </span>
-                <p className="text-sm text-texto-secundario leading-relaxed">{req}</p>
+                <p className="text-sm text-white leading-relaxed">{req}</p>
               </motion.div>
             ))}
           </div>
@@ -224,7 +224,7 @@ export default function VoluntariosPage() {
           <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-10">
             <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Primer paso</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-4">Escríbenos</h2>
-            <p className="text-texto-secundario leading-relaxed">Cuéntanos quién eres y qué te motiva a unirte. Te responderemos en menos de 48 horas.</p>
+            <p className="text-white leading-relaxed">Cuéntanos quién eres y qué te motiva a unirte. Te responderemos en menos de 48 horas.</p>
           </motion.div>
 
           <FormularioMuma 
@@ -258,7 +258,7 @@ export default function VoluntariosPage() {
               Quiero ser{' '}
               <span className="text-marca-principal">voluntario</span>
             </h2>
-            <p className="text-lg text-texto-secundario leading-relaxed mb-10 max-w-xl mx-auto">
+            <p className="text-lg text-white leading-relaxed mb-10 max-w-xl mx-auto">
               Cada persona que se une a MUMA contribuye a proteger una especie fundamental para el ecosistema mediterráneo. Tu compromiso marca la diferencia.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -276,7 +276,7 @@ export default function VoluntariosPage() {
                 Ir al formulario
               </a>
             </div>
-            <p className="mt-8 text-sm text-texto-secundario/60">
+            <p className="mt-8 text-sm text-white">
               ¿Prefieres donar?{' '}
               <a href="/donar" className="text-marca-principal hover:opacity-80 transition-opacity duration-200 no-underline">
                 Apoya MUMA económicamente

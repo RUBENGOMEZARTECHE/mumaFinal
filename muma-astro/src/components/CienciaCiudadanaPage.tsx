@@ -56,7 +56,7 @@ export default function CienciaCiudadanaPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-left space-y-5 text-texto-secundario text-base sm:text-lg leading-relaxed mb-10"
+              className="text-left space-y-5 text-white text-base sm:text-lg leading-relaxed mb-10"
             >
               {/* Párrafo 1: contexto sobre los murciélagos */}
               <p>
@@ -124,7 +124,7 @@ export default function CienciaCiudadanaPage() {
             </h2>
 
             {/* Texto introductorio de la sección */}
-            <p className="text-texto-secundario text-base sm:text-lg leading-relaxed mb-16">
+            <p className="text-white text-base sm:text-lg leading-relaxed mb-16">
               La ciencia ciudadana no requiere formación científica previa. Requiere observación, compromiso y ganas de
               contribuir a algo que va más allá de uno mismo. Estas son las tres formas principales en las que puedes
               sumarte a la red de monitorización de MUMA en Málaga.
@@ -138,7 +138,7 @@ export default function CienciaCiudadanaPage() {
                 <div>
                   <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">01</p>
                   <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">Instala un detector de ultrasonidos</h3>
-                  <p className="text-texto-secundario text-base leading-relaxed">Los murciélagos cazan mediante ultrasonidos, frecuencias que el oído humano no puede percibir. Instalar un detector en tu jardín o terraza genera grabaciones reales que revelan qué especies frecuentan tu zona y cómo cambia su actividad a lo largo del año. MUMA te orienta sobre qué detector usar y cómo enviarnos los datos.</p>
+                  <p className="text-white text-base leading-relaxed">Los murciélagos cazan mediante ultrasonidos, frecuencias que el oído humano no puede percibir. Instalar un detector en tu jardín o terraza genera grabaciones reales que revelan qué especies frecuentan tu zona y cómo cambia su actividad a lo largo del año. MUMA te orienta sobre qué detector usar y cómo enviarnos los datos.</p>
                 </div>
                 <img src="/images/ciencia1.webp" alt="Detector de ultrasonidos para murciélagos" className="w-full h-72 object-cover rounded-2xl" />
               </div>
@@ -149,7 +149,7 @@ export default function CienciaCiudadanaPage() {
                 <div>
                   <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">02</p>
                   <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">Reporta avistamientos en tu zona</h3>
-                  <p className="text-texto-secundario text-base leading-relaxed">Si has visto murciélagos en el alero de un edificio, en una cueva o en cualquier espacio natural, ese avistamiento tiene valor científico. Con una foto, una fecha y una ubicación aproximada nos ayudas a construir el mapa real de distribución de especies en Málaga. No necesitas identificar la especie.</p>
+                  <p className="text-white text-base leading-relaxed">Si has visto murciélagos en el alero de un edificio, en una cueva o en cualquier espacio natural, ese avistamiento tiene valor científico. Con una foto, una fecha y una ubicación aproximada nos ayudas a construir el mapa real de distribución de especies en Málaga. No necesitas identificar la especie.</p>
                 </div>
               </div>
 
@@ -158,7 +158,7 @@ export default function CienciaCiudadanaPage() {
                 <div>
                   <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">03</p>
                   <h3 className="text-xl sm:text-2xl font-bold text-texto-titulo mb-4">Participa en salidas nocturnas de monitorización</h3>
-                  <p className="text-texto-secundario text-base leading-relaxed">Varias veces al año organizamos salidas nocturnas en espacios naturales de la Costa del Sol. Los participantes aprenden a manejar detectores de ultrasonidos, identificar especies y registrar datos de campo. Son actividades abiertas a cualquier persona, sin requisitos previos.</p>
+                  <p className="text-white text-base leading-relaxed">Varias veces al año organizamos salidas nocturnas en espacios naturales de la Costa del Sol. Los participantes aprenden a manejar detectores de ultrasonidos, identificar especies y registrar datos de campo. Son actividades abiertas a cualquier persona, sin requisitos previos.</p>
                 </div>
                 <img src="/images/ciencia3.webp" alt="Salida nocturna de monitorización de murciélagos" className="w-full h-72 object-cover rounded-2xl" />
               </div>
@@ -176,20 +176,20 @@ export default function CienciaCiudadanaPage() {
               ¿Por qué importa tu participación?
             </h2>
 
-            <p className="text-texto-secundario text-base leading-relaxed mb-10">Tus observaciones tienen un impacto científico real. Así es como contribuyen a la conservación.</p>
+            <p className="text-white text-base leading-relaxed mb-10">Tus observaciones tienen un impacto científico real. Así es como contribuyen a la conservación.</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300">
                 <h3 className="text-base font-bold text-texto-titulo mb-3">Mapas de distribución de especies</h3>
-                <p className="text-sm text-texto-secundario leading-relaxed">Cada avistamiento se convierte en un punto en el mapa. Con suficientes datos podemos trazar la distribución real de cada especie en la provincia y planificar mejor los refugios y las políticas de conservación.</p>
+                <p className="text-sm text-white leading-relaxed">Cada avistamiento se convierte en un punto en el mapa. Con suficientes datos podemos trazar la distribución real de cada especie en la provincia y planificar mejor los refugios y las políticas de conservación.</p>
               </div>
               <div className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300">
                 <h3 className="text-base font-bold text-texto-titulo mb-3">Seguimiento de poblaciones</h3>
-                <p className="text-sm text-texto-secundario leading-relaxed">Saber si hay más o menos murciélagos que el año pasado solo es posible con observaciones repetidas en el tiempo. Los voluntarios son los únicos que pueden proporcionar esa continuidad año tras año.</p>
+                <p className="text-sm text-white leading-relaxed">Saber si hay más o menos murciélagos que el año pasado solo es posible con observaciones repetidas en el tiempo. Los voluntarios son los únicos que pueden proporcionar esa continuidad año tras año.</p>
               </div>
               <div className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-purple-400 transition-colors duration-300">
                 <h3 className="text-base font-bold text-texto-titulo mb-3">Detección de nuevas colonias</h3>
-                <p className="text-sm text-texto-secundario leading-relaxed">Algunas de las colonias más importantes de Málaga han sido descubiertas gracias a avisos de ciudadanos. Cada nueva colonia detectada es una oportunidad para actuar antes de que sea destruida por obras o desconocimiento.</p>
+                <p className="text-sm text-white leading-relaxed">Algunas de las colonias más importantes de Málaga han sido descubiertas gracias a avisos de ciudadanos. Cada nueva colonia detectada es una oportunidad para actuar antes de que sea destruida por obras o desconocimiento.</p>
               </div>
             </div>
           </div> {/* fin contenedor centrado */}
@@ -205,7 +205,7 @@ export default function CienciaCiudadanaPage() {
             </h2>
 
             {/* Subtítulo que invita a la acción */}
-            <p className="text-texto-secundario text-base sm:text-lg leading-relaxed mb-12">
+            <p className="text-white text-base sm:text-lg leading-relaxed mb-12">
               Únete a uno de nuestros proyectos en marcha y empieza a generar datos científicos reales desde hoy.
             </p>
 
@@ -233,7 +233,7 @@ export default function CienciaCiudadanaPage() {
                 </h3>
 
                 {/* Descripción corta del proyecto */}
-                <p className="text-texto-secundario text-sm leading-relaxed flex-1 mb-6">
+                <p className="text-white text-sm leading-relaxed flex-1 mb-6">
                   Seguimiento periódico de refugios instalados en hoteles, campos de golf y fincas agrícolas.
                   Aprende a registrar ocupación y enviar datos científicos reales.
                 </p>
@@ -268,7 +268,7 @@ export default function CienciaCiudadanaPage() {
                 </h3>
 
                 {/* Descripción corta del proyecto */}
-                <p className="text-texto-secundario text-sm leading-relaxed flex-1 mb-6">
+                <p className="text-white text-sm leading-relaxed flex-1 mb-6">
                   Salidas nocturnas de campo en la reserva natural para documentar especies de murciélagos
                   asociadas a humedales con detectores de ultrasonidos.
                 </p>
@@ -303,7 +303,7 @@ export default function CienciaCiudadanaPage() {
                 </h3>
 
                 {/* Descripción corta del proyecto */}
-                <p className="text-texto-secundario text-sm leading-relaxed flex-1 mb-6">
+                <p className="text-white text-sm leading-relaxed flex-1 mb-6">
                   Reporta avistamientos de murciélagos en la ciudad. Cada dato contribuye al primer mapa oficial
                   de colonias urbanas de Málaga capital.
                 </p>
@@ -338,7 +338,7 @@ export default function CienciaCiudadanaPage() {
                 </h3>
 
                 {/* Descripción corta del proyecto */}
-                <p className="text-texto-secundario text-sm leading-relaxed flex-1 mb-6">
+                <p className="text-white text-sm leading-relaxed flex-1 mb-6">
                   Monitorización de los refugios instalados tras la primera Bat Night en Nerja. Seguimiento de
                   poblaciones y documentación de cambios en el entorno.
                 </p>
@@ -362,7 +362,7 @@ export default function CienciaCiudadanaPage() {
             <div className="text-center mb-12">
               <p className="text-[10px] font-bold tracking-[0.3em] text-marca-principal uppercase mb-4">Únete a la red MUMA</p>
               <h2 className="text-3xl md:text-5xl font-bold text-texto-titulo mb-6">Formulario de Participación</h2>
-              <p className="text-texto-secundario max-w-xl mx-auto leading-relaxed">
+              <p className="text-white max-w-xl mx-auto leading-relaxed">
                 Selecciona el proyecto en el que deseas colaborar y cuéntanos un poco sobre tu zona o intereses. Nos pondremos en contacto contigo para darte los detalles técnicos.
               </p>
             </div>

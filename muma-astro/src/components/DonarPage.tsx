@@ -11,7 +11,7 @@ const varianteSeccion = {
 
 const varianteTarjeta = {
   oculto: { opacity: 0, y: 20 },
-  visible: (i) => ({
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: { duration: 0.45, ease: 'easeOut' as const, delay: i * 0.08 },
@@ -93,7 +93,7 @@ export default function DonarPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-2xl mx-auto"
+              className="text-lg md:text-xl text-white font-light leading-relaxed max-w-2xl mx-auto"
             >
               Tu contribución financia proyectos de investigación científica, instalación de refugios y programas de educación ambiental en España.
             </motion.p>
@@ -135,7 +135,7 @@ export default function DonarPage() {
                   {cantidad}
                 </p>
                 {/* Descripción */}
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-sm text.white leading-relaxed">
                   {descripcion}
                 </p>
               </motion.div>

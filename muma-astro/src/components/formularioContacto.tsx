@@ -106,7 +106,7 @@ export default function FormularioMuma({
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setCargando(true);
     setError(null);
@@ -114,6 +114,7 @@ export default function FormularioMuma({
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
 
+    // Extraemos los valores de los campos
     const nombre = (data.get("nombre") as string) || "";
     const email = (data.get("email") as string) || "";
     const telefono = (data.get("telefono") as string) || "";
@@ -124,53 +125,47 @@ export default function FormularioMuma({
     const fechaRaw = data.get("fecha") as string;
     const mensaje = (data.get("mensaje") as string) || "";
 
+    // CONSTRUCCIÓN DEL PAYLOAD (Sincronizado con Supabase)
     const datosBD: any = {
-      [nombreCampoNombre]: nombre,
-      [nombreCampoEmail]: email,
-      acepta_rgpd: !!data.get("rgpd"),
+      nombre: nombre,
+      email: email, // Usamos 'email' porque así está en tu captura de Supabase
+      privacidad: !!data.get("rgpd"), // CAMBIO CRÍTICO: de acepta_rgpd a privacidad
       estado: "nuevo",
       ...camposOcultos,
     };
 
-    if (mostrarOrganizacion) datosBD.organizacion = organizacion;
-    if (mostrarTelefono) datosBD[nombreCampoTelefono] = telefono;
-    if (mostrarSelect) datosBD[selectName] = valorSelect;
-    if (mostrarSelect2 && valorSelect2) datosBD[selectName2] = valorSelect2;
-    if (mostrarMensaje) datosBD[nombreCampoMensaje] = mensaje;
-
-    if (tablaBD !== "solicitudes_refugios" && tablaBD !== "consultas_web" && tablaBD !== "contactos") {
-      if (mostrarFecha && fechaRaw) datosBD.fecha_evento = fechaRaw;
-      if (mostrarParticipantes && participantesRaw) {
-        // Si son opciones guiadas se guarda como string, si es número libre se parsea
-        datosBD.participantes_estimados = opcionesParticipantes ? participantesRaw : parseInt(participantesRaw);
+    if (mostrarTelefono) datosBD.telefono = telefono;
+    if (mostrarMensaje) datosBD.mensaje = mensaje;
+    
+    // Si la tabla es 'contactos', forzamos que el select vaya a la columna 'motivo'
+    if (tablaBD === "contactos") {
+      datosBD.motivo = valorSelect;
+    } else {
+      // Para otras tablas, respetamos el nombre que pases por prop
+      if (mostrarSelect) datosBD[selectName] = valorSelect;
+      if (mostrarSelect2 && valorSelect2) datosBD[selectName2] = valorSelect2;
+      
+      // Añadimos campos extra solo si NO es la tabla de contactos (para evitar el 400)
+      if (tablaBD !== "solicitudes_refugios" && tablaBD !== "consultas_web") {
+        if (mostrarOrganizacion) datosBD.organizacion = organizacion;
+        if (mostrarFecha && fechaRaw) datosBD.fecha_evento = fechaRaw;
+        if (mostrarParticipantes && participantesRaw) {
+          datosBD.participantes_estimados = opcionesParticipantes ? participantesRaw : parseInt(participantesRaw);
+        }
       }
     }
 
     try {
+      // Inserción limpia
       const { error: dbError } = await supabase.from(tablaBD).insert([datosBD]);
       if (dbError) throw dbError;
-
-      const cuerpo = [
-        `Nombre: ${nombre}`,
-        `Email: ${email}`,
-        mostrarTelefono ? `Teléfono: ${telefono}` : "",
-        mostrarOrganizacion ? `Organización: ${organizacion}` : "",
-        mostrarSelect ? `${selectLabel}: ${valorSelect}` : "",
-        mostrarParticipantes && participantesRaw ? `Participantes estimados: ${participantesRaw}` : "",
-        mostrarFecha && fechaRaw ? `Fecha seleccionada: ${fechaRaw}` : "",
-        mostrarMensaje ? `Mensaje: ${mensaje}` : "",
-      ].filter(Boolean).join("\n");
-
-      // Datos guardados en Supabase. El mailto: se elimina: abrir el cliente
-      // de correo del usuario es disruptivo en B2B y no aporta valor extra.
-      // La notificación al equipo debe gestionarse via Supabase Edge Function.
-      void cuerpo; // evitar warning de variable no usada
 
       setEnviado(true);
       form.reset();
     } catch (err: any) {
       console.error("Error MUMA:", err);
-      setError("Error de conexión. Inténtalo de nuevo o contáctanos por WhatsApp.");
+      // Mostramos el mensaje exacto de Supabase para debuggear si hace falta
+      setError(err.message || "Error de conexión. Inténtalo de nuevo.");
     } finally {
       setCargando(false);
     }
