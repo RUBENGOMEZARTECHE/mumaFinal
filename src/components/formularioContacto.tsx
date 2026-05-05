@@ -182,16 +182,26 @@ export default function FormularioMuma({
     }
 
     try {
-      // Inserción limpia
-      const { error: dbError } = await supabase.from(tablaBD).insert([datosBD]);
-      if (dbError) throw dbError;
+      // Nunca insertamos formularios públicos directamente desde el navegador.
+      // La Edge Function valida origen, rate-limit, tabla permitida, RGPD y payload.
+      const { data: respuesta, error: functionError } = await supabase.functions.invoke('validar-formulario', {
+        body: {
+          tablaBD,
+          datosBD,
+          website,
+        },
+      });
+
+      if (functionError || respuesta?.success === false) {
+        throw new Error('No se pudo enviar el formulario de forma segura.');
+      }
 
       setEnviado(true);
       form.reset();
     } catch (err: any) {
       console.error("Error MUMA:", err);
-      // Mostramos el mensaje exacto de Supabase para debuggear si hace falta
-      setError(err.message || "Error de conexión. Inténtalo de nuevo.");
+      // No exponemos errores internos de Supabase/BD al usuario final.
+      setError("No se pudo enviar el formulario. Inténtalo de nuevo en unos minutos.");
     } finally {
       setCargando(false);
     }

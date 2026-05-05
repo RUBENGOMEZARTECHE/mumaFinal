@@ -42,6 +42,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserData | null>(null)
   const [loading, setLoading] = useState(true)
 
+  const buildUserFromSession = async (sessionUser: { id: string; email?: string | null }) => {
+    const { data: usuarioData } = await supabase
+      .from('usuarios')
+      .select('id, nombre, apellidos, correo, rol_id')
+      .eq('id', sessionUser.id)
+      .maybeSingle()
+
+    return {
+      id: sessionUser.id,
+      email: usuarioData?.correo ?? sessionUser.email ?? '',
+      nombre: usuarioData?.nombre ?? '',
+      apellidos: usuarioData?.apellidos ?? '',
+      rol_id: usuarioData?.rol_id ?? null,
+    }
+  }
+
   // useEffect se ejecuta UNA VEZ al cargar el componente.
   // Verificamos la sesión usando supabase.auth.getSession(), que valida
   // la firma del JWT y la expiración. Esto es más seguro que decodificar
@@ -52,37 +68,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data: { session }, error } = await supabase.auth.getSession()
 
         if (session && !error) {
-          // Sesión válida. Intentamos cargar datos desde localStorage
-          const userData = localStorage.getItem('user')
-          if (userData) {
-            try {
-              const parsed = JSON.parse(userData)
-              if (parsed?.id && parsed?.email) {
-                setUser(parsed)
-              } else {
-                localStorage.removeItem('user')
-              }
-            } catch {
-              localStorage.removeItem('user')
-            }
-          } else {
-            // No hay datos en localStorage pero sí sesión de Supabase.
-            // Construimos el usuario mínimo desde la sesión para evitar el loop.
-            setUser({
-              id: session.user.id,
-              email: session.user.email ?? '',
-              nombre: '',
-              apellidos: '',
-              rol_id: null,
-            })
-          }
+          // Sesión válida: construimos el perfil desde Supabase/Auth, no desde localStorage.
+          setUser(await buildUserFromSession(session.user))
         } else {
-          // No hay sesión válida → limpiamos
-          localStorage.removeItem('user')
+          setUser(null)
         }
       } catch {
-        // Error al validar la sesión → limpiamos
-        localStorage.removeItem('user')
+        setUser(null)
       } finally {
         setLoading(false)
       }
@@ -94,7 +86,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Función para cerrar sesión
   const signOut = async () => {
     await supabase.auth.signOut()
-    localStorage.removeItem('user')
     setUser(null)
     window.location.replace('/login')
   }

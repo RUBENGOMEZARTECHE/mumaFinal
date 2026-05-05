@@ -28,7 +28,29 @@ const tiendaOpciones = [
 
 // As Astro resolves this at build time, we can precalculate the active path
 const pathname = Astro.url.pathname;
-const locale = 'es'; // Por defecto
+const supportedLocales = idiomas.map((idioma) => idioma.locale);
+const queryLocale = Astro.url.searchParams.get('lang');
+const localeFromPath = supportedLocales.includes(queryLocale ?? '')
+  ? queryLocale
+  : pathname.startsWith('/en/') || pathname === '/en'
+    ? 'en'
+    : pathname.startsWith('/de/') || pathname === '/de'
+      ? 'de'
+      : 'es';
+
+const getPathWithoutLocale = (path: string) => {
+  if (path === '/en' || path === '/es') return '/';
+  if (path.startsWith('/en/')) return path.replace('/en', '') || '/';
+  if (path.startsWith('/es/')) return path.replace('/es', '') || '/';
+  return path;
+};
+
+const switchLocalePath = (targetLocale: string) => {
+  const params = new URLSearchParams(Astro.url.search);
+  params.set('lang', targetLocale);
+  const query = params.toString();
+  return `${getPathWithoutLocale(pathname)}${query ? `?${query}` : ''}`;
+};
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50" id="muma-navbar">
@@ -50,15 +72,17 @@ const locale = 'es'; // Por defecto
       <div class="hidden md:flex items-center gap-2 lg:gap-3 relative" id="desktop-nav-right">
         <div class="flex items-center gap-1 shrink-0">
           {idiomas.map((idioma) => (
-            <button
+            <a
               class={`w-8 h-6 rounded-lg transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 ${
-                locale === idioma.locale
+                localeFromPath === idioma.locale
                   ? 'ring-2 ring-marca-principal/70 scale-110'
                   : 'opacity-50 hover:opacity-90 hover:bg-white/5'
               }`}
+              href={switchLocalePath(idioma.locale)}
+              data-locale={idioma.locale}
             >
               <img src={idioma.flag} alt={idioma.label} width="24" height="18" class="w-6 h-4 rounded-sm object-cover" />
-            </button>
+            </a>
           ))}
         </div>
         <div class="w-px h-6 bg-white/10"></div>
@@ -170,7 +194,7 @@ const locale = 'es'; // Por defecto
       </nav>
     </div>
 
-    <div id="mobile-menu" class="md:hidden bg-fondo-secundario border-t border-white/5 p-4 sm:p-6 flex flex-col gap-4 absolute top-full left-0 right-0 shadow-2xl z-40 max-h-[85vh] overflow-y-auto">
+    <div id="mobile-menu" class="hidden md:hidden bg-fondo-secundario border-t border-white/5 p-4 sm:p-6 flex flex-col gap-4 absolute top-full left-0 right-0 shadow-2xl z-40 max-h-[85vh] overflow-y-auto">
       {navLinks.map((link) => (
         <a href={link.to} class="text-sm font-medium text-white hover:text-marca-principal no-underline">
           {link.label}
@@ -233,13 +257,15 @@ const locale = 'es'; // Por defecto
 
       <div class="border-t border-white/10 pt-4 flex items-center gap-2">
         {idiomas.map((idioma) => (
-          <button
+          <a
             class={`w-8 h-6 rounded-lg transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 ${
-              locale === idioma.locale ? 'ring-2 ring-marca-principal/70 scale-110' : 'opacity-50 hover:opacity-90 hover:bg-white/5'
+              localeFromPath === idioma.locale ? 'ring-2 ring-marca-principal/70 scale-110' : 'opacity-50 hover:opacity-90 hover:bg-white/5'
             }`}
+            href={switchLocalePath(idioma.locale)}
+            data-locale={idioma.locale}
           >
             <img src={idioma.flag} alt={idioma.label} width="24" height="18" class="w-6 h-4 rounded-sm object-cover" />
-          </button>
+          </a>
         ))}
       </div>
     </div>
@@ -250,6 +276,47 @@ const locale = 'es'; // Por defecto
   import { supabase } from '../../lib/supabase'
 
   document.addEventListener('DOMContentLoaded', async () => {
+    // Persistencia y sincronización de idioma
+    const supportedLocales = ['es', 'en', 'de'];
+    const getLocaleFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const queryLocale = params.get('lang');
+      if (queryLocale && supportedLocales.includes(queryLocale)) return queryLocale;
+
+      const currentPath = window.location.pathname;
+      if (currentPath.startsWith('/en/') || currentPath === '/en') return 'en';
+      if (currentPath.startsWith('/de/') || currentPath === '/de') return 'de';
+
+      return localStorage.getItem('muma-locale') || 'es';
+    };
+
+    const applyActiveLocale = (activeLocale: string) => {
+      document.documentElement.lang = activeLocale;
+      document.querySelectorAll('a[data-locale]').forEach((link) => {
+        const isActive = link.getAttribute('data-locale') === activeLocale;
+        link.classList.toggle('ring-2', isActive);
+        link.classList.toggle('ring-marca-principal/70', isActive);
+        link.classList.toggle('scale-110', isActive);
+        link.classList.toggle('opacity-50', !isActive);
+      });
+    };
+
+    const localeLinks = document.querySelectorAll('a[data-locale]');
+    localeLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        const selectedLocale = link.getAttribute('data-locale') || 'es';
+        localStorage.setItem('muma-locale', selectedLocale);
+        document.cookie = `muma-locale=${selectedLocale}; path=/; max-age=31536000; SameSite=Lax`;
+        applyActiveLocale(selectedLocale);
+      });
+    });
+
+    const pathLocale = getLocaleFromUrl();
+
+    localStorage.setItem('muma-locale', pathLocale);
+    document.cookie = `muma-locale=${pathLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    applyActiveLocale(pathLocale);
+
     // 1. MOBILE MENU
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
