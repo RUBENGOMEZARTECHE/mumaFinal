@@ -1,10 +1,12 @@
+﻿@import 'flag-icons/css/flag-icons.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import 'flag-icons/css/flag-icons.min.css';
-
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -19,70 +21,135 @@ body {
 
 /* ── Carrusel de logos infinito (usado en Realidad Virtual y Nosotros) ── */
 @keyframes scroll-logos {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 .logos-track {
   animation: scroll-logos 45s linear infinite;
 }
+
 .logos-wrapper:hover .logos-track {
   animation-play-state: paused;
 }
+
 .logos-wrapper {
   cursor: grab;
 }
+
 .logos-wrapper:active {
   cursor: grabbing;
 }
 
 /* ── Reveal de secciones al entrar en viewport (reemplaza Framer Motion) ── */
 @keyframes reveal-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes reveal-left {
-  from { opacity: 0; transform: translateX(-32px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
 @keyframes reveal-right {
-  from { opacity: 0; transform: translateX(32px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
 @keyframes reveal-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
+
 @keyframes reveal-scale {
-  from { opacity: 0; transform: scale(0.92); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Clase base para todos los data-animate */
 [data-animate] {
   opacity: 0;
 }
+
 [data-animate].is-visible {
   animation: reveal-up 0.6s ease-out forwards;
 }
+
 [data-animate="fade"].is-visible {
   animation: reveal-fade 0.6s ease-out forwards;
 }
+
 [data-animate="left"].is-visible {
   animation: reveal-left 0.6s ease-out forwards;
 }
+
 [data-animate="right"].is-visible {
   animation: reveal-right 0.6s ease-out forwards;
 }
+
 [data-animate="scale"].is-visible {
   animation: reveal-scale 0.5s ease-out forwards;
 }
 
 /* Delays escalonados para listas / grids */
-[data-delay="1"] { animation-delay: 0.1s !important; }
-[data-delay="2"] { animation-delay: 0.2s !important; }
-[data-delay="3"] { animation-delay: 0.3s !important; }
-[data-delay="4"] { animation-delay: 0.4s !important; }
-[data-delay="5"] { animation-delay: 0.5s !important; }
+[data-delay="1"] {
+  animation-delay: 0.1s !important;
+}
+
+[data-delay="2"] {
+  animation-delay: 0.2s !important;
+}
+
+[data-delay="3"] {
+  animation-delay: 0.3s !important;
+}
+
+[data-delay="4"] {
+  animation-delay: 0.4s !important;
+}
+
+[data-delay="5"] {
+  animation-delay: 0.5s !important;
+}
 
 /* Compatibilidad con la clase .reveal antigua */
 .reveal {
@@ -90,7 +157,7 @@ body {
   animation: reveal-up 0.55s ease-out forwards;
   animation-play-state: paused;
 }
+
 .reveal.is-visible {
   animation-play-state: running;
 }
-

@@ -200,8 +200,8 @@ function PanelDetalle({
               label: "Instalación",
               value: refugio.fecha_instalacion
                 ? new Date(refugio.fecha_instalacion).toLocaleDateString(
-                    "es-ES",
-                  )
+                  "es-ES",
+                )
                 : null,
             },
             { label: "Estado", value: refugio.activo ? "Activo" : "Inactivo" },
@@ -1092,8 +1092,8 @@ function DashboardContent() {
                             >
                               {u.fecha_creacion
                                 ? new Date(u.fecha_creacion).toLocaleDateString(
-                                    "es-ES",
-                                  )
+                                  "es-ES",
+                                )
                                 : "—"}
                             </td>
                             <td style={{ padding: "16px 24px" }}>
@@ -1335,8 +1335,8 @@ function DashboardContent() {
                                   (e.currentTarget.style.background = "#0f0f0f")
                                 }
                                 onMouseLeave={(e) =>
-                                  (e.currentTarget.style.background =
-                                    "transparent")
+                                (e.currentTarget.style.background =
+                                  "transparent")
                                 }
                               >
                                 {/* ... TUS OTRAS CELDAS (Código, Nombre, Municipio, etc.) SE MANTIENEN EXACTAMENTE IGUAL ... */}
@@ -1398,8 +1398,8 @@ function DashboardContent() {
                                 >
                                   {r.fecha_instalacion
                                     ? new Date(
-                                        r.fecha_instalacion,
-                                      ).toLocaleDateString("es-ES")
+                                      r.fecha_instalacion,
+                                    ).toLocaleDateString("es-ES")
                                     : "—"}
                                 </td>
                                 <td

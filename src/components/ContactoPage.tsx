@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+﻿import { motion } from "framer-motion";
+import { Mail, MapPin, MessageCircle } from "lucide-react";
 import FormularioMuma from "./formularioContacto";
 
 const varianteSeccion = {

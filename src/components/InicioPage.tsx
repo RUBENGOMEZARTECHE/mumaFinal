@@ -383,69 +383,7 @@ const ProximosEventos = () => {
       });
   }, []);
 
-  return (
-    <section className="py-24 bg-[#050505] px-6 border-t border-white/5">
-      <div className="max-w-6xl mx-auto">
-
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <p className="text-[#10b981] text-xs font-bold tracking-[0.3em] uppercase mb-3">
-              Próximas Bat Nights — 2025
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              Eventos con fecha confirmada.
-            </h2>
-          </div>
-          <a href="/servicios/bat-night" className="text-sm font-bold text-[#10b981] hover:underline no-underline shrink-0">
-            Ver todos los eventos →
-          </a>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-5">
-          {eventos.map((e, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative rounded-3xl overflow-hidden border border-white/10 hover:border-purple-400 transition-all duration-500"
-              style={{ height: 420 }}
-            >
-              {/* Imagen de fondo */}
-              <img
-                src={e.img}
-                alt={e.lugar}
-                className="absolute inset-0 w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-700"
-              />
-              {/* Gradiente */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-              {/* Fecha en esquina superior */}
-              <div className="absolute top-6 left-6 z-10 text-center bg-[#10b981] rounded-2xl px-4 py-3 shadow-lg">
-                <p className="text-black font-black text-3xl leading-none">{e.dia}</p>
-                <p className="text-black font-bold text-sm tracking-widest uppercase">{e.mes}</p>
-              </div>
-
-              {/* Contenido inferior */}
-              <div className="absolute bottom-0 left-0 right-0 z-10 p-7">
-                <p className="text-[#10b981] text-xs font-bold tracking-widest uppercase mb-2">Plazas limitadas</p>
-                <h3 className="text-white font-black text-3xl mb-1">{e.lugar}</h3>
-                <p className="text-white text-sm mb-6">{e.provincia}</p>
-                <a
-                  href="/contacto"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-marca-principal text-texto-sobre-accion text-sm font-bold rounded-xl hover:bg-marca-principal-hover hover:scale-105 active:scale-95 transition-all duration-200 no-underline group-hover:shadow-[0_0_20px_rgba(31,225,167,0.4)]"
-                >
-                  Reservar plaza →
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-      </div>
-    </section>
-  );
+  
 };
 
 
@@ -606,7 +544,6 @@ export default function InicioPage() {
       <Diferenciacion />
       <Segmentacion />
       <Servicios />
-      <ProximosEventos />
       <Vision />
       <Captacion />
       <CTAFinal />

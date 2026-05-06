@@ -1,7 +1,7 @@
-// Página MUMA — quiénes somos, origen, pilares, credenciales y cierre
+﻿// Página MUMA — quiénes somos, origen, pilares, credenciales y cierre
 import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Camera, Newspaper, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Camera, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const varianteSeccion = {
   oculto: { opacity: 0, y: 24 },

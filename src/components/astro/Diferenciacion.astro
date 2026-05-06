@@ -1,9 +1,97 @@
 ---
-const items = [
-  { title: "Ciencia de campo", desc: "Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración es la base de cada servicio.", bg: "/images/colonia_murcielago01.webp", link: "/nosotros", cta: "Conocer el equipo" },
-  { title: "Tecnología que tiene fondo", desc: "La Batcave Experience no es una recreación es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o spaces naturales sin obra ni infraestructura adicional.", bg: "/images/chica-realidad-virtual.webp", link: "/servicios/realidad-virtual", cta: "Ver la Batcave Experience" },
-  { title: "Comunidad e impacto real", desc: "Más de 700 personas en eventos MUMA durante 2025. Bat Nights, talleres científicos y actividades con ayuntamientos, reservas naturales y centros educativos. La conservación ocurre cuando la gente entiende.", bg: "/images/1batnights.webp", link: "/servicios/bat-night", cta: "Ver próximas Bat Nights" },
-];
+import { getLocaleFromUrl } from '../../lib/i18n'
+
+const locale = getLocaleFromUrl(Astro.url)
+
+const copy = {
+  es: {
+    eyebrow: 'Por qué MUMA es diferente',
+    headline: 'No hacemos marketing ambiental.',
+    headlineMuted: 'Hacemos trabajo de campo.',
+    items: [
+      {
+        title: 'Ciencia de campo',
+        desc: 'Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración: es la base de cada servicio.',
+        bg: '/images/colonia_murcielago01.webp',
+        link: '/nosotros',
+        cta: 'Conocer el equipo',
+      },
+      {
+        title: 'Tecnología que tiene fondo',
+        desc: 'La Batcave Experience no es una recreación: es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o espacios naturales sin obra ni infraestructura adicional.',
+        bg: '/images/chica-realidad-virtual.webp',
+        link: '/servicios/realidad-virtual',
+        cta: 'Ver la Batcave Experience',
+      },
+      {
+        title: 'Comunidad e impacto real',
+        desc: 'Más de 700 personas en eventos MUMA durante 2025. Bat Nights, talleres científicos y actividades con ayuntamientos, reservas naturales y centros educativos. La conservación ocurre cuando la gente entiende.',
+        bg: '/images/1batnights.webp',
+        link: '/servicios/bat-night',
+        cta: 'Ver próximas Bat Nights',
+      },
+    ],
+  },
+  en: {
+    eyebrow: 'Why MUMA is different',
+    headline: 'We do not do environmental marketing.',
+    headlineMuted: 'We do fieldwork.',
+    items: [
+      {
+        title: 'Field science',
+        desc: 'More than a decade studying colonies, recording ultrasounds and building the only private bioacoustic archive of Iberian bats. Knowledge is not decoration: it is the foundation of every service.',
+        bg: '/images/colonia_murcielago01.webp',
+        link: '/nosotros',
+        cta: 'Meet the team',
+      },
+      {
+        title: 'Technology with substance',
+        desc: 'The Batcave Experience is not a recreation: it is a real cave digitised in 3D. Ready to install in museums, shopping centres or natural spaces without construction work or additional infrastructure.',
+        bg: '/images/chica-realidad-virtual.webp',
+        link: '/servicios/realidad-virtual',
+        cta: 'View the Batcave Experience',
+      },
+      {
+        title: 'Community and real impact',
+        desc: 'More than 700 people at MUMA events during 2025. Bat Nights, scientific workshops and activities with town councils, nature reserves and schools. Conservation happens when people understand.',
+        bg: '/images/1batnights.webp',
+        link: '/servicios/bat-night',
+        cta: 'See upcoming Bat Nights',
+      },
+    ],
+  },
+  de: {
+    eyebrow: 'Warum MUMA anders ist',
+    headline: 'Wir machen kein Umweltmarketing.',
+    headlineMuted: 'Wir leisten Feldarbeit.',
+    items: [
+      {
+        title: 'Feldwissenschaft',
+        desc: 'Mehr als ein Jahrzehnt der Untersuchung von Kolonien, der Aufzeichnung von Ultraschallrufen und des Aufbaus des einzigen privaten bioakustischen Archivs iberischer Fledermäuse. Wissen ist keine Dekoration: Es ist die Grundlage jedes Dienstes.',
+        bg: '/images/colonia_murcielago01.webp',
+        link: '/nosotros',
+        cta: 'Das Team kennenlernen',
+      },
+      {
+        title: 'Technologie mit Substanz',
+        desc: 'Die Batcave Experience ist keine Nachbildung: Sie ist eine echte, in 3D digitalisierte Höhle. Bereit für Museen, Einkaufszentren oder Naturräume, ohne Bauarbeiten oder zusätzliche Infrastruktur.',
+        bg: '/images/chica-realidad-virtual.webp',
+        link: '/servicios/realidad-virtual',
+        cta: 'Batcave Experience ansehen',
+      },
+      {
+        title: 'Gemeinschaft und echte Wirkung',
+        desc: 'Mehr als 700 Menschen bei MUMA-Veranstaltungen im Jahr 2025. Bat Nights, wissenschaftliche Workshops und Aktivitäten mit Gemeinden, Naturschutzgebieten und Bildungseinrichtungen. Naturschutz geschieht, wenn Menschen verstehen.',
+        bg: '/images/1batnights.webp',
+        link: '/servicios/bat-night',
+        cta: 'Nächste Bat Nights ansehen',
+      },
+    ],
+  },
+}
+
+const sectionCopy = copy[locale] ?? copy.es
+const items = sectionCopy.items
 ---
 <section class="py-32 bg-[#050505] px-6 relative overflow-hidden border-b border-white/5">
   <div class="absolute inset-0 z-0 pointer-events-none">
@@ -13,10 +101,10 @@ const items = [
 
   <div class="max-w-6xl mx-auto relative z-10">
     <div class="max-w-3xl mb-20 animate-fade-in">
-      <h2 class="text-[#10b981] text-xs font-bold tracking-[0.4em] uppercase mb-6">Por qué MUMA es diferente</h2>
+      <h2 class="text-[#10b981] text-xs font-bold tracking-[0.4em] uppercase mb-6">{sectionCopy.eyebrow}</h2>
       <p class="text-4xl md:text-5xl font-bold text-white leading-[1.1] tracking-tight">
-        No hacemos marketing ambiental. <br />
-        <span class="text-zinc-500">Hacemos trabajo de campo.</span>
+        {sectionCopy.headline} <br />
+        <span class="text-zinc-500">{sectionCopy.headlineMuted}</span>
       </p>
     </div>
 
