@@ -1,0 +1,33 @@
+# Información externa — documentos internos no publicables
+info-externa/
+
+# Variables de entorno — NUNCA subir al repositorio
+.env
+.env.local
+.env.*.local
+
+# Dependencias
+node_modules/
+
+# Build artifacts (Astro + Vite)
+dist/
+muma-astro/dist/
+muma-astro/.astro/
+
+# Astro cache
+.astro/
+muma-astro/.astro/
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
