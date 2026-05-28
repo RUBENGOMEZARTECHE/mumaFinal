@@ -1,0 +1,29 @@
+---
+const servicios = [
+  { title: "Realidad Virtual", desc: "La Batcave Experience: una cueva de murciélagos en tu espacio. Lista para instalar, sin obra.", link: "/servicios/realidad-virtual", img: "/images/chica-realidad-virtual.webp" },
+  { title: "Bat Nights", desc: "Eventos nocturnos con ultrasonidos y VR. Más de 200 personas por edición en 2025.", link: "/servicios/bat-night", img: "/images/1batnights.webp" },
+  { title: "Refugios", desc: "Refugios artesanales para colonias de murciélagos. Control biológico de plagas sin pesticidas.", link: "/servicios/refugios", img: "/images/refugio_doble.webp" },
+  { title: "Consultoría", desc: "Asesoramiento científico con respaldo SECEMU y proyecto europeo ST3ER.", link: "/servicios/formacion", img: "/images/Eventos-cientificos-Plaza-Mayor5-300x300.webp" },
+];
+---
+<section class="py-24 bg-[#080808] px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-5xl font-bold text-white mb-16 text-center">
+      Nuestras líneas de <span class="text-[#10b981]">acción</span>
+    </h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {servicios.map((s) => (
+        <a href={s.link} class="group relative rounded-3xl border border-white/8 shadow-lg hover:border-purple-400 transition-all duration-500 no-underline overflow-hidden flex flex-col justify-end" style="height: 280px">
+          <div class="absolute inset-0 z-0">
+            <img src={s.img} alt={s.title} class="w-full h-full object-cover opacity-85 group-hover:opacity-95 transition-opacity duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          </div>
+          <div class="relative z-10 p-6">
+            <h4 class="text-xl font-bold text-white group-hover:text-marca-principal transition-colors mb-1">{s.title}</h4>
+            <p class="text-gray-300 text-sm leading-snug">{s.desc}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

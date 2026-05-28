@@ -1,0 +1,37 @@
+---
+const perfiles = [
+  { tipo: "Museos y centros culturales", desc: "Instala la Batcave Experience en tu espacio. Sin obra, sin infraestructura. Montamos, operamos y recogemos.", etiqueta: "Realidad Virtual", link: "/servicios/realidad-virtual", img: "/images/museos.webp", cta: "Ver la experiencia" },
+  { tipo: "Ayuntamientos y espacios naturales", desc: "Bat Nights para tu municipio o reserva. Eventos nocturnos con ultrasonidos y VR para conectar al público con la naturaleza.", etiqueta: "Bat Nights", link: "/servicios/bat-night", img: "/images/ayuntamientos.webp", cta: "Ver Bat Nights" },
+  { tipo: "Agricultores y fincas", desc: "Una colonia de murciélagos elimina hasta 3.000 insectos por noche. Instalamos refugios certificados como alternativa real a los pesticidas.", etiqueta: "Refugios", link: "/servicios/refugios", img: "/images/agricultores.webp", cta: "Ver refugios" },
+  { tipo: "Instituciones y administraciones", desc: "Informes bioacústicos, consultoría jurídico-ambiental y formación técnica con respaldo SECEMU y marco EUROBATS.", etiqueta: "Consultoría", link: "/servicios/formacion", img: "/images/instituciones.webp", cta: "Ver consultoría" },
+];
+---
+<section class="py-24 bg-[#050505] px-6 border-t border-white/5">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-14 animate-fade-in-up">
+      <p class="text-[#10b981] text-xs font-bold tracking-[0.3em] uppercase mb-4">¿Con quién trabajamos?</p>
+      <h2 class="text-3xl md:text-5xl font-bold text-white leading-tight max-w-xl">
+        Encuentra lo que <br />
+        <span class="text-[#10b981]">es para ti.</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-5">
+      {perfiles.map((p) => (
+        <a href={p.link} class="group relative flex flex-col h-full p-8 rounded-2xl border border-white/8 shadow-lg hover:border-purple-400 transition-all duration-300 no-underline overflow-hidden">
+          <div class="absolute inset-0 z-0">
+            <img src={p.img} alt={p.tipo} class="w-full h-full object-cover opacity-80 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/20"></div>
+          </div>
+          <div class="relative z-10 flex flex-col h-full">
+            <span class="text-[10px] font-bold tracking-widest text-[#1fe1a7] uppercase mb-4" style="text-shadow: 0 1px 4px rgba(0,0,0,0.9)">{p.etiqueta}</span>
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#1fe1a7] transition-colors" style="text-shadow: 0 2px 8px rgba(0,0,0,0.9)">{p.tipo}</h3>
+            <p class="text-white/80 text-sm leading-relaxed flex-1 mb-6" style="text-shadow: 0 1px 4px rgba(0,0,0,0.9)">{p.desc}</p>
+            <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-marca-principal text-texto-sobre-accion text-sm font-bold rounded-xl self-start group-hover:bg-marca-principal-hover transition-colors duration-200">
+              {p.cta} <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

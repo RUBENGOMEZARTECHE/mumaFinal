@@ -1,0 +1,41 @@
+---
+const items = [
+  { title: "Ciencia de campo", desc: "Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración es la base de cada servicio.", bg: "/images/colonia_murcielago01.webp", link: "/nosotros", cta: "Conocer el equipo" },
+  { title: "Tecnología que tiene fondo", desc: "La Batcave Experience no es una recreación es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o spaces naturales sin obra ni infraestructura adicional.", bg: "/images/chica-realidad-virtual.webp", link: "/servicios/realidad-virtual", cta: "Ver la Batcave Experience" },
+  { title: "Comunidad e impacto real", desc: "Más de 700 personas en eventos MUMA durante 2025. Bat Nights, talleres científicos y actividades con ayuntamientos, reservas naturales y centros educativos. La conservación ocurre cuando la gente entiende.", bg: "/images/1batnights.webp", link: "/servicios/bat-night", cta: "Ver próximas Bat Nights" },
+];
+---
+<section class="py-32 bg-[#050505] px-6 relative overflow-hidden border-b border-white/5">
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px]"></div>
+    <div class="absolute top-0 right-[-10%] w-[600px] h-[600px] bg-[#10b981]/5 blur-[120px] rounded-full"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="max-w-3xl mb-20 animate-fade-in">
+      <h2 class="text-[#10b981] text-xs font-bold tracking-[0.4em] uppercase mb-6">Por qué MUMA es diferente</h2>
+      <p class="text-4xl md:text-5xl font-bold text-white leading-[1.1] tracking-tight">
+        No hacemos marketing ambiental. <br />
+        <span class="text-zinc-500">Hacemos trabajo de campo.</span>
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {items.map((item) => (
+        <div class="group relative rounded-[2rem] overflow-hidden border border-white/10 hover:border-purple-500 transition-all duration-500 flex flex-col justify-end min-h-[480px]">
+          <div class="absolute inset-0 z-0">
+            <img src={item.bg} alt={item.title} class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/10"></div>
+          </div>
+          <div class="relative z-10 p-8 flex flex-col">
+            <h3 class="text-2xl font-bold text-white mb-4" style="text-shadow: 0 2px 8px rgba(0,0,0,0.9)">{item.title}</h3>
+            <p class="text-zinc-200 leading-relaxed font-medium text-[15px] mb-6" style="text-shadow: 0 1px 4px rgba(0,0,0,0.9)">{item.desc}</p>
+            <a href={item.link} class="inline-flex items-center gap-2 px-5 py-2.5 bg-marca-principal text-texto-sobre-accion text-sm font-bold rounded-xl hover:bg-marca-principal-hover transition-all duration-200 no-underline self-start">
+              {item.cta} <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+// -------------------------------------------------------------------
+// /admin — Panel de administración (PROTEGIDO)
+// -------------------------------------------------------------------
+// Esta página carga AdminDashboard.tsx que incluye:
+//   1. AuthProvider   → contexto de autenticación
+//   2. ProtectedRoute → redirige a /login si no hay sesión
+//   3. DashboardContent → el panel real
+//
+// Usamos client:only="react" porque:
+//   - AdminDashboard lee localStorage (API del navegador)
+//   - localStorage NO existe en el servidor
+//   - Si usáramos client:load, Astro intentaría renderizar en servidor
+//     y daría error "localStorage is not defined" (como pasó con Leaflet)
+//
+// ¿Recuerdas el error "window is not defined" con MapaRefugios?
+// Es exactamente el mismo problema. client:only lo evita.
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import AdminDashboard from '../../components/AdminDashboard'
+---
+<BaseLayout
+  title="Panel Admin | MUMA BAT COMPANY"
+  description="Panel de administración de MUMA BAT COMPANY"
+>
+  <AdminDashboard client:only="react" />
+</BaseLayout>
