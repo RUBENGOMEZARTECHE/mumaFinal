@@ -101,27 +101,50 @@ export default function FormacionPage() {
       ))}
 
       {/* AVALES */}
-      <section className="bg-fondo-secundario py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-fondo-superficie rounded-2xl border border-white/5 p-10 flex flex-col md:flex-row gap-10 items-center">
-            <div className="flex-1">
-              <p className="text-xs font-bold tracking-[0.2em] text-marca-principal uppercase mb-3">Respaldo científico</p>
-              <h3 className="text-2xl font-bold text-texto-titulo mb-4 leading-tight">Cada informe está firmado desde el campo, no desde un despacho.</h3>
-              <p className="text-white text-sm leading-relaxed">Somos miembros activos de SECEMU, alineados con el marco EUROBATS y ex-investigadores del proyecto europeo ST3ER en España, Portugal y Eslovenia. Eso es lo que convierte nuestros informes en documentos con peso real ante administraciones e instituciones.</p>
-            </div>
-            <div className="flex flex-wrap md:flex-col gap-4 shrink-0 items-center">
-              {[
-                { src: '/images/Logo_SECEMU.webp', alt: 'SECEMU' },
-                { src: '/images/EUROBATS_logo.webp', alt: 'EUROBATS' },
-                { src: '/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp', alt: 'ST3ER — SMP COSME UE' },
-                { src: '/images/europa.webp', alt: 'Fondos FEDER — Unión Europea' },
-              ].map((logo) => (
-                <img key={logo.alt} src={logo.src} alt={logo.alt} className="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity duration-200" />
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+    <section className="bg-fondo-secundario py-20 px-6">
+  <div className="max-w-6xl mx-auto">
+    <motion.div 
+      initial="oculto" 
+      whileInView="visible" 
+      viewport={{ once: true }} 
+      variants={fadeUp} 
+      // Cambiado: items-center para que todo el contenido interior se alinee al centro
+      className="bg-fondo-superficie rounded-2xl border border-white/5 p-10 flex flex-col gap-12 items-center"
+    >
+      {/* Bloque de Texto */}
+      {/* Cambiado: text-center y flex-col items-center para centrar el título y el párrafo */}
+      <div className="w-full text-center flex flex-col items-center">
+        <p className="text-xs font-bold tracking-[0.2em] text-marca-principal uppercase mb-3">
+          Respaldo científico
+        </p>
+        <h3 className="text-2xl font-bold text-texto-titulo mb-4 leading-tight max-w-2xl">
+          Cada informe está firmado desde el campo, no desde un despacho.
+        </h3>
+        <p className="text-white text-sm leading-relaxed max-w-3xl">
+          Somos miembros activos de SECEMU, alineados con el marco EUROBATS y ex-investigadores del proyecto europeo ST3ER en España, Portugal y Eslovenia. Eso es lo que convierte nuestros informes en documentos con peso real ante administraciones e instituciones.
+        </p>
+      </div>
+
+      {/* Bloque de Logos debajo del texto */}
+      {/* Cambiado: justify-center para que los logos se agrupen de forma simétrica en el centro */}
+      <div className="flex flex-wrap flex-row items-center justify-center gap-8 sm:gap-12 w-full pt-6 border-t border-white/5">
+        {[
+          { src: '/images/Logo_SECEMU.webp', alt: 'SECEMU' },
+          { src: '/images/EUROBATS_logo.webp', alt: 'EUROBATS' },
+          { src: '/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp', alt: 'ST3ER — SMP COSME UE' },
+          { src: '/images/europa.webp', alt: 'Fondos FEDER — Unión Europea' },
+        ].map((logo) => (
+          <img 
+            key={logo.alt} 
+            src={logo.src} 
+            alt={logo.alt} 
+            className="h-12 sm:h-14 lg:h-16 max-w-[200px] object-contain opacity-75 hover:opacity-100 transition-all duration-300" 
+          />
+        ))}
+      </div>
+    </motion.div>
+  </div>
+</section>
 
       {/* CTA FINAL */}
       <section className="bg-fondo-base py-24 px-6">

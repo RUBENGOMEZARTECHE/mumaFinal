@@ -299,7 +299,7 @@ const Servicios = () => {
       title: "Bat Nights",
       desc: "Eventos nocturnos con ultrasonidos y VR. Más de 200 personas por edición en 2025.",
       link: "/servicios/bat-night",
-      img: "/images/1batnights.webp",
+      img: "/images/fotos_batnight/nerja-5.webp",
     },
     {
       title: "Refugios",

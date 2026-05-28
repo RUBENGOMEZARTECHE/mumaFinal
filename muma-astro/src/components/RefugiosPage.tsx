@@ -939,22 +939,22 @@ const modelos = [
             <img
               src="/images/EUROBATS_logo.webp"
               alt="EUROBATS"
-              className="h-8 grayscale"
+              className="h-20 grayscale"
             />
             <img
               src="/images/Logo_SECEMU_blanco.webp"
               alt="SECEMU"
-              className="h-8 grayscale"
+              className="h-20 grayscale"
             />
             <img
               src="/images/europa.webp"
               alt="Proyecto Europeo"
-              className="h-8 grayscale"
+              className="h-20 grayscale"
             />
             <img
               src="/images/junta-andalucia.webp"
               alt="Junta de Andalucía"
-              className="h-8 grayscale"
+              className="h-20 grayscale"
             />
           </div>
         </div>

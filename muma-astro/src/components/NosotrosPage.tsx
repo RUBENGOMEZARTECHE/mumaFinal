@@ -738,62 +738,67 @@ export default function NosotrosPage() {
 
         {/* ── SECCIÓN 6: POR QUÉ LOS MURCIÉLAGOS IMPORTAN — conectado a la propuesta ── */}
         <section className="bg-fondo-secundario py-20 px-6">
-          <div className="max-w-6xl mx-auto">
+  <div className="max-w-6xl mx-auto">
 
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-12 items-start">
+    {/* Cambiado: Eliminamos el grid de dos columnas asimétricas y centramos el contenedor */}
+    <div className="max-w-4xl mx-auto w-full">
 
-              {/* Stats + cabecera */}
-              <div>
-                <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="mb-10">
-                  <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">La base científica de lo que hacemos</p>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-3">Por qué los murciélagos importan</h2>
-                  <p className="text-white max-w-xl text-sm leading-relaxed">
-                    Cada cifra que usamos justifica un servicio. No divulgamos por divulgar.
-                  </p>
-                </motion.div>
+      {/* Stats + cabecera */}
+      <div>
+        {/* Cambiado: Añadido text-center y mx-auto para centrar la cabecera */}
+        <motion.div 
+          initial="oculto" 
+          whileInView="visible" 
+          viewport={{ once: true }} 
+          variants={varianteSeccion} 
+          className="mb-12 text-center flex flex-col items-center"
+        >
+          <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">
+            La base científica de lo que hacemos
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-3">
+            Por qué los murciélagos importan
+          </h2>
+          <p className="text-white max-w-xl text-sm leading-relaxed text-center">
+            Cada cifra que usamos justifica un servicio. No divulgamos por divulgar.
+          </p>
+        </motion.div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {datosMurcielagos.map((dato, i) => (
-                    <motion.div
-                      key={i}
-                      initial="oculto" whileInView="visible" viewport={{ once: true }}
-                      variants={{ oculto: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } }}
-                      className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-marca-principal/20 transition-colors duration-300 flex gap-5 items-start"
-                    >
-                      <div className="shrink-0 min-w-[70px]">
-                        <p className="text-2xl font-bold text-marca-principal leading-none">{dato.cifra}</p>
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-texto-titulo mb-1">{dato.titulo}</h3>
-                        <p className="text-sm text-white leading-relaxed">{dato.texto}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+        {/* Las tarjetas de estadísticas ahora se adaptan de forma simétrica y centrada */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {datosMurcielagos.map((dato, i) => (
+            <motion.div
+              key={i}
+              initial="oculto" 
+              whileInView="visible" 
+              viewport={{ once: true }}
+              variants={{ 
+                oculto: { opacity: 0, y: 20 }, 
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.08 } } 
+              }}
+              className="bg-fondo-superficie rounded-2xl p-6 border border-white/5 hover:border-marca-principal/20 transition-colors duration-300 flex gap-5 items-start"
+            >
+              <div className="shrink-0 min-w-[70px]">
+                <p className="text-2xl font-bold text-marca-principal leading-none">
+                  {dato.cifra}
+                </p>
               </div>
+              <div>
+                <h3 className="text-sm font-bold text-texto-titulo mb-1">
+                  {dato.titulo}
+                </h3>
+                <p className="text-sm text-white leading-relaxed">
+                  {dato.texto}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-              {/* Imagen lateral — solo visible en lg+ */}
-              <motion.div
-                initial="oculto" whileInView="visible" viewport={{ once: true }}
-                variants={{ oculto: { opacity: 0, x: 24 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, delay: 0.2 } } }}
-                className="hidden lg:block sticky top-24 rounded-2xl overflow-hidden"
-                style={{ height: '480px' }}
-              >
-                <img
-                  src="/images/bat-night-eslovenia.webp"
-                  alt="Bat Night en Eslovenia — MUMA en acción"
-                  className="w-full h-full object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-fondo-secundario/70 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5">
-                  <p className="text-xs font-semibold text-marca-principal uppercase tracking-widest">Bat Night · Eslovenia</p>
-                  <p className="text-xs text-white/60 mt-0.5">Proyecto ST3ER | actividades de campo internacionales</p>
-                </div>
-              </motion.div>
-
-            </div>
-          </div>
-        </section>
+    </div>
+  </div>
+</section>
 
         {/* ── SECCIÓN 7: ALIANZAS (carrusel) + MEDIOS ── */}
         <section className="bg-fondo-base py-20 overflow-hidden">
