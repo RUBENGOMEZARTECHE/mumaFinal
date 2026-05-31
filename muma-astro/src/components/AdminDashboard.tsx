@@ -4,7 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { supabase } from "../lib/supabase";
 import ModalFormularioRefugio from "./ModalFormularioRefugio";
 import { experimental_withState } from "@astrojs/react/actions";
-import { P } from "../../dist/_astro/TileLayer.h95ehdnA.js";
+//import { P } from "../../dist/_astro/TileLayer.h95ehdnA.js"; 
 import { Link } from "react-router-dom";
 
 // ── Tipos ──────────────────────────────────────────────────────────────
