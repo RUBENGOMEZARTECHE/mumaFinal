@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const updatedAt = '05/05/2026'
+---
+
+<BaseLayout
+  title="Política de Privacidad — MUMA BAT COMPANY"
+  description="Información sobre el tratamiento de datos personales en MUMA BAT COMPANY."
+  canonical="https://mumabatcompany.com/politica-privacidad"
+>
+  <main class="min-h-screen bg-fondo-base pt-36 pb-20 px-6 sm:px-10">
+    <article class="max-w-4xl mx-auto">
+      <header class="mb-10" data-animate>
+        <p class="text-xs font-bold tracking-[0.25em] uppercase text-marca-principal mb-4">Protección de datos</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-texto-titulo mb-5">Política de Privacidad</h1>
+        <p class="text-texto-secundario leading-relaxed max-w-3xl">
+          Esta política describe de forma estructural cómo se tratarán los datos personales recogidos en este sitio web. Sustituye los marcadores por información real antes de publicar.
+        </p>
+        <p class="text-xs text-texto-secundario/70 mt-4">Última actualización: {updatedAt}</p>
+      </header>
+
+      <div class="rounded-2xl border border-amber-400/30 bg-amber-400/10 p-5 mb-10 text-sm text-amber-100" data-animate>
+        <strong>Plantilla pendiente de revisión:</strong> completar [RESPONSABLE DEL TRATAMIENTO], [EMAIL PRIVACIDAD], [BASES JURÍDICAS], [PLAZOS DE CONSERVACIÓN] y demás marcadores con datos verificados.
+      </div>
+
+      <div class="legal-content space-y-9 text-texto-secundario leading-relaxed" data-animate>
+        <section>
+          <h2>1. Responsable del tratamiento</h2>
+          <ul>
+            <li><strong>Responsable:</strong> [RESPONSABLE DEL TRATAMIENTO / RAZÓN SOCIAL]</li>
+            <li><strong>CIF/NIF:</strong> [CIF]</li>
+            <li><strong>Domicilio:</strong> [DOMICILIO SOCIAL]</li>
+            <li><strong>Email de contacto:</strong> [EMAIL PRIVACIDAD]</li>
+            <li><strong>Delegado de Protección de Datos, si aplica:</strong> [DPO / NO APLICA]</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>2. Datos personales tratados</h2>
+          <p>A través de los formularios y canales de contacto del sitio web podrán tratarse datos identificativos y de contacto, como nombre, email, teléfono, organización, mensaje enviado y cualquier información que el usuario facilite voluntariamente.</p>
+        </section>
+
+        <section>
+          <h2>3. Finalidades del tratamiento</h2>
+          <ul>
+            <li>Gestionar consultas, solicitudes de información, presupuestos o colaboraciones.</li>
+            <li>Gestionar solicitudes relacionadas con voluntariado, donaciones, actividades o servicios.</li>
+            <li>Enviar comunicaciones informativas o comerciales cuando exista consentimiento o base jurídica suficiente.</li>
+            <li>Cumplir obligaciones legales aplicables.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Base jurídica</h2>
+          <p>Las bases jurídicas podrán ser el consentimiento del usuario, la aplicación de medidas precontractuales, la ejecución de una relación contractual, el cumplimiento de obligaciones legales o el interés legítimo, según corresponda en cada caso. [DETALLAR BASES JURÍDICAS REALES].</p>
+        </section>
+
+        <section>
+          <h2>5. Conservación de los datos</h2>
+          <p>Los datos se conservarán durante el tiempo necesario para atender la finalidad para la que fueron recabados y, posteriormente, durante los plazos legalmente exigibles. [DETALLAR PLAZOS DE CONSERVACIÓN].</p>
+        </section>
+
+        <section>
+          <h2>6. Destinatarios y encargados</h2>
+          <p>Los datos no se comunicarán a terceros salvo obligación legal o cuando sea necesario para prestar el servicio solicitado. Podrán existir proveedores tecnológicos, de hosting, email o gestión de formularios que actúen como encargados del tratamiento. [PROVEEDOR DE HOSTING] [PROVEEDORES TECNOLÓGICOS].</p>
+        </section>
+
+        <section>
+          <h2>7. Derechos de las personas usuarias</h2>
+          <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento, portabilidad y retirada del consentimiento escribiendo a [EMAIL PRIVACIDAD], acreditando tu identidad cuando sea necesario.</p>
+          <p>También puedes presentar una reclamación ante la Agencia Española de Protección de Datos si consideras que el tratamiento no se ajusta a la normativa vigente.</p>
+        </section>
+
+        <section>
+          <h2>8. Seguridad</h2>
+          <p>[RAZÓN SOCIAL] aplicará medidas técnicas y organizativas razonables para proteger los datos personales frente a accesos no autorizados, pérdida, alteración o divulgación indebida.</p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <style>
+    .legal-content h2 { color: rgb(var(--texto-titulo, 255 255 255)); font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .legal-content strong { color: white; }
+    .legal-content ul { margin-top: 1rem; padding-left: 1.25rem; list-style: disc; }
+    .legal-content li { margin: 0.4rem 0; }
+    .legal-content p + p { margin-top: 0.75rem; }
+  </style>
+</BaseLayout>

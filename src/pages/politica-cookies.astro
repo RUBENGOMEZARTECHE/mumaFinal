@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const updatedAt = '05/05/2026'
+---
+
+<BaseLayout
+  title="Política de Cookies — MUMA BAT COMPANY"
+  description="Información sobre el uso de cookies y tecnologías similares en MUMA BAT COMPANY."
+  canonical="https://mumabatcompany.com/politica-cookies"
+>
+  <main class="min-h-screen bg-fondo-base pt-36 pb-20 px-6 sm:px-10">
+    <article class="max-w-4xl mx-auto">
+      <header class="mb-10" data-animate>
+        <p class="text-xs font-bold tracking-[0.25em] uppercase text-marca-principal mb-4">Cookies</p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-texto-titulo mb-5">Política de Cookies</h1>
+        <p class="text-texto-secundario leading-relaxed max-w-3xl">
+          Esta página explica qué son las cookies, qué tipos pueden utilizarse y cómo gestionarlas. Completa los marcadores según la auditoría real de cookies del sitio.
+        </p>
+        <p class="text-xs text-texto-secundario/70 mt-4">Última actualización: {updatedAt}</p>
+      </header>
+
+      <div class="rounded-2xl border border-amber-400/30 bg-amber-400/10 p-5 mb-10 text-sm text-amber-100" data-animate>
+        <strong>Plantilla pendiente de auditoría:</strong> identificar cookies técnicas, analíticas, publicitarias o de terceros antes de publicar. Sustituir [COOKIES ANALÍTICAS / MARKETING SI APLICA].
+      </div>
+
+      <div class="legal-content space-y-9 text-texto-secundario leading-relaxed" data-animate>
+        <section>
+          <h2>1. ¿Qué son las cookies?</h2>
+          <p>
+            Las cookies son pequeños archivos que se almacenan en el dispositivo del usuario cuando visita un sitio web. Permiten recordar información técnica, preferencias de navegación o, en algunos casos, analizar el uso del sitio.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Responsable</h2>
+          <ul>
+            <li><strong>Responsable:</strong> [RAZÓN SOCIAL]</li>
+            <li><strong>CIF/NIF:</strong> [CIF]</li>
+            <li><strong>Email de contacto:</strong> [EMAIL LEGAL / PRIVACIDAD]</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Tipos de cookies que puede utilizar este sitio</h2>
+          <ul>
+            <li><strong>Cookies técnicas:</strong> necesarias para la navegación, seguridad, idioma o funcionamiento básico del sitio.</li>
+            <li><strong>Cookies de preferencias:</strong> permiten recordar opciones como el idioma seleccionado por el usuario.</li>
+            <li><strong>Cookies analíticas:</strong> [COOKIES ANALÍTICAS / NO APLICA].</li>
+            <li><strong>Cookies de marketing:</strong> [COOKIES MARKETING / NO APLICA].</li>
+            <li><strong>Cookies de terceros:</strong> [SERVICIOS DE TERCEROS, SI APLICA].</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Cookies detectadas inicialmente</h2>
+          <p>
+            El sitio puede utilizar cookies o almacenamiento local para conservar preferencias de idioma y mejorar la experiencia de navegación. Esta lista debe completarse tras una revisión técnica real:
+          </p>
+          <ul>
+            <li><strong>muma-locale:</strong> preferencia de idioma del usuario. Tipo: técnica/preferencia. Duración: [DURACIÓN].</li>
+            <li><strong>[NOMBRE COOKIE]:</strong> [FINALIDAD], [PROVEEDOR], [DURACIÓN].</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>5. Gestión o desactivación de cookies</h2>
+          <p>
+            El usuario puede permitir, bloquear o eliminar cookies mediante la configuración de su navegador. La desactivación de determinadas cookies técnicas puede afectar al funcionamiento normal del sitio web.
+          </p>
+        </section>
+
+        <section>
+          <h2>6. Consentimiento</h2>
+          <p>
+            Cuando se utilicen cookies no técnicas, el sitio deberá solicitar el consentimiento previo del usuario mediante un mecanismo adecuado de gestión de preferencias. [CONFIGURAR BANNER/CMP SI APLICA].
+          </p>
+        </section>
+
+        <section>
+          <h2>7. Actualizaciones</h2>
+          <p>
+            Esta Política de Cookies podrá modificarse cuando cambien las cookies utilizadas, la normativa aplicable o los criterios de la autoridad de control.
+          </p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <style>
+    .legal-content h2 { color: rgb(var(--texto-titulo, 255 255 255)); font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .legal-content strong { color: white; }
+    .legal-content ul { margin-top: 1rem; padding-left: 1.25rem; list-style: disc; }
+    .legal-content li { margin: 0.4rem 0; }
+    .legal-content p + p { margin-top: 0.75rem; }
+  </style>
+</BaseLayout>

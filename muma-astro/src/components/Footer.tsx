@@ -83,7 +83,7 @@ export default function Footer() {
           </svg>
           <span className="text-xs text-texto-secundario">Proyecto de investigación:</span>
           <a
-            href="https://www.murcielagosmalaga.com"
+            href="https://www.murcielagosmalaga.com3"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs font-semibold text-marca-principal hover:underline no-underline"

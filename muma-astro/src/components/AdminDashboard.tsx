@@ -441,6 +441,138 @@ function DashboardContent() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loadingLeads, setLoadingLeads] = useState(true);
 
+  // CRUD USUARIOS
+  const [modalUsuarioAbierto, setModalUsuarioAbierto] = useState(false);
+  const [usuarioAEditar, setUsuarioAEditar] = useState<any | null>(null);
+  const [formularioUsuario, setFormularioUsuario] = useState({
+    nombre: "",
+    apellidos: "",
+    correo: "",
+    telefono: "",
+    premium: false,
+    activo: true,
+  });
+
+  const recargarUsuarios = async () => {
+    setLoadingUsuarios(true);
+    try {
+      const { data, error } = await supabase
+        .from("usuarios")
+        .select("id, nombre, apellidos, correo, telefono, premium, activo")
+        .order("nombre", { ascending: true });
+      if (error) throw new Error(error.message);
+      setUsuarios(data || []);
+    } catch (err: any) {
+      setErrorUsuarios(err.message);
+    } finally {
+      setLoadingUsuarios(false);
+    }
+  };
+
+  const abrirModalCrear = () => {
+    setUsuarioAEditar(null);
+    setFormularioUsuario({
+      nombre: "",
+      apellidos: "",
+      correo: "",
+      telefono: "",
+      premium: false,
+      activo: true,
+    });
+    setModalUsuarioAbierto(true);
+  };
+
+  const abrirModalEditar = (usuario: any) => {
+    setUsuarioAEditar(usuario);
+    setFormularioUsuario({
+      nombre: usuario.nombre,
+      apellidos: usuario.apellidos,
+      correo: usuario.correo,
+      telefono: usuario.telefono,
+      premium: usuario.premium,
+      activo: usuario.activo,
+    });
+    setModalUsuarioAbierto(true);
+  };
+
+  const guardarUsuario = async () => {
+    try {
+      if (!formularioUsuario.nombre || !formularioUsuario.correo) {
+        alert("Por favor completa nombre y email");
+        return;
+      }
+
+      if (usuarioAEditar) {
+        // ACTUALIZAR
+        const { error } = await supabase
+          .from("usuarios")
+          .update({
+            nombre: formularioUsuario.nombre,
+            apellidos: formularioUsuario.apellidos,
+            correo: formularioUsuario.correo,
+            telefono: formularioUsuario.telefono,
+            premium: formularioUsuario.premium,
+            activo: formularioUsuario.activo,
+          })
+          .eq("id", usuarioAEditar.id);
+
+        if (error) throw error;
+        alert("Usuario actualizado correctamente");
+      } else {
+        // CREAR - requiere password
+        const password = prompt("Ingresa una contraseña para el nuevo usuario:");
+        if (!password) return;
+
+        const { error } = await supabase.auth.admin.createUser({
+          email: formularioUsuario.correo,
+          password: password,
+          user_metadata: {
+            nombre: formularioUsuario.nombre,
+            apellidos: formularioUsuario.apellidos,
+          },
+        });
+
+        if (error) throw error;
+
+        // Insertar en tabla usuarios
+        const { error: insertError } = await supabase.from("usuarios").insert([
+          {
+            correo: formularioUsuario.correo,
+            nombre: formularioUsuario.nombre,
+            apellidos: formularioUsuario.apellidos,
+            telefono: formularioUsuario.telefono,
+            premium: formularioUsuario.premium,
+            activo: formularioUsuario.activo,
+          },
+        ]);
+
+        if (insertError) throw insertError;
+        alert("Usuario creado correctamente");
+      }
+
+      setModalUsuarioAbierto(false);
+      recargarUsuarios();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    }
+  };
+
+  const eliminarUsuario = async (id: string, nombre: string) => {
+    const confirmar = window.confirm(
+      `¿Estás seguro de que deseas eliminar a ${nombre}?`,
+    );
+    if (!confirmar) return;
+
+    try {
+      const { error } = await supabase.from("usuarios").delete().eq("id", id);
+      if (error) throw error;
+      alert("Usuario eliminado correctamente");
+      recargarUsuarios();
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    }
+  };
+
   useEffect(() => {
     async function fetchMe() {
       // 1. BARRERA DE ENTRADA: Si no hay sesión en Supabase Auth, no hacemos nada.
@@ -496,7 +628,7 @@ function DashboardContent() {
         const { data, error } = await supabase
           .from("usuarios")
           .select(
-            "id, nombre, apellidos, correo, telefono, premium, activo, created_at",
+            "id, nombre, apellidos, correo, telefono, premium, activo",
           )
           .order("nombre", { ascending: true });
 
@@ -972,7 +1104,6 @@ function DashboardContent() {
                           "Email",
                           "Teléfono",
                           "Premium",
-                          "Registro",
                           "Estado",
                         ].map((h) => (
                           <th
@@ -994,7 +1125,7 @@ function DashboardContent() {
                       {loadingUsuarios ? (
                         <tr>
                           <td
-                            colSpan={6}
+                            colSpan={5}
                             style={{
                               padding: "24px",
                               textAlign: "center",
@@ -1007,7 +1138,7 @@ function DashboardContent() {
                       ) : errorUsuarios ? (
                         <tr>
                           <td
-                            colSpan={6}
+                            colSpan={5}
                             style={{
                               padding: "24px",
                               textAlign: "center",
@@ -1068,19 +1199,6 @@ function DashboardContent() {
                               >
                                 {u.premium ? "Premium" : "Free"}
                               </span>
-                            </td>
-                            <td
-                              style={{
-                                padding: "16px 24px",
-                                color: "#a1a1aa",
-                                fontSize: "14px",
-                              }}
-                            >
-                              {u.created_at
-                                ? new Date(u.created_at).toLocaleDateString(
-                                    "es-ES",
-                                  )
-                                : "—"}
                             </td>
                             <td style={{ padding: "16px 24px" }}>
                               <span
