@@ -12,7 +12,7 @@ const Hero = () => {
   const backgroundImage = "/images/dentro-cueva.webp";
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#050505] flex items-center justify-center">
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#050505] flex items-center justify-center pt-24 sm:pt-28">
       {/* --- CONTENEDOR DE FONDO --- */}
       <div className="absolute inset-0 z-0">
         <img
