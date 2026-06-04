@@ -94,3 +94,17 @@ body {
   animation-play-state: running;
 }
 
+/* Evita que contenido quede oculto bajo la barra fija en móviles */
+:root {
+  --muma-navbar-offset: 6rem; /* valor por defecto */
+}
+
+@media (max-width: 640px) {
+  :root { --muma-navbar-offset: 6rem; }
+}
+
+/* Aplica un scroll-padding-top global para respetar la barra fija */
+main, section {
+  scroll-padding-top: var(--muma-navbar-offset);
+}
+

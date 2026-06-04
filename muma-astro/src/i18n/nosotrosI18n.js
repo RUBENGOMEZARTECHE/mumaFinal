@@ -14,7 +14,7 @@ export const nosotrosI18n = {
     heroStats: [
       { numero: 'ST3ER',  label: 'Proyecto europeo UE' },
       { numero: '+700',   label: 'personas en experiencia VR' },
-      { numero: 'Único',  label: 'archivo bioacústico ibérico' },
+      { numero: 'Archivo',  label: 'bioacústico ibérico' },
     ],
     heroImgAlt: 'Colonia de murciélagos en cueva natural — trabajo de campo de MUMA',
     heroFloatLabel: 'Trabajo de campo real',
@@ -56,13 +56,13 @@ export const nosotrosI18n = {
     // Sección 3B — Batcave Experience
     batcavePill: 'Tecnología aplicada',
     batcaveBadge: 'Producto activo · Disponible ahora',
-    batcaveH2a: 'Batcave Experience.',
+    batcaveH2a: 'Bat Cave Experience.',
     batcaveH2b: 'No es un prototipo. Está funcionando.',
-    batcaveP1: 'La Batcave Experience es la experiencia de realidad virtual inmersiva de MUMA: una cueva real digitalizada en 3D, con murciélagos, ultrasonidos y datos de campo reales. La lleva el visitante sin pisar el hábitat.',
+    batcaveP1: 'La Bat Cave Experience es la experiencia de realidad virtual inmersiva de MUMA: una cueva real digitalizada en 3D, con murciélagos, ultrasonidos y datos de campo reales. La lleva el visitante sin pisar el hábitat.',
     batcaveP2: 'No es una demo ni un prototipo. Está terminada, validada y ya ha pasado más de 700 personas en 2025 en museos, reservas naturales y eventos culturales de España y Portugal. Está disponible para instalación en cualquier espacio.',
     batcaveP3: 'Es lo que separa a MUMA de cualquier centro de interpretación convencional: una experiencia que no museifica la ciencia, sino que la pone en tiempo real delante del visitante.',
     batcaveTags: ['+700 personas en 2025', 'España y Portugal', 'Lista para instalar', 'Proyecto ST3ER'],
-    batcaveImgAlt: 'Experiencia Batcave — realidad virtual inmersiva de MUMA',
+    batcaveImgAlt: 'Experiencia Bat Cave — realidad virtual inmersiva de MUMA',
 
     // Sección 3D — A quién ayudamos
     clientesPill: 'Clientes',
@@ -72,7 +72,7 @@ export const nosotrosI18n = {
     clientes: [
       {
         tipo: 'Museos y centros de interpretación',
-        descripcion: 'Buscas una experiencia inmersiva que atraiga público sin dañar el hábitat. La Batcave Experience está terminada y lista para instalar.',
+        descripcion: 'Buscas una experiencia inmersiva que atraiga público sin dañar el hábitat. La Bat Cave Experience está terminada y lista para instalar.',
         ejemplo: 'Museos naturales, acuarios, zoológicos',
         servicio: 'Realidad Virtual',
         imgAlt: 'Niña disfrutando la experiencia de realidad virtual de MUMA',
@@ -108,7 +108,7 @@ export const nosotrosI18n = {
       {
         sigla: 'ST3ER',
         nombre: 'Proyecto europeo ST3ER',
-        descripcion: 'Investigación en 3 países (España, Portugal, Eslovenia). Financiado por SMP COSME de la UE. Resultado: Batcave Experience — producto comercial activo, más de 700 personas en 2025, sin fase piloto.',
+        descripcion: 'Investigación en 3 países (España, Portugal, Eslovenia). Financiado por SMP COSME de la UE. Resultado: Bat Cave Experience — producto comercial activo, más de 700 personas en 2025, sin fase piloto.',
         imgAlt: 'Logo Proyecto ST3ER — Murciélagos Málaga',
       },
       {
@@ -138,7 +138,7 @@ export const nosotrosI18n = {
       imgAlt: 'Antonio Moret, CEO de MUMA BAT COMPANY',
       rol: 'Fundador · Investigador de quirópteros',
       nombre: 'Antonio Moret',
-      p1: 'Más de una década estudiando colonias de murciélagos sobre el terreno. Coinvestigador del proyecto europeo ST3ER en España, Portugal y Eslovenia. Responsable del único archivo bioacústico colaborativo de quirópteros ibéricos generado por una empresa privada en España.',
+      p1: 'Más de una década estudiando colonias de murciélagos sobre el terreno. Coinvestigador del proyecto europeo ST3ER en España, Portugal y Eslovenia. Responsable de un archivo bioacústico colaborativo de quirópteros ibéricos generado por una empresa privada en España.',
       p2: 'La visión de MUMA viene de ahí: no de la tecnología, sino del campo. La realidad virtual, los refugios, las Bat Nights — todo parte de años de trabajo directo con el animal y su ecosistema.',
     },
     laura: {
@@ -159,8 +159,8 @@ export const nosotrosI18n = {
         texto: 'Un solo murciélago. Sin coste operativo, sin pesticidas, sin residuos. Por eso instalamos refugios: cada colonia es un sistema de control de plagas permanente.',
       },
       {
-        cifra: 'Único',
-        titulo: 'archivo bioacústico ibérico',
+        cifra: 'Archivo',
+        titulo: 'bioacústico ibérico',
         texto: 'Grabaciones de ultrasonidos, mapas de distribución y datos de colonias recogidos en campo durante años. Hemos buscado equivalentes y no existe ninguno similar generado por una empresa privada en España.',
       },
       {
@@ -248,13 +248,13 @@ export const nosotrosI18n = {
     // Sección 3B — Batcave Experience
     batcavePill: 'Applied technology',
     batcaveBadge: 'Active product · Available now',
-    batcaveH2a: 'Batcave Experience.',
+    batcaveH2a: 'Bat Cave Experience.',
     batcaveH2b: 'Not a prototype. It is live.',
-    batcaveP1: 'The Batcave Experience is MUMA\'s immersive virtual reality experience: a real cave digitised in 3D, complete with bats, ultrasound and real field data. Visitors experience it without setting foot in the habitat.',
+    batcaveP1: 'The Bat Cave Experience is MUMA\'s immersive virtual reality experience: a real cave digitised in 3D, complete with bats, ultrasound and real field data. Visitors experience it without setting foot in the habitat.',
     batcaveP2: 'It is not a demo or a prototype. It is finished, validated, and has already taken more than 700 people through it in 2025 — in museums, nature reserves and cultural events across Spain and Portugal. Available for installation in any space.',
     batcaveP3: 'This is what sets MUMA apart from any conventional interpretation centre: an experience that does not museify science, but puts it in front of the visitor in real time.',
     batcaveTags: ['+700 people in 2025', 'Spain and Portugal', 'Ready to install', 'ST3ER Project'],
-    batcaveImgAlt: 'Batcave Experience — MUMA immersive virtual reality',
+    batcaveImgAlt: 'Bat Cave Experience — MUMA immersive virtual reality',
 
     // Sección 3D — A quién ayudamos
     clientesPill: 'Clients',
@@ -264,7 +264,7 @@ export const nosotrosI18n = {
     clientes: [
       {
         tipo: 'Museums and interpretation centres',
-        descripcion: 'You are looking for an immersive experience that draws visitors without damaging the habitat. The Batcave Experience is complete and ready to install.',
+        descripcion: 'You are looking for an immersive experience that draws visitors without damaging the habitat. The Bat Cave Experience is complete and ready to install.',
         ejemplo: 'Natural history museums, aquariums, zoos',
         servicio: 'Virtual Reality',
         imgAlt: 'Girl enjoying the MUMA virtual reality experience',
@@ -300,7 +300,7 @@ export const nosotrosI18n = {
       {
         sigla: 'ST3ER',
         nombre: 'European Project ST3ER',
-        descripcion: 'Research across 3 countries (Spain, Portugal, Slovenia). Funded by EU COSME-SMP. Outcome: Batcave Experience — an active commercial product, over 700 participants in 2025, no pilot phase.',
+        descripcion: 'Research across 3 countries (Spain, Portugal, Slovenia). Funded by EU COSME-SMP. Outcome: Bat Cave Experience — an active commercial product, over 700 participants in 2025, no pilot phase.',
         imgAlt: 'ST3ER Project logo — Murciélagos Málaga',
       },
       {
@@ -440,13 +440,13 @@ export const nosotrosI18n = {
     // Sección 3B — Batcave Experience
     batcavePill: 'Angewandte Technologie',
     batcaveBadge: 'Aktives Produkt · Jetzt verfügbar',
-    batcaveH2a: 'Batcave Experience.',
+    batcaveH2a: 'Bat Cave Experience.',
     batcaveH2b: 'Kein Prototyp. Bereits im Einsatz.',
-    batcaveP1: 'Die Batcave Experience ist MUMAs immersives Virtual-Reality-Erlebnis: eine real in 3D digitalisierte Höhle, mit Fledermäusen, Ultraschall und echten Felddaten. Der Besucher erlebt sie, ohne den Lebensraum zu betreten.',
+    batcaveP1: 'Die Bat Cave Experience ist MUMAs immersives Virtual-Reality-Erlebnis: eine real in 3D digitalisierte Höhle, mit Fledermäusen, Ultraschall und echten Felddaten. Der Besucher erlebt sie, ohne den Lebensraum zu betreten.',
     batcaveP2: 'Es ist keine Demo und kein Prototyp. Es ist fertig, validiert und hat 2025 bereits mehr als 700 Personen in Museen, Naturschutzgebieten und Kulturveranstaltungen in Spanien und Portugal begeistert. Verfügbar für die Installation in beliebigen Räumen.',
     batcaveP3: 'Das ist das, was MUMA von jedem herkömmlichen Interpretationszentrum unterscheidet: ein Erlebnis, das Wissenschaft nicht musealisiert, sondern dem Besucher in Echtzeit zugänglich macht.',
     batcaveTags: ['+700 Personen 2025', 'Spanien und Portugal', 'Installationsbereit', 'Projekt ST3ER'],
-    batcaveImgAlt: 'Batcave Experience — immersives Virtual-Reality-Erlebnis von MUMA',
+    batcaveImgAlt: 'Bat Cave Experience — immersives Virtual-Reality-Erlebnis von MUMA',
 
     // Sección 3D — A quién ayudamos
     clientesPill: 'Kunden',
@@ -492,7 +492,7 @@ export const nosotrosI18n = {
       {
         sigla: 'ST3ER',
         nombre: 'Europäisches Projekt ST3ER',
-        descripcion: 'Forschung in 3 Ländern (Spanien, Portugal, Slowenien). Finanziert durch EU COSME-SMP. Ergebnis: Batcave Experience — aktives kommerzielles Produkt, über 700 Teilnehmer 2025, keine Pilotphase.',
+        descripcion: 'Forschung in 3 Ländern (Spanien, Portugal, Slowenien). Finanziert durch EU COSME-SMP. Ergebnis: Bat Cave Experience — aktives kommerzielles Produkt, über 700 Teilnehmer 2025, keine Pilotphase.',
         imgAlt: 'ST3ER-Projektlogo — Murciélagos Málaga',
       },
       {

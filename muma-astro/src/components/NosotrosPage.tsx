@@ -38,7 +38,7 @@ const credenciales = [
   {
     sigla: 'ST3ER',
     nombre: 'Proyecto europeo ST3ER',
-    descripcion: 'Investigación en 3 países (España, Portugal, Eslovenia). Financiado por SMP COSME de la UE. Resultado: Batcave Experience es un producto comercial activo, con más de 700 personas en 2025, sin fase piloto.',
+    descripcion: 'Investigación en 3 países (España, Portugal, Eslovenia). Financiado por SMP COSME de la UE. Resultado: Bat Cave Experience es un producto comercial activo, con más de 700 personas en 2025, sin fase piloto.',
     img: '/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp',
     imgAlt: 'Logo Proyecto ST3ER — Murciélagos Málaga',
   },
@@ -73,8 +73,8 @@ const datosMurcielagos = [
     texto: 'Un solo murciélago. Sin coste operativo, sin pesticidas, sin residuos. Por eso instalamos refugios: cada colonia es un sistema de control de plagas permanente.',
   },
   {
-    cifra: 'Único',
-    titulo: 'archivo bioacústico ibérico',
+    cifra: 'Archivo',
+    titulo: 'bioacústico ibérico',
     texto: 'Grabaciones de ultrasonidos, mapas de distribución y datos de colonias recogidos en campo durante años. Hemos buscado equivalentes y no existe ninguno similar generado por una empresa privada en España.',
   },
   {
@@ -378,7 +378,7 @@ export default function NosotrosPage() {
           {[
             { valor: 'ST3ER', etiqueta: 'Proyecto\nEuropeo UE' },
             { valor: '+700',  etiqueta: 'personas en\nexperiencia VR' },
-            { valor: 'Único',  etiqueta: 'archivo\nbioacústico ibérico' },
+            { valor: 'Archivo',  etiqueta: '\nbioacústico ibérico' },
             { valor: '+25',   etiqueta: 'colonias\ninstaladas' }, // Un stat extra para rellenar las 4 columnas
           ].map(({ valor, etiqueta }, i) => (
             <div key={i} className="bg-fondo-base px-5 py-6 flex flex-col items-center gap-2">
@@ -503,7 +503,7 @@ export default function NosotrosPage() {
               <div className="relative rounded-2xl overflow-hidden order-last lg:order-first" style={{ height: '420px' }}>
                 <img
                   src="/images/Image_VRglases.webp"
-                  alt="Experiencia Batcave — realidad virtual inmersiva de MUMA"
+                  alt="Experiencia Bat Cave — realidad virtual inmersiva de MUMA"
                   className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-fondo-secundario/60 via-transparent to-transparent" />
@@ -518,12 +518,12 @@ export default function NosotrosPage() {
               <div>
                 <p className="text-xs font-semibold tracking-widest text-marca-principal uppercase mb-3">Tecnología aplicada</p>
                 <h2 className="text-3xl sm:text-4xl font-bold text-texto-titulo mb-6 leading-tight">
-                  Batcave Experience.<br />
+                  Bat Cave Experience.<br />
                   <span className="text-marca-principal">No es un prototipo. Está funcionando.</span>
                 </h2>
                 <div className="space-y-4 text-white leading-relaxed text-base mb-8">
                   <p>
-                    La Batcave Experience es la experiencia de realidad virtual inmersiva de MUMA: una cueva real digitalizada en 3D, con murciélagos, ultrasonidos y datos de campo reales. La lleva el visitante sin pisar el hábitat.
+                    La Bat Cave Experience es la experiencia de realidad virtual inmersiva de MUMA: una cueva real digitalizada en 3D, con murciélagos, ultrasonidos y datos de campo reales. La lleva el visitante sin pisar el hábitat.
                   </p>
                   <p>
                     No es una demo ni un prototipo. Está terminada, validada y ya ha pasado más de 700 personas en 2025 en museos, reservas naturales y eventos culturales de España y Portugal. Está disponible para instalación en cualquier espacio.
@@ -559,7 +559,7 @@ export default function NosotrosPage() {
               {[
                 {
                   tipo: 'Museos y centros de interpretación',
-                  descripcion: 'Buscas una experiencia inmersiva que atraiga público sin dañar el hábitat. La Batcave Experience está terminada y lista para instalar.',
+                  descripcion: 'Buscas una experiencia inmersiva que atraiga público sin dañar el hábitat. La Bat Cave Experience está terminada y lista para instalar.',
                   ejemplo: 'Museos naturales, acuarios, zoológicos',
                   servicio: 'Realidad Virtual',
                   img: '/images/museos.webp',
@@ -687,6 +687,7 @@ export default function NosotrosPage() {
         </section>
 
         {/* ── SECCIÓN 5: EQUIPO ── */}
+      {/* ── SECCIÓN 5: EQUIPO ── */}
         <section className="bg-fondo-base py-20 px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div initial="oculto" whileInView="visible" viewport={{ once: true }} variants={varianteSeccion} className="text-center mb-12">
@@ -701,15 +702,15 @@ export default function NosotrosPage() {
               {/* Antonio Moret */}
               <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300">
                 <img
-                  src="/images/antonio-moret.webp"
+                  src="/images/antonio-moret.jpg"
                   alt="Antonio Moret, CEO de MUMA BAT COMPANY"
-                  className="w-full h-64 object-cover object-top"
+                  className="w-full h-64 object-cover object-center" 
                 />
                 <div className="p-7">
                   <p className="text-xs font-semibold text-marca-principal uppercase tracking-wider mb-1">Fundador · Investigador de quirópteros</p>
                   <h3 className="text-lg font-bold text-texto-titulo mb-3">Antonio Moret</h3>
                   <p className="text-sm text-white leading-relaxed mb-4">
-                    Más de una década estudiando colonias de murciélagos sobre el terreno. Coinvestigador del proyecto europeo ST3ER en España, Portugal y Eslovenia. Responsable del único archivo bioacústico colaborativo de quirópteros ibéricos generado por una empresa privada en España.
+                    Más de una década estudiando colonias de murciélagos sobre el terreno. Coinvestigador del proyecto europeo ST3ER en España, Portugal y Eslovenia. Responsable de un archivo bioacústico colaborativo de quirópteros ibéricos generado por una empresa privada en España.
                   </p>
                   <p className="text-sm text-white leading-relaxed">
                     La visión de MUMA viene de ahí: no de la tecnología, sino del campo. La realidad virtual, los refugios, las Bat Nights todo parte de años de trabajo directo con el animal y su ecosistema.
@@ -718,20 +719,21 @@ export default function NosotrosPage() {
               </div>
 
               {/* Laura Smit */}
-              <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300">
-                <img
-                  src="/images/laura.webp"
-                  alt="Laura Smit, Manager de MUMA BAT COMPANY"
-                  className="w-full h-64 object-cover object-top"
-                />
-                <div className="p-7">
-                  <p className="text-xs font-semibold text-marca-principal uppercase tracking-wider mb-1">Manager · Coordinación</p>
-                  <h3 className="text-lg font-bold text-texto-titulo mb-3">Laura Smit</h3>
-                  <p className="text-sm text-white leading-relaxed">
-                    Gestión de proyectos sostenibles e investigación científica. Coordina las alianzas institucionales de MUMA y supervisa la ejecución de los programas de conservación, educación ambiental y relaciones con entidades públicas.
-                  </p>
-                </div>
-              </div>
+             <div className="bg-fondo-superficie rounded-2xl overflow-hidden border border-white/5 hover:border-marca-principal/25 transition-colors duration-300">
+  <img
+    src="/images/laura.jpg"
+    alt="Laura Smit, Manager de MUMA BAT COMPANY"
+    className="w-full h-64 object-cover"
+    style={{ objectPosition: 'center 10%' }} 
+  />
+  <div className="p-7">
+    <p className="text-xs font-semibold text-marca-principal uppercase tracking-wider mb-1">Manager · Coordinación</p>
+    <h3 className="text-lg font-bold text-texto-titulo mb-3">Laura Smit</h3>
+    <p className="text-sm text-white leading-relaxed">
+      Gestión de proyectos sostenibles e investigación científica. Coordina las alianzas institucionales de MUMA y supervisa la ejecución de los programas de conservación, educación ambiental y relaciones con entidades públicas.
+    </p>
+  </div>
+</div>
             </motion.div>
           </div>
         </section>

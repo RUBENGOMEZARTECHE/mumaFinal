@@ -128,20 +128,21 @@ export default function FormacionPage() {
       {/* Bloque de Logos debajo del texto */}
       {/* Cambiado: justify-center para que los logos se agrupen de forma simétrica en el centro */}
       <div className="flex flex-wrap flex-row items-center justify-center gap-8 sm:gap-12 w-full pt-6 border-t border-white/5">
-        {[
-          { src: '/images/Logo_SECEMU.webp', alt: 'SECEMU' },
-          { src: '/images/EUROBATS_logo.webp', alt: 'EUROBATS' },
-          { src: '/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp', alt: 'ST3ER — SMP COSME UE' },
-          { src: '/images/europa.webp', alt: 'Fondos FEDER — Unión Europea' },
-        ].map((logo) => (
-          <img 
-            key={logo.alt} 
-            src={logo.src} 
-            alt={logo.alt} 
-            className="h-12 sm:h-14 lg:h-16 max-w-[200px] object-contain opacity-75 hover:opacity-100 transition-all duration-300" 
-          />
-        ))}
-      </div>
+  {[
+    { src: '/images/Logo_SECEMU_blanco.webp', alt: 'SECEMU' },
+    { src: '/images/EUROBATS_logo.webp', alt: 'EUROBATS' },
+    { src: '/images/Murcielagos-Malaga-ST3ER-Proyect-2-1024x266.webp', alt: 'ST3ER — SMP COSME UE' },
+    { src: '/images/europa.webp', alt: 'Fondos FEDER — Unión Europea' },
+  ].map((logo) => (
+    <img 
+      key={logo.alt} 
+      src={logo.src} 
+      alt={logo.alt} 
+      /* 👇 AQUÍ HEMOS SUBIDO LOS VALORES DE h- Y max-w- 👇 */
+      className="h-18 sm:h-22 lg:h-26 max-w-[280px] object-contain opacity-75 hover:opacity-100 transition-all duration-300" 
+    />
+  ))}
+</div>
     </motion.div>
   </div>
 </section>

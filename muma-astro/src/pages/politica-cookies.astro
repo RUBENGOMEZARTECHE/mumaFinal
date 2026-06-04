@@ -1,0 +1,125 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const updatedAt = "05/05/2026";
+---
+
+<BaseLayout
+  title="Política de Cookies — MUMA BAT COMPANY"
+  description="Información transparente sobre el uso de tecnologías de almacenamiento local en MUMA BAT COMPANY."
+  canonical="https://mumabatcompany.com/politica-cookies"
+>
+  <main class="min-h-screen bg-fondo-base pt-40 pb-20 px-6 sm:px-10">
+    <article class="max-w-4xl mx-auto">
+      <header class="mb-10" data-animate>
+        <p class="text-xs font-bold tracking-[0.25em] uppercase text-marca-principal mb-4">
+          Cookies
+        </p>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-texto-titulo mb-5">
+          Política de Cookies
+        </h1>
+        <p class="text-texto-secundario leading-relaxed max-w-3xl">
+          Esta página explica qué tecnologías de almacenamiento técnico se utilizan en nuestro sitio web. En MUMA BAT COMPANY priorizamos tu privacidad y mantenemos una navegación libre de rastreo.
+        </p>
+        <p class="text-xs text-texto-secundario/70 mt-4">
+          Última actualización: {updatedAt}
+        </p>
+      </header>
+
+      <div class="legal-content space-y-9 text-texto-secundario leading-relaxed" data-animate>
+        <section>
+          <h2>1. ¿Qué son las cookies?</h2>
+          <p>
+            Las cookies y las tecnologías de almacenamiento local (como <i>Local Storage</i> o <i>Session Storage</i>) son pequeños archivos de datos que se guardan en tu navegador o dispositivo cuando visitas un sitio web. Permiten recordar configuraciones técnicas básicas o preferencias de navegación para que no tengas que volver a seleccionarlas cada vez que cambias de página.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Responsable</h2>
+          <ul>
+            <li><strong>Razón social:</strong> Antonio Moret</li>
+            <li><strong>Marca comercial:</strong> MUMA BAT COMPANY</li>
+            <li><strong>Correo electrónico:</strong> info@mumabatcompany.com</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Nuestro compromiso: Navegación sin rastreo ni cookies de terceros</h2>
+          <p>
+            MUMA BAT COMPANY <strong>no utiliza cookies analíticas, de perfilado, de publicidad ni cookies de terceros</strong>. No rastreamos tu comportamiento en internet, no elaboramos perfiles de usuario ni transferimos información de tu navegación a agencias publicitarias o plataformas externas.
+          </p>
+          <p class="mt-3">
+            Únicamente empleamos tecnologías de almacenamiento de carácter técnico y funcional indispensables para ofrecerte una navegación fluida y segura.
+          </p>
+        </section>
+
+        <section>
+          <h2>4. Tecnologías y almacenamiento detectados en la web</h2>
+          <p>
+            Para garantizar el correcto funcionamiento técnico de la plataforma y respetar tus decisiones de uso, únicamente guardamos de forma local el siguiente parámetro técnico:
+          </p>
+          <ul>
+            <li>
+              <strong>muma-locale:</strong> Almacena de forma local la preferencia de idioma seleccionada por el usuario (español, inglés, etc.) con el único fin de mostrar la web en el idioma correcto durante tu visita. 
+              <br />
+              <span class="text-xs text-texto-secundario/80"><em>Tipo: Técnica / Funcional. Duración: Permanente en almacenamiento local (hasta que limpies el navegador).</em></span>
+            </li>
+          </ul>
+          <p class="mt-3">
+            Al tratarse de un almacenamiento estrictamente necesario para la prestación del servicio que has solicitado expresamente (ver la web en tu idioma), su uso está exento de la obligación de obtener un consentimiento previo según la normativa aplicable (LSSI-CE y directrices de la AEPD).
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Gestión o desactivación de cookies</h2>
+          <p>
+            Aunque este sitio web no utiliza cookies de seguimiento, puedes bloquear, restringir o eliminar el almacenamiento local de cualquier portal web directamente a través de la configuración de tu navegador de internet:
+          </p>
+          <ul>
+            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="text-marca-principal hover:underline font-semibold">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener noreferrer" class="text-marca-principal hover:underline font-semibold">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" class="text-marca-principal hover:underline font-semibold">Apple Safari</a></li>
+            <li><a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" class="text-marca-principal hover:underline font-semibold">Microsoft Edge</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>6. Consentimiento</h2>
+          <p>
+            En caso de que en el futuro MUMA BAT COMPANY incorpore herramientas de análisis de tráfico o servicios multimedia de terceros que requieran la instalación de cookies de seguimiento, se implementará previamente un banner de consentimiento interactivo para que puedas decidir si permites o rechazas su uso de manera explícita.
+          </p>
+        </section>
+
+        <section>
+          <h2>7. Actualizaciones</h2>
+          <p>
+            Esta Política de Cookies podrá modificarse cuando cambien las tecnologías de almacenamiento local utilizadas en la web, la normativa legal aplicable o bajo directrices de la Agencia Española de Protección de Datos (AEPD).
+          </p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <style>
+    .legal-content h2 {
+      color: rgb(var(--texto-titulo, 255 255 255));
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .legal-content strong {
+      color: white;
+    }
+    .legal-content ul {
+      margin-top: 1rem;
+      padding-left: 1.25rem;
+      list-style: disc;
+    }
+    .legal-content li {
+      margin: 0.4rem 0;
+    }
+    .legal-content p + p {
+      margin-top: 0.75rem;
+    }
+  </style>
+</BaseLayout>

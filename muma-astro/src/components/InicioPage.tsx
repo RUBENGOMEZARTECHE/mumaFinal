@@ -12,7 +12,7 @@ const Hero = () => {
   const backgroundImage = "/images/dentro-cueva.webp";
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#050505] flex items-center justify-center">
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#050505] flex items-center justify-center pt-24 sm:pt-28">
       {/* --- CONTENEDOR DE FONDO --- */}
       <div className="absolute inset-0 z-0">
         <img
@@ -95,7 +95,7 @@ const Diferenciacion = () => {
   const items = [
     {
       title: "Ciencia de campo",
-      desc: "Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración es la base de cada servicio.",
+      desc: "Más de una década estudiando colonias, grabando ultrasonidos y construyendo un archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración es la base de cada servicio.",
       bg: "/images/Murciélagos Málaga Real 1.JPG",
       link: "/nosotros",
       cta: "Conocer el equipo",
@@ -194,7 +194,7 @@ const Segmentacion = () => {
   const perfiles = [
     {
       tipo: "Museos y centros culturales",
-      desc: "Instala la Batcave Experience en tu espacio. Sin obra, sin infraestructura. Montamos, operamos y recogemos.",
+      desc: "Instala la Bat Cave Experience en tu espacio. Sin obra, sin infraestructura. Montamos, operamos y recogemos.",
       etiqueta: "Realidad Virtual",
       link: "/servicios/realidad-virtual",
       img: "/images/museos.webp",
@@ -291,7 +291,7 @@ const Servicios = () => {
   const servicios = [
     {
       title: "Realidad Virtual",
-      desc: "La Batcave Experience: una cueva de murciélagos en tu espacio. Lista para instalar, sin obra.",
+      desc: "La Bat Cave Experience: una cueva de murciélagos en tu espacio. Lista para instalar, sin obra.",
       link: "/servicios/realidad-virtual",
       img: "/images/chica-realidad-virtual.webp",
     },
@@ -373,7 +373,7 @@ const Credibilidad = () => (
     {/* 3 frases de credibilidad */}
     <div className="max-w-5xl mx-auto px-6 mt-12 flex flex-col md:flex-row gap-8 text-center border-t border-white pt-10">
       {[
-        { titulo: "Archivo único", texto: "Único archivo bioacústico privado de quirópteros ibéricos. No existe equivalente generado por una empresa privada en España." },
+        { titulo: "Archivo ", texto: "Archivo bioacústico privado de quirópteros ibéricos. No existe equivalente generado por una empresa privada en España." },
         { titulo: "Proyecto europeo completado", texto: "ST3ER finalizado en 3 países  España, Portugal y Eslovenia. Producto comercial activo, no prototipo." },
         { titulo: "Más de 700 personas en 2025", texto: "Experiencias VR reales en museos, reservas naturales y espacios culturales. Feedback directo de campo." },
       ].map((item, i) => (
@@ -397,7 +397,7 @@ const Vision = () => (
           <span className="text-[#10b981]">no existe en ningún otro sitio.</span>
         </h2>
         <p className="text-white text-lg mb-6 leading-relaxed">
-          Durante años de trabajo de campo, MUMA ha construido el único archivo bioacústico privado de quirópteros ibéricos: grabaciones reales, mapas de distribución y datos de colonias en tres países europeos.
+          Durante años de trabajo de campo, MUMA ha construido un archivo bioacústico privado de quirópteros ibéricos: grabaciones reales, mapas de distribución y datos de colonias en tres países europeos.
         </p>
         <p className="text-white text-lg mb-8 leading-relaxed">
           Ese conocimiento es la base de cada servicio que ofrecemos. No somos un centro de interpretación somos el equipo que lo documentó.
@@ -476,7 +476,7 @@ const Captacion = () => {
       <div className="relative z-10 max-w-2xl mx-auto text-center">
 
         <p className="text-[#10b981] text-xs font-bold tracking-[0.3em] uppercase mb-4">
-          Batcave Experience — Lista de espera
+          Bat Cave Experience — Lista de espera
         </p>
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
           Sé el primero en saber <br />
@@ -488,7 +488,7 @@ const Captacion = () => {
 
         <FormularioMuma 
           tablaBD="consultas_web"
-          asuntoCorreo="[Web Inicio] Nueva alta en lista de espera Batcave"
+          asuntoCorreo="[Web Inicio] Nueva alta en lista de espera Bat Cave"
           textoBoton="APUNTARME AHORA"
           mostrarNombre={false}
           mostrarOrganizacion={false}
@@ -504,7 +504,7 @@ const Captacion = () => {
           }}
         />
 
-        <p className="text-white text-xs mt-6">Sin spam. Solo novedades de la Batcave Experience.</p>
+        <p className="text-white text-xs mt-6">Sin spam. Solo novedades de la Bat Cave Experience.</p>
       </div>
     </section>
   );
