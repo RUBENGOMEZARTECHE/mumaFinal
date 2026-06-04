@@ -534,7 +534,7 @@ export default function RealidadVirtualPage() {
   </div>
   
   <p className="text-center text-xs text-texto-secundario/50 mt-10 max-w-xl mx-auto leading-relaxed">
-    La Batcave Experience es el resultado comercial del proyecto europeo ST3ER (Grant Agreement Nº101121592), financiado por el programa COSME-SMP de la Unión Europea e impulsado por la red La Brújula XR.
+    La Bat Cave Experience es el resultado comercial del proyecto europeo ST3ER (Grant Agreement Nº101121592), financiado por el programa COSME-SMP de la Unión Europea e impulsado por la red La Brújula XR.
   </p>
 </motion.div>
 

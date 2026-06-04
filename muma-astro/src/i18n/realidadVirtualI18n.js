@@ -49,7 +49,7 @@ export const realidadVirtualI18n = {
 
     // Financiación
     financiacionLabel: 'Proyecto financiado por',
-    financiacionP: 'La Batcave Experience es el resultado comercial del proyecto europeo ST3ER (Grant Agreement Nº101121592), financiado por el programa COSME-SMP de la Unión Europea e impulsado por la red La Brújula XR.',
+    financiacionP: 'La Bat Cave Experience es el resultado comercial del proyecto europeo ST3ER (Grant Agreement Nº101121592), financiado por el programa COSME-SMP de la Unión Europea e impulsado por la red La Brújula XR.',
 
     // Sección 2b — A quién va dirigido
     clientesPill: 'Llevamos la experiencia a tu espacio',
@@ -221,7 +221,7 @@ export const realidadVirtualI18n = {
 
     // Financiación
     financiacionLabel: 'Project funded by',
-    financiacionP: 'The Batcave Experience is the commercial outcome of the European project ST3ER (Grant Agreement No. 101121592), funded by the EU COSME-SMP programme and driven by the La Brújula XR network.',
+    financiacionP: 'The Bat Cave Experience is the commercial outcome of the European project ST3ER (Grant Agreement No. 101121592), funded by the EU COSME-SMP programme and driven by the La Brújula XR network.',
 
     // Sección 2b — A quién va dirigido
     clientesPill: 'We bring the experience to your space',
@@ -393,7 +393,7 @@ export const realidadVirtualI18n = {
 
     // Financiación
     financiacionLabel: 'Projekt finanziert von',
-    financiacionP: 'Die Batcave Experience ist das kommerzielle Ergebnis des europäischen Projekts ST3ER (Fördervertrag Nr. 101121592), finanziert durch das EU-Programm COSME-SMP und vorangetrieben vom La Brújula XR-Netzwerk.',
+    financiacionP: 'Die Bat Cave Experience ist das kommerzielle Ergebnis des europäischen Projekts ST3ER (Fördervertrag Nr. 101121592), finanziert durch das EU-Programm COSME-SMP und vorangetrieben vom La Brújula XR-Netzwerk.',
 
     // Sección 2b — A quién va dirigido
     clientesPill: 'Wir bringen das Erlebnis zu Ihnen',

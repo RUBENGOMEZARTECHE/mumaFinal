@@ -8,13 +8,13 @@ export const inicioI18n = {
     diferenciacionItems: [
       {
         title: 'Ciencia de campo',
-        desc: 'Más de una década estudiando colonias, grabando ultrasonidos y construyendo el único archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración — es la base de cada servicio.',
+        desc: 'Más de una década estudiando colonias, grabando ultrasonidos y construyendo un archivo bioacústico privado de quirópteros ibéricos. El conocimiento no es decoración — es la base de cada servicio.',
         cta: 'Conocer el equipo',
       },
       {
         title: 'Tecnología que tiene fondo',
-        desc: 'La Batcave Experience no es una recreación — es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o espacios naturales sin obra ni infraestructura adicional.',
-        cta: 'Ver la Batcave Experience',
+        desc: 'La Bat Cave Experience no es una recreación — es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o espacios naturales sin obra ni infraestructura adicional.',
+        cta: 'Ver la Bat Cave Experience',
       },
       {
         title: 'Comunidad e impacto real',
@@ -30,7 +30,7 @@ export const inicioI18n = {
     segmentacionPerfiles: [
       {
         tipo: 'Museos y centros culturales',
-        desc: 'Instala la Batcave Experience en tu espacio. Sin obra, sin infraestructura. Montamos, operamos y recogemos.',
+        desc: 'Instala la Bat Cave Experience en tu espacio. Sin obra, sin infraestructura. Montamos, operamos y recogemos.',
         etiqueta: 'Realidad Virtual',
         cta: 'Ver la experiencia',
       },
@@ -60,7 +60,7 @@ export const inicioI18n = {
     servicios: [
       {
         title: 'Realidad Virtual',
-        desc: 'La Batcave Experience: una cueva de murciélagos en tu espacio. Lista para instalar, sin obra.',
+        desc: 'La Bat Cave Experience: una cueva de murciélagos en tu espacio. Lista para instalar, sin obra.',
       },
       {
         title: 'Bat Nights',
@@ -87,8 +87,8 @@ export const inicioI18n = {
     credibilidadLabel: 'Respaldados por instituciones científicas y europeas',
     credibilidadItems: [
       {
-        titulo: 'Archivo único',
-        texto: 'Único archivo bioacústico privado de quirópteros ibéricos. No existe equivalente generado por una empresa privada en España.',
+        titulo: 'Archivo ',
+        texto: 'Archivo bioacústico privado de quirópteros ibéricos. No existe equivalente generado por una empresa privada en España.',
       },
       {
         titulo: 'Proyecto europeo completado',
@@ -103,12 +103,12 @@ export const inicioI18n = {
     // Vision
     visionH2a: 'Un archivo que ',
     visionH2b: 'no existe en ningún otro sitio.',
-    visionP1: 'Durante años de trabajo de campo, MUMA ha construido el único archivo bioacústico privado de quirópteros ibéricos: grabaciones reales, mapas de distribución y datos de colonias en tres países europeos.',
+    visionP1: 'Durante años de trabajo de campo, MUMA ha construido un archivo bioacústico privado de quirópteros ibéricos: grabaciones reales, mapas de distribución y datos de colonias en tres países europeos.',
     visionP2: 'Ese conocimiento es la base de cada servicio que ofrecemos. No somos un centro de interpretación — somos el equipo que lo documentó.',
     visionCta: 'Conocer el equipo',
 
     // Captacion
-    captacionPill: 'Batcave Experience — Lista de espera',
+    captacionPill: 'Bat Cave Experience — Lista de espera',
     captacionH2a: 'Sé el primero en saber ',
     captacionH2b: 'cuándo está disponible.',
     captacionP: 'Más de 700 personas ya la han probado en eventos. Cuando abramos acceso directo, avisamos primero a esta lista.',
@@ -117,10 +117,10 @@ export const inicioI18n = {
     captacionBtnSending: 'Enviando...',
     captacionSuccess: '✓ Apuntado. Te avisamos cuando esté listo.',
     captacionError: 'Algo ha fallado. Inténtalo de nuevo.',
-    captacionDisclaimer: 'Sin spam. Solo novedades de la Batcave Experience.',
+    captacionDisclaimer: 'Sin spam. Solo novedades de la Bat Cave Experience.',
 
     // CTAFinal
-    ctaH2: 'La Batcave Experience está lista. ¿Hablamos?',
+    ctaH2: 'La Bat Cave Experience está lista. ¿Hablamos?',
     ctaP: 'Sin obra, sin infraestructura. Montamos, operamos y recogemos. Tu espacio acoge la experiencia.',
     ctaBtn1: 'Pedir información',
     ctaBtn2: 'Ver la experiencia completa',
@@ -133,7 +133,7 @@ export const inicioI18n = {
     heroPb: 'ayuntamientos, museos, centros educativos y administraciones',
     heroPc: ' que quieren integrar los murciélagos como herramienta de ',
     heroPd: 'conservación, control de plagas, divulgación o experiencia inmersiva.',
-    heroCta1: 'Ver la Batcave Experience',
+    heroCta1: 'Ver la Bat Cave Experience',
   },
 
   en: {
@@ -149,8 +149,8 @@ export const inicioI18n = {
       },
       {
         title: 'Technology with substance',
-        desc: 'The Batcave Experience is not a recreation — it is a real cave digitised in 3D. Ready to install in museums, shopping centres or natural spaces with no construction or additional infrastructure.',
-        cta: 'See the Batcave Experience',
+        desc: 'The Bat Cave Experience is not a recreation — it is a real cave digitised in 3D. Ready to install in museums, shopping centres or natural spaces with no construction or additional infrastructure.',
+        cta: 'See the Bat Cave Experience',
       },
       {
         title: 'Community and real impact',
@@ -166,7 +166,7 @@ export const inicioI18n = {
     segmentacionPerfiles: [
       {
         tipo: 'Museums and cultural centres',
-        desc: 'Install the Batcave Experience in your space. No construction, no infrastructure. We set up, operate and pack down.',
+        desc: 'Install the Bat Cave Experience in your space. No construction, no infrastructure. We set up, operate and pack down.',
         etiqueta: 'Virtual Reality',
         cta: 'See the experience',
       },
@@ -196,7 +196,7 @@ export const inicioI18n = {
     servicios: [
       {
         title: 'Virtual Reality',
-        desc: 'The Batcave Experience: a bat cave in your space. Ready to install, no construction.',
+        desc: 'The Bat Cave Experience: a bat cave in your space. Ready to install, no construction.',
       },
       {
         title: 'Bat Nights',
@@ -244,7 +244,7 @@ export const inicioI18n = {
     visionCta: 'Meet the team',
 
     // Captacion
-    captacionPill: 'Batcave Experience — Waiting list',
+    captacionPill: 'Bat Cave Experience — Waiting list',
     captacionH2a: 'Be the first to know ',
     captacionH2b: 'when it is available.',
     captacionP: 'Over 700 people have already tried it at events. When we open direct access, this list is notified first.',
@@ -253,10 +253,10 @@ export const inicioI18n = {
     captacionBtnSending: 'Sending...',
     captacionSuccess: '✓ You are in. We will let you know when it is ready.',
     captacionError: 'Something went wrong. Please try again.',
-    captacionDisclaimer: 'No spam. Only Batcave Experience updates.',
+    captacionDisclaimer: 'No spam. Only Bat Cave Experience updates.',
 
     // CTAFinal
-    ctaH2: 'The Batcave Experience is ready. Shall we talk?',
+    ctaH2: 'The Bat Cave Experience is ready. Shall we talk?',
     ctaP: 'No construction, no infrastructure. We set up, operate and pack down. Your space hosts the experience.',
     ctaBtn1: 'Request information',
     ctaBtn2: 'See the full experience',
@@ -269,7 +269,7 @@ export const inicioI18n = {
     heroPb: 'councils, museums, educational centres and public administrations',
     heroPc: ' that want to integrate bats as a tool for ',
     heroPd: 'conservation, pest control, outreach or immersive experience.',
-    heroCta1: 'See the Batcave Experience',
+    heroCta1: 'See the Bat Cave Experience',
   },
 
   de: {
@@ -285,8 +285,8 @@ export const inicioI18n = {
       },
       {
         title: 'Technologie mit Tiefgang',
-        desc: 'Die Batcave Experience ist keine Nachbildung — es ist eine echte, in 3D digitalisierte Höhle. Installationsbereit in Museen, Einkaufszentren oder Naturräumen, ohne Bauarbeiten oder zusätzliche Infrastruktur.',
-        cta: 'Batcave Experience ansehen',
+        desc: 'Die Bat Cave Experience ist keine Nachbildung — es ist eine echte, in 3D digitalisierte Höhle. Installationsbereit in Museen, Einkaufszentren oder Naturräumen, ohne Bauarbeiten oder zusätzliche Infrastruktur.',
+        cta: 'Bat Cave Experience ansehen',
       },
       {
         title: 'Gemeinschaft und echte Wirkung',
@@ -302,7 +302,7 @@ export const inicioI18n = {
     segmentacionPerfiles: [
       {
         tipo: 'Museen und Kulturzentren',
-        desc: 'Installieren Sie die Batcave Experience in Ihrem Raum. Keine Bauarbeiten, keine Infrastruktur. Wir bauen auf, betreiben und räumen ab.',
+        desc: 'Installieren Sie die Bat Cave Experience in Ihrem Raum. Keine Bauarbeiten, keine Infrastruktur. Wir bauen auf, betreiben und räumen ab.',
         etiqueta: 'Virtual Reality',
         cta: 'Erfahrung ansehen',
       },
@@ -332,7 +332,7 @@ export const inicioI18n = {
     servicios: [
       {
         title: 'Virtual Reality',
-        desc: 'Die Batcave Experience: eine Fledermaus-Höhle in Ihrem Raum. Installationsbereit, keine Bauarbeiten.',
+        desc: 'Die Bat Cave Experience: eine Fledermaus-Höhle in Ihrem Raum. Installationsbereit, keine Bauarbeiten.',
       },
       {
         title: 'Bat Nights',
@@ -380,7 +380,7 @@ export const inicioI18n = {
     visionCta: 'Das Team kennenlernen',
 
     // Captacion
-    captacionPill: 'Batcave Experience — Warteliste',
+    captacionPill: 'Bat Cave Experience — Warteliste',
     captacionH2a: 'Erfahren Sie als Erster, ',
     captacionH2b: 'wann es verfügbar ist.',
     captacionP: 'Über 700 Personen haben es bereits bei Veranstaltungen ausprobiert. Wenn wir den direkten Zugang öffnen, wird diese Liste zuerst benachrichtigt.',
@@ -389,10 +389,10 @@ export const inicioI18n = {
     captacionBtnSending: 'Wird gesendet...',
     captacionSuccess: '✓ Eingetragen. Wir benachrichtigen Sie, wenn es bereit ist.',
     captacionError: 'Etwas ist schiefgelaufen. Bitte erneut versuchen.',
-    captacionDisclaimer: 'Kein Spam. Nur Neuigkeiten zur Batcave Experience.',
+    captacionDisclaimer: 'Kein Spam. Nur Neuigkeiten zur Bat Cave Experience.',
 
     // CTAFinal
-    ctaH2: 'Die Batcave Experience ist bereit. Sprechen wir?',
+    ctaH2: 'Die Bat Cave Experience ist bereit. Sprechen wir?',
     ctaP: 'Keine Bauarbeiten, keine Infrastruktur. Wir bauen auf, betreiben und räumen ab. Ihr Raum beherbergt das Erlebnis.',
     ctaBtn1: 'Informationen anfragen',
     ctaBtn2: 'Das vollständige Erlebnis ansehen',
@@ -405,6 +405,6 @@ export const inicioI18n = {
     heroPb: 'Kommunen, Museen, Bildungseinrichtungen und Behörden',
     heroPc: ', die Fledermäuse als Werkzeug für ',
     heroPd: 'Naturschutz, Schädlingsbekämpfung, Wissensvermittlung oder immersive Erlebnisse integrieren möchten.',
-    heroCta1: 'Batcave Experience ansehen',
+    heroCta1: 'Bat Cave Experience ansehen',
   },
 }
