@@ -103,7 +103,7 @@ const Diferenciacion = () => {
     {
       title: "Tecnología que tiene fondo",
       desc: "La Batcave Experience no es una recreación es una cueva real digitalizada en 3D. Lista para instalar en museos, centros comerciales o espacios naturales sin obra ni infraestructura adicional.",
-      bg: "/images/chica-realidad-virtual.webp",
+      bg: "/images/realidad_virtual.png",
       link: "/servicios/realidad-virtual",
       cta: "MuMa Bat Cave Experience VR",
     },
