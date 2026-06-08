@@ -168,13 +168,13 @@ const modelos = [
           </p>
           <div className="flex gap-3 shrink-0">
             <a
-              href="mailto:info@murcielagosmalaga.com?subject=Solicitud%20presupuesto%20refugios%20MUMA"
+              href="mailto:info@mumabatcompany.com?subject=Solicitud%20presupuesto%20refugios%20MUMA"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
             >
               Pedir presupuesto gratis
             </a>
             <a
-              href="https://wa.me/34664213450"
+              href="https://wa.me/34668540690"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold border border-white/15 text-texto-principal hover:bg-fondo-superficie transition-all duration-200 no-underline"

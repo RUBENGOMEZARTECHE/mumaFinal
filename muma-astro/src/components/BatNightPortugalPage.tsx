@@ -196,7 +196,7 @@ export default function BatNightPortugalPage() {
                 Solicitar propuesta por email
               </a>
               <a
-                href="https://wa.me/34664213450"
+                href="https://wa.me/34668540690"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-white/15 text-texto-principal hover:bg-fondo-secundario hover:border-white/25 transition-all duration-200 no-underline"

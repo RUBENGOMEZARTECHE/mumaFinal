@@ -215,8 +215,8 @@ export default function DonarPage() {
           {/* Nota informativa */}
           <p className="text-center text-xs text-gray-600 mt-6 italic">
             Todas las donaciones son voluntarias. Para obtener un certificado de donación, escríbenos a{' '}
-            <a href="mailto:info@murcielagosmalaga.com" className="text-marca-principal hover:underline">
-              info@murcielagosmalaga.com
+            <a href="mailto:info@mumabatcompany.com" className="text-marca-principal hover:underline">
+              info@mumabatcompany.com
             </a>
           </p>
         </motion.section>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export default function WhatsAppButton() {
-  const numero  = '34664213450'
+  const numero  = '34668540690'
   const mensaje = encodeURIComponent('Hola, me interesa saber más sobre MUMA BAT COMPANY.')
   const url     = `https://wa.me/${numero}?text=${mensaje}`
   const [burbujaVisible, setBurbujaVisible] = useState(false)

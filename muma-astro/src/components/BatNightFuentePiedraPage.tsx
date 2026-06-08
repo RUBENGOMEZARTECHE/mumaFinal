@@ -190,13 +190,13 @@ export default function BatNightFuentePiedraPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="mailto:info@murcielagosmalaga.com?subject=Quiero%20organizar%20una%20Bat%20Night%20en%20una%20reserva%20natural"
+                href="mailto:info@mumabatcompany.com?subject=Quiero%20organizar%20una%20Bat%20Night%20en%20una%20reserva%20natural"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold bg-marca-principal text-texto-sobre-accion hover:bg-marca-principal-hover transition-colors duration-200 no-underline"
               >
                 Solicitar propuesta por email
               </a>
               <a
-                href="https://wa.me/34664213450"
+                href="https://wa.me/34668540690"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold border border-white/15 text-texto-principal hover:bg-fondo-secundario hover:border-white/25 transition-all duration-200 no-underline"

@@ -372,7 +372,7 @@ export default function FormularioMuma({
       <p className="text-xs text-center text-texto-secundario/70 mt-4 relative z-10">
         O escríbenos por{" "}
         <a
-          href="https://wa.me/34664213450"
+          href="https://wa.me/34668540690"
           target="_blank"
           rel="noopener noreferrer"
           className="text-marca-principal hover:underline underline-offset-2 transition-all"

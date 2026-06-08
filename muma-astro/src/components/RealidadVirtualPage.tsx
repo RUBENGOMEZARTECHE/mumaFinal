@@ -300,7 +300,7 @@ export default function RealidadVirtualPage() {
               Pedir demostración interactiva <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </a>
             <a
-              href="https://wa.me/34664213450"
+              href="https://wa.me/34668540690"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300 w-full sm:w-auto"
@@ -419,7 +419,7 @@ export default function RealidadVirtualPage() {
                   Pedir demostración en tu espacio
                 </a>
                 <a
-                  href="mailto:info@murcielagosmalaga.com"
+                  href="mailto:info@mumabatcompany.com"
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white/90 bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300 backdrop-blur-sm no-underline w-full sm:w-auto text-center"
                 >
                   Escribir al equipo <ArrowRight size={15} aria-hidden="true" className="opacity-70" />

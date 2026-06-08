@@ -15,15 +15,15 @@ const metodos = [
   {
     Icono: Mail,
     titulo: "Email",
-    valor: "info@murcielagosmalaga.com",
-    href: "mailto:info@murcielagosmalaga.com",
+    valor: "info@mumabatcompany.com",
+    href: "mailto:info@mumabatcompany.com",
     etiqueta: "Escríbenos",
   },
   {
     Icono: MessageCircle,
     titulo: "WhatsApp",
-    valor: "+34 664 213 450",
-    href: "https://wa.me/34664213450",
+    valor: "+34 668 540 690",
+    href: "https://wa.me/34668540690",
     etiqueta: "Abrir chat",
   },
   {

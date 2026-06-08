@@ -98,7 +98,7 @@ export default function EducacionAmbientalPage() {
             <a href="/contacto" className="px-12 py-5 bg-marca-principal text-black rounded-full font-black text-xs tracking-widest uppercase hover:bg-marca-principal-hover transition-all no-underline">
               Solicitar propuesta
             </a>
-            <a href="https://wa.me/34664213450" target="_blank" rel="noopener noreferrer" className="px-12 py-5 bg-white/5 border border-white/15 text-white rounded-full font-black text-xs tracking-widest uppercase hover:bg-white/10 transition-all no-underline">
+            <a href="https://wa.me/34668540690" target="_blank" rel="noopener noreferrer" className="px-12 py-5 bg-white/5 border border-white/15 text-white rounded-full font-black text-xs tracking-widest uppercase hover:bg-white/10 transition-all no-underline">
               Hablar por WhatsApp
             </a>
           </div>
